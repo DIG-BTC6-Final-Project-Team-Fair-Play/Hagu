@@ -9,9 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm start --prefix ./backend",
-    "vite-install": "npm install --prefix ./frontend",
+    "vite-install": "npm install --production=false --prefix ./frontend",
     "vite-build": "npm run build --prefix ./frontend",
-    "backend-build": "npm build --prefix ./backend",
+    "backend-build": "npm run build --prefix ./backend",
     "heroku-postbuild": "npm run vite-install && npm run vite-build && npm run backend-build "
   },
   "keywords": [],
