@@ -14,7 +14,9 @@
     "seed-data": "npx knex seed:run --knexfile src/db/knexfile.js",
     "makeMigration": "npx knex migrate:make --knexfile src/db/knexfile.js",
     "makeSeed": "npx knex seed:make --knexfile src/db/knexfile.js",
-    "build": "npm install --production=false && npm run migrate-latest && npm run seed-data"
+    "vite-install": "npm install --production=false --prefix ../frontend",
+    "vite-build": "npm run build --prefix ../frontend",
+    "build": "npm install --production=false && npm run migrate-latest && npm run seed-data && npm run vite-install && npm run vite-build"
   },
   "keywords": [],
   "author": "",
