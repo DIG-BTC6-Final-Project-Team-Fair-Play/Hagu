@@ -1,6 +1,8 @@
+import type { Express } from "express";
+
 const { setupExpressApp } = require("./server");
 
-const server = setupExpressApp();
+const server: Express = setupExpressApp();
 
 const PORT = process.env.PORT || 3000;
 
