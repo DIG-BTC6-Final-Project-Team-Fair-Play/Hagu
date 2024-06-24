@@ -12,9 +12,11 @@ const app: Express = express();
 
 const setupExpressApp = () => {
   app.use(express.json());
-  app.get("/", (req: Request, res: Response) => {
-    res.send("サーバーOK");
-  });
+  //
+  app.use("/", express.static(path.join(__dirname, "../../dist")));
+  // app.get("/", (req: Request, res: Response) => {
+  //   res.send("サーバーOK");
+  // });
   app.get("/api/data", async (req: Request, res: Response) => {
     const data = await knex("sample").select("*");
     res.json(data);
