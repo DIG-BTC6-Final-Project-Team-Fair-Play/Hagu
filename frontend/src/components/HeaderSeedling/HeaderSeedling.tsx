@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Flex, Text, Stack, Center } from "@mantine/core";
 import { IconSquarePlus } from "@tabler/icons-react";
 

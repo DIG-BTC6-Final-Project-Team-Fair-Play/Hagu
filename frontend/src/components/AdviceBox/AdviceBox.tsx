@@ -1,4 +1,3 @@
-import React from 'react'
 import "./AdviceBox.css";
 
 export const AdviceBox = () => {
