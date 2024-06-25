@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Button, Group, Text } from "@mantine/core";
+// import React from "react";
+import { Box, Button, Group } from "@mantine/core";
 
 interface BtmProps {
   seedlingName?: string;
