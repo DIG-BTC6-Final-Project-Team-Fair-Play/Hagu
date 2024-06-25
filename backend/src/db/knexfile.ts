@@ -1,8 +1,10 @@
+const path = require("path");
 // Update with your config settings.
 require("dotenv").config({
-  path: "../../.env",
+  path: path.resolve(__dirname, "../../.env"),
+  // path: "./.env",
 });
-import { Knex } from "knex";
+import type { Knex } from "knex";
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
