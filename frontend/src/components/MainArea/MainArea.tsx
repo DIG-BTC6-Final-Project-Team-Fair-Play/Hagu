@@ -1,7 +1,8 @@
 import { Carousel, Embla } from "@mantine/carousel";
 import "@mantine/carousel/styles.css";
-import { Image, Progress } from "@mantine/core";
+import { Image } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
+import { CurrentStage } from "../CurrentStage";
 
 const images = [
   "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png",
@@ -11,8 +12,9 @@ const images = [
   "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-5.png",
 ];
 
-export const MainPicture = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+export const MainArea = () => {
+  // const [scrollProgress, setScrollProgress] = useState(0);
+  
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideNo, setSlideNo] = useState(0);
   const slides = images.map((url) => (
@@ -40,7 +42,7 @@ export const MainPicture = () => {
       console.log("slideは5です");
       setSlideNo(4);
     }
-  }, [embla, setScrollProgress]);
+  }, [embla]);
 
   useEffect(() => {
     if (embla) {
@@ -54,14 +56,13 @@ export const MainPicture = () => {
       <Carousel
         slideSize="80%"
         slideGap="lg"
-        draggable={false}
         withControls={false}
         getEmblaApi={setEmbla}
         initialSlide={0}
       >
         {slides}
       </Carousel>
-      <p>{slideNo + 1}</p>
+      <CurrentStage slideNo ={slideNo}></CurrentStage>
     </>
   );
 };

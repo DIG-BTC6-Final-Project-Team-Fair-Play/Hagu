@@ -1,8 +1,11 @@
 .advice_box{
-    border:#82d35a 1px solid;
+    border:#515151 1px solid;
     border-radius: 6px;
+    background-color: whitesmoke;
     background-origin: padding-box;
     width: 80%;
     height: 100px;
     margin-left: 10%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
     }

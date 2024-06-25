@@ -1,4 +1,3 @@
-// import React from "react";
 import { Box, Flex, Text, Stack, Center } from "@mantine/core";
 import { SquarePlus } from "tabler-icons-react";
 

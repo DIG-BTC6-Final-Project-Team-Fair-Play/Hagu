@@ -1,0 +1,12 @@
+.stage{
+ display: flex;
+ margin: 10vw;
+}
+.stage_contents{
+   margin:0 auto;
+   text-align: center;
+}
+
+.stage_text{
+    font-size: small;
+}
