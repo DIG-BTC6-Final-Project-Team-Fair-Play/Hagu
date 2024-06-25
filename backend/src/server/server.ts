@@ -3,10 +3,10 @@
 // コンパイル文に --esModuleInterlop
 import express from "express";
 import type { Express, Request, Response } from "express";
-
+import type { Knex } from "knex";
 const path = require("path");
 // knexを読み込み
-const knex = require("../db/index");
+const knex: Knex = require("../db/index");
 
 const app: Express = express();
 
