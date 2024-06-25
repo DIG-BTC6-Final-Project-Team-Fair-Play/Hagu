@@ -1,6 +1,6 @@
 // Update with your config settings.
 require("dotenv").config({
-  path: "./.env",
+  path: "../../.env",
 });
 import { Knex } from "knex";
 /**
