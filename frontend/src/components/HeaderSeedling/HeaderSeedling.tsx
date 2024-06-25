@@ -1,5 +1,5 @@
 import { Box, Flex, Text, Stack, Center } from "@mantine/core";
-import { IconSquarePlus } from "@tabler/icons-react";
+import { SquarePlus } from "tabler-icons-react";
 
 interface SeedlingProps {
   vegetableName?: string;
@@ -16,7 +16,7 @@ export const HeaderSeedling = ({
     <Box bg={"#F2F5B1"} h={80}>
       <Flex direction="row" align="center">
         <Box ml={5}>
-          <IconSquarePlus color="#94966E" size={iconSize} />
+          <SquarePlus color="#94966E" size={iconSize} />
         </Box>
         <Stack gap={0}>
           <Center>

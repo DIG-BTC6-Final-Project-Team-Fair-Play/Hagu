@@ -1,11 +1,11 @@
-import React from "react";
-import { Box, Button, Group, Text } from "@mantine/core";
+// import React from "react";
+import { Box, Button, Group } from "@mantine/core";
 
-interface BtmProps {
+interface BtnProps {
   seedlingName?: string;
 }
 
-export const SelectBtnDouble = (seedlingName: BtmProps) => {
+export const SelectBtnDouble = (seedlingName: BtnProps) => {
   return (
     <Box h={"80px"}>
       {/* <Text>選択中の野菜：{`${seedlingName}`}</Text> */}
