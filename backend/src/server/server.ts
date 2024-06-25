@@ -4,6 +4,8 @@
 import express from "express";
 import type { Express, Request, Response } from "express";
 import type { Knex } from "knex";
+import { NewSeedling, Vegetables } from "../types/globals";
+
 const path = require("path");
 // knexを読み込み
 const knex: Knex = require("../db/index");
@@ -20,6 +22,20 @@ const setupExpressApp = () => {
   app.get("/api/data", async (req: Request, res: Response) => {
     const data = await knex("sample").select("*");
     res.json(data);
+  });
+
+  app.get("/api/vegetables", async (req: Request, res: Response) => {
+    const vegetables: Vegetables[] = await knex("vegetables").select("*");
+    res.status(200).send(vegetables);
+  });
+
+  app.post("/api/seedlings", async (req: Request, res: Response) => {
+    console.log("hogehoge");
+    const newSeedling: NewSeedling = req.body;
+    console.log("newSeedling: ", newSeedling);
+
+    await knex("seedlings").insert(newSeedling);
+    res.status(201).send("新しい苗作ったよ");
   });
 
   return app;
