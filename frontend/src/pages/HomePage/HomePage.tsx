@@ -1,7 +1,12 @@
-import React from 'react'
+import "./HomePage.css";
+import { AdviceBox } from "../../components/AdviceBox";
+import { MainPicture } from "../../components/MainPicture";
 
 export const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <>
+    <AdviceBox></AdviceBox>
+    <MainPicture></MainPicture>
+    </>
   )
-}
+};
