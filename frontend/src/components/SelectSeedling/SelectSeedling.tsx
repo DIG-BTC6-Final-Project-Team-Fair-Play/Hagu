@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Group, Avatar, Text, Accordion, TextInput } from "@mantine/core";
-import { IconSquarePlus } from "@tabler/icons-react";
 
 const seedlingList = [
   {
