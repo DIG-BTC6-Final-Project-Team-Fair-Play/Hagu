@@ -2,10 +2,11 @@
 require("dotenv").config({
   path: "../../.env",
 });
+import { Knex } from "knex";
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-module.exports = {
+const config: { [key: string]: Knex.Config | {} } = {
   development: {
     client: "postgresql",
     connection: {
@@ -37,3 +38,6 @@ module.exports = {
     seeds: { directory: "./data/seeds" },
   },
 };
+export default config;
+
+// module.exports =
