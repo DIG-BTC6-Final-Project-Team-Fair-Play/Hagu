@@ -1,5 +1,5 @@
 // import React, { useState } from "react";
-import { Box, Center, Checkbox, Stack } from "@mantine/core";
+import { Box, Checkbox, Stack } from "@mantine/core";
 
 //NOTE:DBからの設備リストの戻り型確認要
 interface ItemsProps {

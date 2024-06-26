@@ -7,15 +7,15 @@ import { HeaderSeedling } from "../../components/HeaderSeedling";
 
 export const HomePage = () => {
   return (
-    <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
-      <Box>
-        <Header></Header>
-        <HeaderSeedling></HeaderSeedling>
-      </Box>
-      <AdviceBox></AdviceBox>
-      <MainArea></MainArea>
-
-    </Flex>
-  )
-
+    <>
+      <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
+        <Box>
+          <Header></Header>
+          <HeaderSeedling></HeaderSeedling>
+        </Box>
+        <AdviceBox></AdviceBox>
+        <MainArea></MainArea>
+      </Flex>
+    </>
+  );
 };

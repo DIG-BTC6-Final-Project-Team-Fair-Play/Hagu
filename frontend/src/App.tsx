@@ -1,19 +1,24 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { CreatePage } from "./pages/CreatePage";
 import { SignIn } from "./pages/SignIn";
+import { CameraPage } from "./pages/CameraPage";
+import { PhotosPage } from "./pages/PhotosPage";
+import { FriendsPage } from "./pages/FriendsPage";
 
 function App() {
   return (
     <>
-      <HomePage></HomePage>
-      <CreatePage></CreatePage>
-      <SignIn></SignIn>
       <div className="App">
         <BrowserRouter>
-          <Link to="/">Home</Link> | <Link to="/about">About</Link>
           <Routes>
+            <Route path="create" element={<CreatePage />} />
+            <Route path="home" element={<HomePage />} />
+            <Route path="camera" element={<CameraPage />} />
+            <Route path="photos" element={<PhotosPage />} />
+            <Route path="friends" element={<FriendsPage />} />
+            <Route path="/" element={<SignIn />} />
             <Route path="*" element={<h1>Not Found Page</h1>} />
           </Routes>
         </BrowserRouter>
