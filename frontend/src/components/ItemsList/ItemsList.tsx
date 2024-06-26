@@ -9,8 +9,8 @@ interface ItemsProps {
 }
 
 export const ItemsList = ({
-  id,
-  vegetable_name: vegetableName,
+  // id,
+  // vegetable_name: vegetableName,
   equipment_list: equipmentList,
 }: ItemsProps) => {
   const items = equipmentList.map((item, index) => (

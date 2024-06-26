@@ -56,8 +56,11 @@ function AccordionLabel({ label, image, description }: AccordionLabelProps) {
   );
 }
 
+
+
 export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
   console.log(vegetableData);
+
   const [active, setActive] = useState<string | null>(null);
   const handleAccordionChange = (value: string | null) => {
     console.log(active);
