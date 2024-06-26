@@ -51,7 +51,7 @@ function AccordionLabel({ label, image, description }: AccordionLabelProps) {
 }
 
 export const SelectSeedling = () => {
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState<string | null>(null);
   const handleAccordionChange = (value: string | null) => {
     console.log(value);
     setActive(value);
