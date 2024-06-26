@@ -16,7 +16,7 @@ export const MainArea = () => {
   // const [scrollProgress, setScrollProgress] = useState(0);
   
   const [embla, setEmbla] = useState<Embla | null>(null);
-  const [slideNo, setSlideNo] = useState(0);
+  const [slideNo, setSlideNo] = useState<number>(0);
   const slides = images.map((url) => (
     <Carousel.Slide key={url}>
       <Image src={url} />

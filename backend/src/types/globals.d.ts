@@ -8,6 +8,7 @@ export interface Friends {
   id: number;
   user_id: number;
   friend_id: number;
+  user_name: string;
 }
 
 export interface Seedlings {
@@ -15,12 +16,18 @@ export interface Seedlings {
   user_id: number;
   vegetable_id: number;
   growing_stage_no: number;
-  last_watering: datetime;
+  last_watering: Date;
 }
 
 export interface Vegetables {
   id: number;
-  vegetable_name: string;
+  image: string;
+  label: string;
+  description: string;
+  content: string;
+}
+export interface Equipments {
+  id: number;
   equipment_list: string;
 }
 
@@ -34,7 +41,13 @@ export interface Photos {
   id: number;
   seedling_id: number;
   photo_data: string;
-  date: datetime;
+  date: Date;
+}
+
+export interface PostPhotos {
+  seedling_id: number;
+  photo_data: string;
+  date: Date;
 }
 
 export interface NewSeedling {
@@ -42,4 +55,12 @@ export interface NewSeedling {
   vegetable_id: number;
   growing_stage_no: number;
   seedling_name: string;
+}
+
+export interface PutGrowth {
+  growing_stage_no: number;
+}
+
+export interface PutWater {
+  last_watering: Date;
 }
