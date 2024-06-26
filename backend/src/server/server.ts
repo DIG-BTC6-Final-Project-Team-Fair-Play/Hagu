@@ -38,6 +38,10 @@ const setupExpressApp = () => {
   app.get("/api/seedlings/:id/timelapse", controller.getTimelapse);
 
   app.get("/api/friends/:userId", controller.getFriends);
+  
+  app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "../../backend", "dist", "index.html"));
+  });
 
   return app;
 };
