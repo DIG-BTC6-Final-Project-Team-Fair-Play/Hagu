@@ -32,10 +32,10 @@ const images = [
 // const color = ["#862d2d", "#e6b3b3"];
 
 interface slideNoProps {
-  slideNo?: number;
+  slideNo: number;
 }
 
-export const CurrentStage: React.FC = ({ slideNo }: slideNoProps) => {
+export const CurrentStage: React.FC <slideNoProps>= ({ slideNo }) => {
   const stages = images.map((obj) => (
     <div
       key={obj.id}
