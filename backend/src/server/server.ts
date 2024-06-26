@@ -40,7 +40,7 @@ const setupExpressApp = () => {
   app.get("/api/friends/:userId", controller.getFriends);
   
   app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "../../backend", "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "../../dist", "index.html"));
   });
 
   return app;
