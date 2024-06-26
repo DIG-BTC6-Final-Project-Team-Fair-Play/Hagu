@@ -2,9 +2,14 @@ import { Box, Flex } from "@mantine/core";
 // import React from "react";
 import { Header } from "../../components/Header";
 import { HeaderSeedling } from "../../components/HeaderSeedling";
+
 // import { SelectSeedling } from "../../components/SelectSeedling";
 import { SelectBtnDouble } from "../../components/SelectBtnDouble";
+
 import { ItemsList } from "../../components/ItemsList";
+import { useEffect, useState } from "react";
+import { Vegetables } from "../../types/globals";
+import axios from "axios";
 
 const dummyItems = {
   id: 1,
@@ -23,19 +28,27 @@ const dummyItems = {
 };
 
 export const CreatePage = () => {
+  const [seedlingName, setSeedlingName] = useState<string | null>(null);
+  const [vegetableData, setVegetableData] = useState<Vegetables[] | null>(null);
+  useEffect(() => {
+    (async () => {
+      const data: Vegetables[] = await axios
+        .get("/api/vegetables")
+        .then((res) => res.data);
+      setVegetableData(data);
+    })();
+  }, []);
+
   return (
     <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
       <Box>
-        <Header></Header>
-        <HeaderSeedling></HeaderSeedling>
+        <Header />
+        <HeaderSeedling />
       </Box>
       {/* NOTE:Routeで表示するコンポーネントを切り替える予定 */}
       <Box style={{ flex: 1 }}>
-        {/* <SelectSeedling></SelectSeedling> */}
-        <ItemsList {...dummyItems}></ItemsList>
-      </Box>
-      <Box>
-        <SelectBtnDouble></SelectBtnDouble>
+        <SelectSeedling vegetableData={vegetableData} />
+        <ItemsList {...dummyItems} />
       </Box>
     </Flex>
   );

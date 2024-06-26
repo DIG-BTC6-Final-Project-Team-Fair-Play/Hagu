@@ -6,6 +6,8 @@ import type { Express, Request, Response } from "express";
 import type { Knex } from "knex";
 import { NewSeedling, Vegetables } from "../types/globals";
 
+import controller from "../model/modelAndControllar";
+
 const path = require("path");
 // knexを読み込み
 const knex: Knex = require("../db/index");
@@ -16,27 +18,26 @@ const setupExpressApp = () => {
   app.use(express.json());
   //
   app.use("/", express.static(path.join(__dirname, "../../dist")));
-  // app.get("/", (req: Request, res: Response) => {
-  //   res.send("サーバーOK");
-  // });
-  app.get("/api/data", async (req: Request, res: Response) => {
-    const data = await knex("sample").select("*");
-    res.json(data);
-  });
 
-  app.get("/api/vegetables", async (req: Request, res: Response) => {
-    const vegetables: Vegetables[] = await knex("vegetables").select("*");
-    res.status(200).send(vegetables);
-  });
+  app.get("/api/vegetables", controller.getVegetable);
 
-  app.post("/api/seedlings", async (req: Request, res: Response) => {
-    console.log("hogehoge");
-    const newSeedling: NewSeedling = req.body;
-    console.log("newSeedling: ", newSeedling);
+  app.get("/api/equipments/:id", controller.getEquipments);
 
-    await knex("seedlings").insert(newSeedling);
-    res.status(201).send("新しい苗作ったよ");
-  });
+  app.post("/api/seedlings", controller.postSeedlings);
+
+  app.get("/api/advice/:vegetableId", controller.getAdvice);
+
+  app.get("/api/seedlings/:userId", controller.getSeedlings);
+
+  app.put("/api/seedlings/:id/growth", controller.putSeedlingsGrowth);
+
+  app.put("/api/seedlings/:id/water", controller.putSeedlingsWater);
+
+  app.post("/api/photos", controller.postPhotos);
+
+  app.get("/api/seedlings/:id/timelapse", controller.getTimelapse);
+
+  app.get("/api/friends/:userId", controller.getFriends);
 
   return app;
 };
