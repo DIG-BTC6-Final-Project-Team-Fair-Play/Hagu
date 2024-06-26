@@ -28,8 +28,7 @@ const dummyItems = {
 };
 
 export const CreatePage = () => {
-  // const [seedlingName, setSeedlingName] = useState<string | null>(null);
-  const [vegetableData, setVegetableData] = useState<Vegetables[] | null>(null);
+  const [vegetableData, setVegetableData] = useState<Vegetables[]>([]);
   useEffect(() => {
     (async () => {
       const data: Vegetables[] = await axios

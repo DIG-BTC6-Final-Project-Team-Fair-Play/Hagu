@@ -20,7 +20,14 @@ export interface Seedlings {
 
 export interface Vegetables {
   id: number;
-  vegetable_name: string;
+  image: string;
+  label: string;
+  description: string;
+  content: string;
+}
+
+export interface Equipments {
+  id: number;
   equipment_list: string;
 }
 
@@ -42,4 +49,18 @@ export interface NewSeedling {
   vegetable_id: number;
   growing_stage_no: number;
   seedling_name: string;
+}
+
+export interface PostPhotos {
+  seedling_id: number;
+  photo_data: string;
+  date: Date;
+}
+
+export interface PutGrowth {
+  growing_stage_no: number;
+}
+
+export interface PutWater {
+  last_watering: Date;
 }
