@@ -6,6 +6,7 @@ interface BtnProps {
 }
 
 export const SelectBtnDouble = (seedlingName: BtnProps) => {
+  console.log(seedlingName);
   return (
     <Box h={"80px"}>
       {/* <Text>選択中の野菜：{`${seedlingName}`}</Text> */}
