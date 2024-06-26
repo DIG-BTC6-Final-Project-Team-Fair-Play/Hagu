@@ -1,4 +1,4 @@
-import { Card, Image } from "@mantine/core";
+import { Image } from "@mantine/core";
 import "./CurrentStage.css";
 
 const images = [
@@ -35,21 +35,22 @@ interface slideNoProps {
   slideNo?: number;
 }
 
-export const CurrentStage = ({ slideNo }: slideNoProps) => {
+export const CurrentStage: React.FC = ({ slideNo }: slideNoProps) => {
   const stages = images.map((obj) => (
-    <Card
+    <div
+      key={obj.id}
       className="stage_contents"
-      padding="lg"
-      radius="md"
-      withBorder
-      style={{ height: "12vh", width: "5vw" }}
+      style={{ backgroundColor: "#e4bfbe", height: "11vh", width: "10vw" }}
     >
-      <Card.Section key={obj.id} color="red">
-        <Image src={obj.url} style={{ height: "5vh" }} />
-      </Card.Section>
+      <Image src={obj.url} style={{ height: "5vh" }} />
 
-      <text className="stage_text">{obj.name}</text>
-    </Card>
+      <text
+        className="stage_text"
+        style={{ fontSize: "4vw", writingMode: "vertical-rl" }}
+      >
+        {obj.name}
+      </text>
+    </div>
   ));
   return (
     <>
