@@ -3,8 +3,8 @@ import { Box, Flex } from "@mantine/core";
 import { Header } from "../../components/Header";
 import { HeaderSeedling } from "../../components/HeaderSeedling";
 
-// import { SelectSeedling } from "../../components/SelectSeedling";
-import { SelectBtnDouble } from "../../components/SelectBtnDouble";
+import { SelectSeedling } from "../../components/SelectSeedling";
+// import { SelectBtnDouble } from "../../components/SelectBtnDouble";
 
 import { ItemsList } from "../../components/ItemsList";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ const dummyItems = {
 };
 
 export const CreatePage = () => {
-  const [seedlingName, setSeedlingName] = useState<string | null>(null);
+  // const [seedlingName, setSeedlingName] = useState<string | null>(null);
   const [vegetableData, setVegetableData] = useState<Vegetables[] | null>(null);
   useEffect(() => {
     (async () => {
