@@ -3,7 +3,7 @@ import { CameraOn } from "../../components/CameraOn";
 export const CameraPage = () => {
   return (
     <div>
-      <CameraOn></CameraOn>
+      <CameraOn seedlingId={1}></CameraOn>
     </div>
   );
 };
