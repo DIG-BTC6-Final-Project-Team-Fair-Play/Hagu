@@ -3,17 +3,17 @@ import { Carousel, Embla } from "@mantine/carousel";
 import { Image, Progress } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
 
-interface Props{
-  stages:string[]
+interface Props {
+  stages: string[];
 }
 
-export const StageChange:React.FC<Props>= ({stages}) => {
+export const StageChange: React.FC<Props> = ({ stages }) => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideNo, setSlideNo] = useState<number>(0);
   const slides = stages.map((url) => (
     <Carousel.Slide key={url}>
-        <Image src={url} />
+      <Image src={url} />
     </Carousel.Slide>
   ));
   const handleScroll = useCallback(() => {
@@ -67,7 +67,7 @@ export const StageChange:React.FC<Props>= ({stages}) => {
         mt="xl"
         mx="auto"
       />
-      {/* <CurrentStage slideNo ={slideNo}></CurrentStage> */}
+      <div>{slideNo}</div>
     </>
   );
 };
