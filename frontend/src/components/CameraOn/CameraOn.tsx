@@ -1,12 +1,4 @@
-import {
-  Container,
-  Image,
-  Box,
-  Text,
-  Flex,
-  Slider,
-  Center,
-} from "@mantine/core";
+import { Container, Image, Box, Text, Flex, Slider } from "@mantine/core";
 import { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
