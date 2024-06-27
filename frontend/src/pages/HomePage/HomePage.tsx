@@ -1,9 +1,9 @@
 import "./HomePage.css";
 import { AdviceBox } from "../../components/AdviceBox";
-import { MainArea } from "../../components/MainArea";
 import { Box, Flex } from "@mantine/core";
 import { Header } from "../../components/Header";
 import { HeaderSeedling } from "../../components/HeaderSeedling";
+import { SeedChange } from "../../components/SeedChange";
 
 export const HomePage = () => {
   return (
@@ -12,9 +12,9 @@ export const HomePage = () => {
         <Box>
           <Header></Header>
           <HeaderSeedling></HeaderSeedling>
+          <AdviceBox></AdviceBox>
+          <SeedChange></SeedChange>
         </Box>
-        <AdviceBox></AdviceBox>
-        <MainArea></MainArea>
       </Flex>
     </>
   );
