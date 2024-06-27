@@ -2,11 +2,19 @@ import { Container, Image, Box, Text, Flex } from "@mantine/core";
 import { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
+import storage from "../../firebase/firebase";
+import { ref, uploadBytesResumable } from "firebase/storage";
+import axios from "axios";
 
-export const CameraOn = () => {
+interface cameraProps {
+  seedlingId: number;
+}
+
+export const CameraOn = ({ seedlingId }: cameraProps) => {
   const camera = useRef<CameraType | null>(null);
   const [image, setImage] = useState<string | ImageData | null>(null);
   const [numberOfCameras, setNumberOfCameras] = useState(0);
+  const [loading, setLoading] = useState<boolean>(false);
   const takePhoto = () => {
     if (camera.current) {
       const photo = camera.current.takePhoto();
@@ -14,6 +22,51 @@ export const CameraOn = () => {
       setImage(photo);
     } else {
       console.error("Camera not available");
+    }
+  };
+
+  const createJpegFile4Base64 = function (
+    base64Data: string,
+    fileName: string
+  ) {
+    const bin = atob(base64Data.replace(/^.*,/, ""));
+    const buffer = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) {
+      buffer[i] = bin.charCodeAt(i);
+    }
+    return new File([buffer.buffer], fileName, { type: "image/png" });
+  };
+
+  const onFileUPloadToFirebase = () => {
+    // 現在の日時をUTCで取得し、ファイル名として使用
+    const now = new Date().toISOString().replace(/[:.]/g, "-");
+    const fileName = `photo_${now}.png`;
+    if (typeof image === "string") {
+      const file = createJpegFile4Base64(image, fileName);
+      const storageRef = ref(storage, `image/${fileName}`);
+      // uploadBytes(storageRef, file).then((snapshot) => {
+      //   console.log("Uploaded a blob file!");
+      // });
+      const uploadImage = uploadBytesResumable(storageRef, file);
+      uploadImage.on(
+        "state_changed",
+        () => {
+          setLoading(true);
+        },
+        (err) => {
+          console.error(err);
+        },
+        () => {
+          setLoading(false);
+          axios.post("/api/photos", {
+            seedling_id: seedlingId,
+            photo_data: "gs://hagu-882e3.appspot.com/image/" + fileName,
+          });
+          console.log("sent to server", loading);
+        }
+      );
+    } else {
+      console.log("No image available");
     }
   };
 
@@ -33,7 +86,7 @@ export const CameraOn = () => {
           </Box>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"center"}>
-              <Text c="#AAB787" onClick={() => {}}>
+              <Text c="#AAB787" onClick={onFileUPloadToFirebase}>
                 写真を保存
               </Text>
             </Box>
