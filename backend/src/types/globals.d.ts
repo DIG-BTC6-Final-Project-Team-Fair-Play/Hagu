@@ -41,13 +41,14 @@ export interface Photos {
   id: number;
   seedling_id: number;
   photo_data: string;
-  date: Date;
+  create_at: Date;
+  updated_at: Date;
 }
 
 export interface PostPhotos {
   seedling_id: number;
   photo_data: string;
-  date: Date;
+  // date: Date;
 }
 
 export interface NewSeedling {

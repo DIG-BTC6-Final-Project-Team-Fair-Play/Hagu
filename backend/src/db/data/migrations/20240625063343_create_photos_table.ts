@@ -7,7 +7,8 @@ export async function up(knex: Knex): Promise<void> {
     t.foreign("seedling_id").references("seedlings.id");
 
     t.text("photo_data");
-    t.datetime("date");
+    // t.datetime("date");
+    t.timestamps(false, true);
   });
 }
 
