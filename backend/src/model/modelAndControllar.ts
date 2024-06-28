@@ -15,6 +15,20 @@ import {
 import type { Express, Request, Response } from "express";
 import { REPLCommand } from "repl";
 
+// import storage from "../../../frontend/src/firebase/firebase";
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyACS5LeJ1gbmAdb2U8UzM9E8iYhD80niTM",
+  authDomain: "hagu-882e3.firebaseapp.com",
+  projectId: "hagu-882e3",
+  storageBucket: "hagu-882e3.appspot.com",
+  messagingSenderId: "268979382884",
+  appId: "1:268979382884:web:101f4cc18d4781e5158d71",
+};
+
 export = {
   async getVegetable(req: Request, res: Response) {
     const vegetables: Vegetables[] = await knex("vegetables").select(
@@ -84,7 +98,19 @@ export = {
 
   async postPhotos(req: Request, res: Response) {
     const photo: PostPhotos = req.body;
-    await knex("photos").insert(photo);
+
+    initializeApp(firebaseConfig);
+    const storage = getStorage();
+    const storageRef = ref(storage, photo.photo_data);
+
+    getDownloadURL(storageRef).then(
+      async (url) =>
+        await knex("photos").insert({
+          seedling_id: photo.seedling_id,
+          photo_data: url,
+        })
+    );
+
     res.status(201).send("写真更新おｋ");
   },
 
@@ -92,8 +118,8 @@ export = {
     const id = req.params.id;
     const photos: Photos[] = await knex("photos")
       .select("*")
-      .where({ seedling_id: parseInt(id) })
-      .orderBy("date", "asc");
+      .where({ seedling_id: parseInt(id) });
+    // .orderBy("date", "asc");
     const mapData = photos.map((obj: Photos) => obj.photo_data);
     // res.send(JSON.stringify(mapData));
     res.send(mapData);

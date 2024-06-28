@@ -42,7 +42,7 @@ const setupExpressApp = () => {
   // !====linelogin===
   // 認証フローを開始するためのルーター設定。
   app.get("/auth", login.auth());
-  
+
   // ユーザーが承認したあとに実行する処理のためのルーター設定。
   app.get(
     "/callback",
@@ -50,7 +50,7 @@ const setupExpressApp = () => {
       (req: Request, res: Response, next: Function, token_response: any) => {
         // 認証フロー成功時
         console.log("token_response: ", token_response);
-        
+
         res.json(token_response);
       },
       (req: Request, res: Response, next: Function, error: Error) => {
@@ -59,7 +59,7 @@ const setupExpressApp = () => {
       }
     )
   );
-  
+
   // !====linelogin===
 
   app.get("/api/vegetables", controller.getVegetable);
