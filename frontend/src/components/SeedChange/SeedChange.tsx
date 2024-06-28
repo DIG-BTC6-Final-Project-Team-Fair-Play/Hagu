@@ -19,9 +19,9 @@ export const SeedChange = () => {
     ],
   ];
 
-  const seeds = sample.map((stages) => (
+  const seeds = sample.map(() => (
     <Carousel.Slide>
-      <StageChange stages={stages}></StageChange>
+      <StageChange></StageChange>
     </Carousel.Slide>
   ));
   return (
