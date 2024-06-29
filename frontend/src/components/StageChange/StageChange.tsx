@@ -1,6 +1,6 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import { Image, Progress, Slider } from "@mantine/core";
+import { Image, Slider } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
 
 const stages = [
