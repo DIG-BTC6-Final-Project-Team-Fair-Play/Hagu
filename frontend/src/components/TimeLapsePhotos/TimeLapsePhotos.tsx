@@ -2,8 +2,6 @@ import { Box, Image, Slider, Space } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import GIFEncoder from "gif.js";
-
 export const TimeLapsePhotos = () => {
   const [id, setId] = useState<number>(1); //USERID来たらそれに変える
   const [value, setValue] = useState<number>(0);
