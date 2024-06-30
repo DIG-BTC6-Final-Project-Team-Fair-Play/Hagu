@@ -19,6 +19,8 @@ import { REPLCommand } from "repl";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
+import axios from "axios";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyACS5LeJ1gbmAdb2U8UzM9E8iYhD80niTM",
@@ -120,9 +122,17 @@ export = {
       .select("*")
       .where({ seedling_id: parseInt(id) });
     // .orderBy("date", "asc");
-    const mapData = photos.map((obj: Photos) => obj.photo_data);
-    // res.send(JSON.stringify(mapData));
-    res.send(mapData);
+    const mapData = photos.map(async (obj: Photos) => {
+      const response = await axios.get(obj.photo_data, {
+        responseType: "arraybuffer",
+      });
+      const base64 = response.data.toString("base64");
+      return base64;
+    });
+    const promiseAll = await Promise.all(mapData);
+    res.send(promiseAll);
+    // const mapData = photos.map((obj: Photos) => obj.photo_data);
+    // res.send(mapData);
   },
 
   async getFriends(req: Request, res: Response) {
