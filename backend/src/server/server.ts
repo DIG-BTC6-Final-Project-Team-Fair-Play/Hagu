@@ -82,13 +82,16 @@ const setupExpressApp = () => {
         // ここでデータベースに新規登録を行う DBに存在するか確認し
         const lineId = await knex("users")
           .select("line_id")
-          .where({ line_id: req.session.user.lineId });
+          .where({ line_id: req.session.user.lineId })
+          .first();
+        console.log("lineId: ", lineId);
         if (lineId) {
           req.session.save(function (err: Error) {
             if (err) return next(err);
             res.redirect("/home");
           });
         } else {
+          // 新規登録されたら説明画面に移動させることも可能
           await knex("users").insert({
             line_id: req.session.user.lineId,
             user_name: req.session.user.name,
@@ -99,21 +102,6 @@ const setupExpressApp = () => {
             res.redirect("/home");
           });
         }
-
-        // res.sendするとcookieにセッションidが含まれる。
-        // 現在のユーザー情報をどうやって、フロントエンドに教えるか？
-        // ()
-        // フロントエンドにユーザー情報を返すAPIエンドポイント
-        // app.get("/api/user/profile", (req, res) => {
-        //   if (req.session.user) {
-        //     res.json(req.session.user);
-        //   } else {
-        //     res.status(401).json({ error: "Not authenticated" });
-        //   }
-        // });
-        // useContextでコンポーネント全体にuser情報を渡す必要あり。
-
-        // res.json(token_response);
       },
       (req: Request, res: Response, next: Function, error: Error) => {
         // 認証フロー失敗時
@@ -125,17 +113,13 @@ const setupExpressApp = () => {
   // !認証ユーザー以外はじく
   app.get("/home", isAuthenticated);
   app.get("/create", isAuthenticated);
-  // app.get("/home", sessionCheck, (req: any, res, next) => {
-  //   console.log("クライアントのセッション: ", req.session.user);
-  //   console.log("セッション: ", session(session_options).store.sessions);
-
-  //   if (req.session.user) {
-  //     return next();
-  //   }
-  //   res.redirect("/");
-  // });
+  app.get("/camera", isAuthenticated);
+  app.get("/photos", isAuthenticated);
+  app.get("/friends", isAuthenticated);
 
   // !====linelogin===
+
+  app.get("/api/users", controller.getUsers);
 
   app.get("/api/vegetables", controller.getVegetable);
 
