@@ -19,7 +19,6 @@ import { REPLCommand } from "repl";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-import fs from "fs";
 import axios from "axios";
 
 // Your web app's Firebase configuration
@@ -127,15 +126,10 @@ export = {
       const response = await axios.get(obj.photo_data, {
         responseType: "arraybuffer",
       });
-      console.log("response: ", response.data);
       const base64 = response.data.toString("base64");
-      // const base64 = await Buffer.from(response.data, "binary").toString(
-      //   "base64"
-      // );
       return base64;
     });
     const promiseAll = await Promise.all(mapData);
-    // console.log("mapData: ", promiseAll);
     res.send(promiseAll);
     // const mapData = photos.map((obj: Photos) => obj.photo_data);
     // res.send(mapData);
