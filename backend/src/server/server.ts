@@ -1,12 +1,13 @@
 // const express = require("express");
 // tsのためimportに変更
 // コンパイル文に --esModuleInterlop
-import express from "express";
+import express, { response } from "express";
 import type { Express, Request, Response } from "express";
 import type { Knex } from "knex";
 import { NewSeedling, Vegetables } from "../types/globals";
 
 import controller from "../model/modelAndControllar";
+
 // knexを読み込み
 const knex: Knex = require("../db/index");
 
@@ -20,10 +21,16 @@ require("dotenv").config({
 // !linelogin2
 const line_login = require("line-login");
 const session = require("express-session");
+// セッション保存
+// バグバぐ
+// const memoryStore = new MemoryStore({ checkPeriod: 86400000 }); // 24時間ごとに古いセッションをクリーンアップ
 const session_options = {
   secret: process.env.LINE_LOGIN_CHANNEL_SECRET,
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    maxAge: 60 * 60 * 1000,
+  },
 };
 app.use(session(session_options));
 
@@ -34,6 +41,21 @@ const login = new line_login({
   callback_url: process.env.LINE_LOGIN_CALLBACK_URL,
 });
 
+// !セッションチェックミドルウェア(セッションにJWTが含まれていなければ/signInへリダイレクト)
+// https://qiita.com/moomooya/items/00f89e425a3034b8ea14
+const isAuthenticated = (req: any, res: Response, next: Function) => {
+  console.log("クライアントのセッション: ", req.session.user);
+  console.log("req.session: ", req.session);
+  console.log("req.session: ", req.sessionID);
+
+  // console.log("セッション: ", memoryStore);
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/");
+  }
+};
+
 const setupExpressApp = () => {
   app.use(express.json());
   //
@@ -42,16 +64,56 @@ const setupExpressApp = () => {
   // !====linelogin===
   // 認証フローを開始するためのルーター設定。
   app.get("/auth", login.auth());
-  
+
   // ユーザーが承認したあとに実行する処理のためのルーター設定。
   app.get(
     "/callback",
     login.callback(
-      (req: Request, res: Response, next: Function, token_response: any) => {
+      async (req: any, res: Response, next: Function, token_response: any) => {
         // 認証フロー成功時
         console.log("token_response: ", token_response);
-        
-        res.json(token_response);
+        req.session.user = {
+          lineId: token_response.id_token.sub,
+          name: token_response.id_token.name,
+          picture: token_response.id_token.picture,
+        };
+        console.log("req.session: ", req.session);
+
+        // ここでデータベースに新規登録を行う DBに存在するか確認し
+        const lineId = await knex("users")
+          .select("line_id")
+          .where({ line_id: req.session.user.lineId });
+        if (lineId) {
+          req.session.save(function (err: Error) {
+            if (err) return next(err);
+            res.redirect("/home");
+          });
+        } else {
+          await knex("users").insert({
+            line_id: req.session.user.lineId,
+            user_name: req.session.user.name,
+            picture: req.session.user.picture,
+          });
+          req.session.save(function (err: Error) {
+            if (err) return next(err);
+            res.redirect("/home");
+          });
+        }
+
+        // res.sendするとcookieにセッションidが含まれる。
+        // 現在のユーザー情報をどうやって、フロントエンドに教えるか？
+        // ()
+        // フロントエンドにユーザー情報を返すAPIエンドポイント
+        // app.get("/api/user/profile", (req, res) => {
+        //   if (req.session.user) {
+        //     res.json(req.session.user);
+        //   } else {
+        //     res.status(401).json({ error: "Not authenticated" });
+        //   }
+        // });
+        // useContextでコンポーネント全体にuser情報を渡す必要あり。
+
+        // res.json(token_response);
       },
       (req: Request, res: Response, next: Function, error: Error) => {
         // 認証フロー失敗時
@@ -59,7 +121,20 @@ const setupExpressApp = () => {
       }
     )
   );
-  
+
+  // !認証ユーザー以外はじく
+  app.get("/home", isAuthenticated);
+  app.get("/create", isAuthenticated);
+  // app.get("/home", sessionCheck, (req: any, res, next) => {
+  //   console.log("クライアントのセッション: ", req.session.user);
+  //   console.log("セッション: ", session(session_options).store.sessions);
+
+  //   if (req.session.user) {
+  //     return next();
+  //   }
+  //   res.redirect("/");
+  // });
+
   // !====linelogin===
 
   app.get("/api/vegetables", controller.getVegetable);
