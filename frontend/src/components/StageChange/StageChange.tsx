@@ -1,13 +1,17 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import { Image, Progress } from "@mantine/core";
+import { Image, Slider } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
 
-interface Props {
-  stages: string[];
-}
+const stages = [
+    "./images/n_01.png",
+    "./images/n_02.png",
+    "./images/n_03.png",
+    "./images/n_04.png",
+    "./images/n_05.png",
+  ]
 
-export const StageChange: React.FC<Props> = ({ stages }) => {
+export const StageChange= () => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideNo, setSlideNo] = useState<number>(0);
@@ -54,20 +58,26 @@ export const StageChange: React.FC<Props> = ({ stages }) => {
         slideGap="lg"
         getEmblaApi={setEmbla}
         initialSlide={0}
-        withIndicators
-        className="control"
+        withIndicators={false}
+        withControls={false}
       >
         {slides}
       </Carousel>
-      <Progress
-        color="green"
-        value={scrollProgress}
-        maw={320}
-        size="sm"
-        mt="xl"
-        mx="auto"
-      />
-      <div>{slideNo}</div>
+      <Slider
+      color="green"
+      m={"auto"}
+      w={"90%"}
+      size={"xl"}
+      value={slideNo * 25}
+      draggable={false}
+      marks={[
+        {value:0,label:"定植"},
+        {value:25,label:"開花"},
+        {value:50,label:"着実"},
+        {value:75,label:"色付"},
+        {value:100,label:"収穫"},
+      ]}
+      ></Slider>
     </>
   );
 };
