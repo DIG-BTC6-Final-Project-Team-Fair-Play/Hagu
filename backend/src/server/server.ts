@@ -26,7 +26,6 @@ const setupExpressApp = () => {
 
   app.get("/api/users", controller.getUsers);
 
-
   app.get("/api/vegetables", controller.getVegetable);
 
   app.get("/api/equipments/:id", controller.getEquipments);
@@ -40,6 +39,8 @@ const setupExpressApp = () => {
   app.put("/api/seedlings/:id/growth", controller.putSeedlingsGrowth);
 
   app.put("/api/seedlings/:id/water", controller.putSeedlingsWater);
+
+  app.get("/api/photos/:userId", controller.getPhotosList);
 
   app.post("/api/photos", controller.postPhotos);
 
@@ -55,4 +56,3 @@ const setupExpressApp = () => {
 };
 
 module.exports = { setupExpressApp };
-

@@ -3,7 +3,7 @@ import { Box, Text, Avatar, Flex } from "@mantine/core";
 
 interface UserProps {
   name?: string;
-  avatarUrl?: string;
+  avatarUrl: string | null;
   avatarH?: string;
   avatarW?: string;
 }

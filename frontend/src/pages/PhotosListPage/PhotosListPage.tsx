@@ -3,60 +3,43 @@ import { Box, Tabs } from "@mantine/core";
 import { IconPhoto, IconHeartHandshake } from "@tabler/icons-react";
 import { PhotosList } from "../../components/PhotosList";
 import { FooterIcons } from "../../components/FooterIcons";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
-const dummyDisplayList = [
-  {
-    userId: 1,
-    userName: "SAMANSA",
-    seedlingName: "苗ろう",
-    vegetableName: "ピーマン",
-    lastPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2F%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202024-06-27%2014.44.12.png?alt=media&token=515d6e12-a2ed-462f-8a57-110242771153",
-  },
-  {
-    userId: 1,
-    userName: "SAMANSA",
-    seedlingName: "苗み",
-    vegetableName: "トマト",
-    lastPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2F%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202024-06-27%2014.44.12.png?alt=media&token=515d6e12-a2ed-462f-8a57-110242771153",
-  },
-  {
-    userId: 1,
-    userName: "SAMANSA",
-    seedlingName: "苗み",
-    vegetableName: "トマト",
-    lastPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2F%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202024-06-27%2014.44.12.png?alt=media&token=515d6e12-a2ed-462f-8a57-110242771153",
-  },
-  {
-    userId: 2,
-    userName: "AAABBBCCC",
-    seedlingName: "苗じろう",
-    vegetableName: "なす",
-    lastPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2F%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202024-06-27%2014.44.12.png?alt=media&token=515d6e12-a2ed-462f-8a57-110242771153",
-  },
-  {
-    userId: 3,
-    userName: "DDDFFFRRR",
-    seedlingName: "苗サップ",
-    vegetableName: "トマト",
-    lastPhoto:
-      "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2F%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202024-06-27%2014.44.12.png?alt=media&token=515d6e12-a2ed-462f-8a57-110242771153",
-  },
-];
+interface PhotosList {
+  id: number; //seedlingId
+  user_id: number;
+  seedling_name: string;
+  user_name: string;
+  picture: string | null;
+  label: string;
+  photo_data: string | null;
+}
 
 export const PhotosListPage = () => {
-  const userId = 1; // useContextでもらうかPropsでもらうか、他の画面でもたくさん使うのでcontextのが良いかも
-  const [currentTab, setCurrentTab] = useState("myPlants"); // 初期値として'myPlants'を設定
+  const userData = useContext(userData);
+  const photosUrl = `/api/photos/`;
+  const [currentTab, setCurrentTab] = useState<string>("myPlants"); // 初期値として'myPlants'を設定
+  const [displayData, setDisplayData] = useState<any>([]);
   const handleTabChange = (value: string) => {
     setCurrentTab(value);
   };
-  const selectedDisplayList = dummyDisplayList.filter((elem) =>
-    currentTab === "myPlants" ? elem.userId === userId : elem.userId !== userId
-  );
+
+  useEffect(() => {
+    axios.get(`/api/photos/${userId}`).then((res) => {
+      console.log(res.data);
+      setDisplayData(res.data);
+    });
+  }, []);
+
+  const selectedDisplayList = displayData
+    .filter((elem) =>
+      currentTab === "myPlants"
+        ? elem.user_id === userId
+        : elem.user_id !== userId
+    )
+    .filter((elem) => (elem.photo_data ? elem.user_id : null));
+
   return (
     <Box pos={"relative"}>
       <Box h={60} bg={"#5CB697"}>

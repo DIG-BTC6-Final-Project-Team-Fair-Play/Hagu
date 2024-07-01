@@ -7,7 +7,6 @@ export async function seed(knex: Knex): Promise<void> {
   // Inserts seed entries
   await knex("seedlings").insert([
     {
-      id: 1,
       user_id: 1,
       vegetable_id: 1,
       growing_stage_no: 1,
@@ -15,7 +14,6 @@ export async function seed(knex: Knex): Promise<void> {
       seedling_name: "苗ろう",
     },
     {
-      id: 2,
       user_id: 1,
       vegetable_id: 2,
       growing_stage_no: 2,
@@ -23,7 +21,6 @@ export async function seed(knex: Knex): Promise<void> {
       seedling_name: "苗る",
     },
     {
-      id: 3,
       user_id: 2,
       vegetable_id: 3,
       growing_stage_no: 3,

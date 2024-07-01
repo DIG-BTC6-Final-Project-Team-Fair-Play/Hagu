@@ -4,20 +4,30 @@ import { LineAvatar } from "../LineAvatar";
 
 //NOTE:上流のタブ選択により本人orフレンドの情報が含まれたpropsを渡す
 interface DisplayListProps {
-  userId: number;
-  seedlingName: string;
-  userName: string;
-  vegetableName: string;
-  lastPhoto: string;
+  id: number;
+  user_id: number;
+  seedling_name: string;
+  user_name: string;
+  picture: string | null;
+  label: string;
+  photo_data: string | null;
 }
+
 interface PhotosListProps {
   displayList: DisplayListProps[];
 }
 
 export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
+  const handleOnClick = (e) => {
+    console.log(e);
+  };
   const items = displayList.map((item, index) => (
     <Box key={index} m={"0 auto"}>
-      <LineAvatar name={item.userName} avatarW="90vw"></LineAvatar>
+      <LineAvatar
+        name={item.user_name}
+        avatarUrl={item.picture}
+        avatarW="90vw"
+      ></LineAvatar>
       <Paper
         shadow="xs"
         radius={"lg"}
@@ -27,15 +37,16 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
         p={10}
       >
         <Image
-          src={item.lastPhoto}
+          src={item.photo_data}
           h={200}
           alt="lastUPloaded"
           radius={"sm"}
         ></Image>
         <Text>
-          {item.vegetableName}
-          {"   " + item.seedlingName}
-          {"   userId:" + item.userId}
+          {item.label}
+          {"   " + item.seedling_name}
+          {"   userId:" + item.user_id}
+          {"   seedlingId:" + item.id}
         </Text>
       </Paper>
     </Box>
