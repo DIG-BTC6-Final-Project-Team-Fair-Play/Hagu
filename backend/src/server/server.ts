@@ -37,6 +37,8 @@ const setupExpressApp = () => {
 
   app.put("/api/seedlings/:id/water", controller.putSeedlingsWater);
 
+  app.get("/api/photos/:userId", controller.getPhotosList);
+
   app.post("/api/photos", controller.postPhotos);
 
   app.get("/api/seedlings/:id/timelapse", controller.getTimelapse);

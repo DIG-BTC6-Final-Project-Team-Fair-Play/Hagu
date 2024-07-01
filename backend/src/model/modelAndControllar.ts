@@ -99,6 +99,51 @@ export = {
     res.sendStatus(204);
   },
 
+  async getPhotosList(req: Request, res: Response) {
+    const id = parseInt(req.params.userId);
+    const friendsId = await knex("friends")
+      .select("friends.friend_id")
+      .where({ user_id: id });
+    const searchId = [id, ...friendsId.map((obj) => obj.friend_id)];
+    // ! seedlin_idでグループ化して最新日付を取得
+    const latestPhotosSubquery = knex("photos")
+      .select("seedling_id")
+      .max("created_at as max_created_at")
+      .groupBy("seedling_id")
+      .as("latest_photos_subquery");
+    // ! innnerJoinで元データと上データを結合して両方に存在するデータでソート
+    const latestPhotos = knex("photos")
+      .join(latestPhotosSubquery, function () {
+        this.on(
+          "photos.seedling_id",
+          "=",
+          "latest_photos_subquery.seedling_id"
+        ).andOn(
+          "photos.created_at",
+          "=",
+          "latest_photos_subquery.max_created_at"
+        );
+      })
+      .select("photos.seedling_id", "photos.photo_data")
+      .as("latest_photos");
+    // ! seedlingのseedling.idと上記を紐付け
+    const photosList = await knex("seedlings")
+      .select(
+        "seedlings.id",
+        "seedlings.user_id",
+        "seedlings.seedling_name",
+        "users.user_name",
+        "users.picture",
+        "vegetables.label",
+        "latest_photos.photo_data"
+      )
+      .leftOuterJoin("users", "users.id", "seedlings.user_id")
+      .leftOuterJoin("vegetables", "vegetables.id", "seedlings.vegetable_id")
+      .leftOuterJoin(latestPhotos, "latest_photos.seedling_id", "seedlings.id")
+      .whereIn("seedlings.user_id", searchId);
+    res.json(photosList);
+  },
+
   async postPhotos(req: Request, res: Response) {
     const photo: PostPhotos = req.body;
 
