@@ -6,6 +6,7 @@ import { SignIn } from "./pages/SignIn";
 import { CameraPage } from "./pages/CameraPage";
 import { PhotosPage } from "./pages/PhotosPage";
 import { FriendsPage } from "./pages/FriendsPage";
+import { PhotosListPage } from "./pages/PhotosListPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="home" element={<HomePage />} />
             <Route path="camera" element={<CameraPage />} />
             <Route path="photos" element={<PhotosPage />} />
+            <Route path="photosList" element={<PhotosListPage />} />
             <Route path="friends" element={<FriendsPage />} />
             <Route path="/" element={<SignIn />} />
             <Route path="*" element={<h1>Not Found Page</h1>} />

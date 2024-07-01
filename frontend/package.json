@@ -15,7 +15,7 @@
     "@mantine/form": "^7.10.2",
     "@mantine/hooks": "^7.10.2",
     "@mantine/modals": "^7.10.2",
-    "@tabler/icons-react": "^3.6.0",
+    "@tabler/icons-react": "^3.7.0",
     "axios": "^1.7.2",
     "embla-carousel-react": "^7.0.0",
     "firebase": "^10.12.2",
