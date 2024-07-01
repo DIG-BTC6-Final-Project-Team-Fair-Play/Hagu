@@ -1,4 +1,4 @@
-import { Box, Image, Slider, Space } from "@mantine/core";
+import { Box, Image, Loader, Slider, Space, Stack, Text } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -24,26 +24,45 @@ export const TimeLapsePhotos = () => {
 
   return (
     <Box>
-      <Image
-        radius="md"
-        h={"70vh"}
-        p={10}
-        // w={"80%"}
-        fit="contain"
-        src={`data:image/png;base64,${photos[value]}`}
-        // src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fuser-images.githubusercontent.com%2F45844502%2F128852448-bf822291-ce21-4f3c-854e-02070f5086e8.gif?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=0706cee6abcc5de7cc5959459cfd6d11"
-      />
-      <Space h="xl" />
-      <Slider
-        m={"auto"}
-        color="blue"
-        // labelAlwaysOn
-        w={"90%"}
-        marks={[{ value: 20 }, { value: 50 }, { value: 80 }]}
-        value={value}
-        onChange={setValue}
-        max={photos.length - 1}
-      />
+      {photos.length === 0 ? (
+        <>
+          <Stack>
+            <Space h="xl" />
+            <Space h="xl" />
+            <Text
+              size="xl"
+              fw={900}
+              variant="gradient"
+              gradient={{ from: "blue", to: "cyan", deg: 90 }}
+              m={"auto"}
+            >
+              画像読み込み中
+            </Text>
+            <Space h="xl" />
+            <Loader color="teal" h={"45vh"} m={"auto"} />
+          </Stack>
+        </>
+      ) : (
+        <>
+          <Image
+            radius="md"
+            h={"70vh"}
+            p={10}
+            fit="contain"
+            src={`data:image/png;base64,${photos[value]}`}
+          />
+          <Space h="xl" />
+          <Slider
+            m={"auto"}
+            color="blue"
+            w={"90%"}
+            marks={[{ value: 20 }, { value: 50 }, { value: 80 }]}
+            value={value}
+            onChange={setValue}
+            max={photos.length - 1}
+          />
+        </>
+      )}
     </Box>
   );
 };
