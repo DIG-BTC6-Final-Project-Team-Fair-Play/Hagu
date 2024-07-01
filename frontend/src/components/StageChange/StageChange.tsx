@@ -2,7 +2,7 @@ import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Avatar, Group, Image, Slider, Space } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { userData } from "../../App";
+import { userData, seedLings } from "../../App";
 import { AdviceBox } from "../AdviceBox";
 
 const testSeed = [
@@ -35,8 +35,8 @@ export const StageChange = () => {
   const user = useContext(userData);
   console.log("userは:", user);
 
-  // const seed= useContext(seedLings);
-  const seed= testSeed;
+  const seed= useContext(seedLings);
+  // const seed= testSeed; //test用
   console.log("seedLingsは:", seed);
 
 
