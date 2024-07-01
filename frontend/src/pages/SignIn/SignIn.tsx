@@ -1,7 +1,10 @@
 import { Flex } from "@mantine/core";
 import "./SignIn.css";
+import { useState } from "react";
 
 export const SignIn = () => {
+const [signInIcon,setSignInIcon] = useState("./images/LINE_Login_Button_01.png")
+
   return (
     <Flex direction="column"  style={{ height: "100vh" }}>
       <img
@@ -9,9 +12,16 @@ export const SignIn = () => {
         src="./images/haguSignIn.png"
         width={"400vw"}
       ></img>
-      <div className="logIn">
+      <div style={{height:"7%"}} className="logIn"
+      onMouseOver={() => {
+        setSignInIcon("./images/LINE_Login_Button_02.png")
+      }}
+      onMouseLeave={()=>{
+        setSignInIcon("./images/LINE_Login_Button_01.png")
+      }}
+      >
           <a href="/api/auth">
-          <img  src={"./images/btn_base.png"}/>
+          <img  src={signInIcon} style={{height:"100%"}}/>
           </a>
       </div>
     </Flex>
