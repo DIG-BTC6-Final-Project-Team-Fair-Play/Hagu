@@ -1,15 +1,14 @@
 // import React from "react";
 import { Box, Flex } from "@mantine/core";
 import {
-  HomeEco,
-  BucketDroplet,
-  Camera,
-  HeartHandshake,
-} from "tabler-icons-react";
+  IconHomeEco,
+  IconBellHeart,
+  IconPhotoSearch,
+} from "@tabler/icons-react";
 
 export const FooterIcons = () => {
-  const footerH = 80;
-  const iconSize = 50;
+  const footerH = 60;
+  const iconSize = 30;
 
   return (
     <Box h={footerH}>
@@ -17,28 +16,23 @@ export const FooterIcons = () => {
         direction="row"
         align="center"
         justify={"space-evenly"}
-        bg={"#CEB48C"}
+        bg={"#5CB697"}
       >
-        <HomeEco
+        <IconHomeEco
           size={iconSize}
           color="white"
           style={{ margin: (footerH - iconSize) / 2 }}
-        ></HomeEco>
-        <BucketDroplet
+        ></IconHomeEco>
+        <IconBellHeart
           size={iconSize}
           color="white"
           style={{ margin: (footerH - iconSize) / 2 }}
-        ></BucketDroplet>
-        <Camera
+        ></IconBellHeart>
+        <IconPhotoSearch
           size={iconSize}
           color="white"
           style={{ margin: (footerH - iconSize) / 2 }}
-        ></Camera>
-        <HeartHandshake
-          size={iconSize}
-          color="white"
-          style={{ margin: (footerH - iconSize) / 2 }}
-        ></HeartHandshake>
+        ></IconPhotoSearch>
       </Flex>
     </Box>
   );

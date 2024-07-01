@@ -12,7 +12,11 @@ export const TimeLapsePhotos = () => {
     (async () => {
       const photos: string[] = await axios
         .get(`/api/seedlings/${id}/timelapse`)
-        .then((res) => res.data);
+        .then((res) => {
+          return res.data;
+        });
+      console.log("photos: ", photos[0]);
+
       setPhotos(photos);
       setId(1); //ここは後で消す！！！！！ESLint回避用
     })();
@@ -26,7 +30,7 @@ export const TimeLapsePhotos = () => {
         p={10}
         // w={"80%"}
         fit="contain"
-        src={photos[value]}
+        src={`data:image/png;base64,${photos[value]}`}
         // src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fuser-images.githubusercontent.com%2F45844502%2F128852448-bf822291-ce21-4f3c-854e-02070f5086e8.gif?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=0706cee6abcc5de7cc5959459cfd6d11"
       />
       <Space h="xl" />

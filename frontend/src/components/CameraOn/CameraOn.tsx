@@ -1,4 +1,4 @@
-import { Container, Image, Box, Text, Flex } from "@mantine/core";
+import { Container, Image, Box, Text, Flex, Slider } from "@mantine/core";
 import { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
@@ -15,6 +15,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
   const [image, setImage] = useState<string | ImageData | null>(null);
   const [numberOfCameras, setNumberOfCameras] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [opacity, setOpacity] = useState<number>(0.5);
   const takePhoto = () => {
     if (camera.current) {
       const photo = camera.current.takePhoto();
@@ -44,9 +45,6 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
     if (typeof image === "string") {
       const file = createJpegFile4Base64(image, fileName);
       const storageRef = ref(storage, `image/${fileName}`);
-      // uploadBytes(storageRef, file).then((snapshot) => {
-      //   console.log("Uploaded a blob file!");
-      // });
       const uploadImage = uploadBytesResumable(storageRef, file);
       uploadImage.on(
         "state_changed",
@@ -81,9 +79,10 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
     <Container h={"100vh"} w={"100vw"} bg={"Black"} p={0}>
       {image ? (
         <Flex direction={"column"}>
-          <Box pos={"relative"} h={"80vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
+          <Box pos={"relative"} h={"75vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
             <Image src={image}></Image>
           </Box>
+          <Box h={"5vh"}></Box>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"center"}>
               <Text c="#AAB787" onClick={onFileUPloadToFirebase}>
@@ -99,7 +98,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
         </Flex>
       ) : (
         <Flex direction={"column"}>
-          <Box pos={"relative"} h={"80vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
+          <Box pos={"relative"} h={"75vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
             <Camera
               ref={camera}
               errorMessages={errorMessages}
@@ -111,12 +110,25 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
                 "https://booth.pximg.net/fde8b078-d39f-4221-8463-1050ba7db401/i/2143735/b4faf31b-e93d-4542-a2d7-427959d3130f_base_resized.jpg"
               }
               style={{
-                height: "80vh",
+                height: "75vh",
                 position: "absolute",
                 zIndex: 100,
-                opacity: 0.5,
+                opacity: opacity,
               }}
             ></Image>
+          </Box>
+          <Box h={"5vh"} w={"80vw"} m={"0 auto"}>
+            <Slider
+              color="#AAB787"
+              mt={"35px"}
+              showLabelOnHover={false}
+              label={(value) => `${Math.trunc(value * 100)} %`}
+              onChange={(value) => setOpacity(value)}
+              min={0}
+              max={1}
+              step={0.05}
+              defaultValue={0.5}
+            ></Slider>
           </Box>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"start"} pl={10}>

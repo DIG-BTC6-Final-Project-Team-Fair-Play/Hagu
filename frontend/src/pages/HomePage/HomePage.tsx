@@ -3,7 +3,7 @@ import { AdviceBox } from "../../components/AdviceBox";
 import { Box, Flex } from "@mantine/core";
 import { Header } from "../../components/Header";
 import { HeaderSeedling } from "../../components/HeaderSeedling";
-import { SeedChange } from "../../components/SeedChange";
+import { StageChange } from "../../components/StageChange";
 
 export const HomePage = () => {
   return (
@@ -13,7 +13,7 @@ export const HomePage = () => {
           <Header></Header>
           <HeaderSeedling></HeaderSeedling>
           <AdviceBox></AdviceBox>
-          <SeedChange></SeedChange>
+          <StageChange></StageChange>
         </Box>
       </Flex>
     </>
