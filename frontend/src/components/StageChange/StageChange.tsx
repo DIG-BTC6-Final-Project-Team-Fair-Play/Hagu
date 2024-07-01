@@ -1,39 +1,73 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import { Image, Slider } from "@mantine/core";
+import { Avatar, Group, Image, Slider, Space } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { userData,seedLings } from "../../App";
+import { userData } from "../../App";
+import { AdviceBox } from "../AdviceBox";
 
-const stages = [
-  "./images/01_stage_01.png",
-  "./images/01_stage_02.png",
-  "./images/01_stage_03.png",
-  "./images/01_stage_04.png",
-  "./images/01_stage_05.png",
+const testSeed = [
+  {
+    id: 1,
+    user_id: 1,
+    vegetable_id: 3,
+    growing_stage_no: 1,
+    last_watering: "2024-06-25T01:00:00.000Z",
+    seedling_name: "苗ろう",
+  },
+  {
+    id: 2,
+    user_id: 1,
+    vegetable_id: 2,
+    growing_stage_no: 2,
+    last_watering: "2024-06-25T02:00:00.000Z",
+    seedling_name: "苗る",
+  },
 ];
 
 export const StageChange = () => {
-
-  const user = useContext(userData);
-  console.log("userは:",user);
-
-  const seed = useContext(seedLings);
-  console.log("seedLingsは:",seed);
-
-
+  const [seedId, setSeedId] = useState<number>(0);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideNo, setSlideNo] = useState<number>(0);
+  const [newComer, setNewComer] = useState<boolean>(false);
+  const [vegetableId,setVegetableId] = useState<number>(0)
+
+  const user = useContext(userData);
+  console.log("userは:", user);
+
+  // const seed= useContext(seedLings);
+  const seed= testSeed;
+  console.log("seedLingsは:", seed);
+
+
+  const stages = [
+    `./images/0${vegetableId}_stage_01.png`,
+    `./images/0${vegetableId}_stage_02.png`,
+    `./images/0${vegetableId}_stage_03.png`,
+    `./images/0${vegetableId}_stage_04.png`,
+    `./images/0${vegetableId}_stage_05.png`,
+  ];
+
+  useEffect(() => {
+    if (seed.length !== 0) {
+      setNewComer(true);
+      setVegetableId(seed[seedId].vegetable_id)
+    }
+    setSeedId(0)
+  }, []);
+
   const slides = stages.map((url) => (
     <Carousel.Slide key={url}>
       <Image src={url} />
     </Carousel.Slide>
   ));
+
   const handleScroll = useCallback(() => {
     if (!embla) return;
     const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
-    setScrollProgress(progress * 100);
-    console.log(scrollProgress)
+    setScrollProgress(progress);
+    console.log("slideNo", slideNo);
+    console.log(scrollProgress);
     if (progress < 0.2) {
       console.log("slideは1です");
       setSlideNo(0);
@@ -60,32 +94,45 @@ export const StageChange = () => {
   }, [embla]);
 
   return (
-    <>
-      <Carousel
-        slideSize="60%"
-        slideGap="lg"
-        getEmblaApi={setEmbla}
-        initialSlide={0}
-        withIndicators={false}
-        withControls={false}
-      >
-        {slides}
-      </Carousel>
-      <Slider
-        color="green"
-        m={"auto"}
-        w={"90%"}
-        size={"xl"}
-        value={slideNo * 25}
-        draggable={false}
-        marks={[
-          { value: 0, label: "定植" },
-          { value: 25, label: "開花" },
-          { value: 50, label: "着実" },
-          { value: 75, label: "色付" },
-          { value: 100, label: "収穫" },
-        ]}
-      ></Slider>
-    </>
+    newComer && (
+      <>
+        <Group>
+          <AdviceBox></AdviceBox>
+          <Avatar
+            m={"auto"}
+            size={"xl"}
+            radius={"xl"}
+            bg={"#cdd1d1"}
+            src={`../.././public/images/0${vegetableId}_icon.png`}
+          />
+        </Group>
+          <Space h={"xl"}></Space>
+        <Carousel
+          slideSize="60%"
+          slideGap="lg"
+          getEmblaApi={setEmbla}
+          initialSlide={testSeed[seedId].growing_stage_no - 1}
+          withIndicators={false}
+          withControls={false}
+        >
+          {slides}
+        </Carousel>
+        <Slider
+          color="green"
+          m={"auto"}
+          w={"90%"}
+          size={"xl"}
+          value={slideNo * 25}
+          draggable={false}
+          marks={[
+            { value: 0, label: "定植" },
+            { value: 25, label: "開花" },
+            { value: 50, label: "着実" },
+            { value: 75, label: "色付" },
+            { value: 100, label: "収穫" },
+          ]}
+        ></Slider>
+      </>
+    )
   );
 };

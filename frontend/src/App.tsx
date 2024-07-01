@@ -12,26 +12,23 @@ import axios from "axios";
 import { Users, Seedlings } from "./types/globals";
 import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
 
-export const userData = createContext<Users | string>("");
-export const seedLings = createContext<Seedlings | string>("");
+export const userData = createContext<number>(0);
+export const seedLings = createContext<Seedlings[] >([]);
 
 
 function App() {
-  const [user, setUser] = useState<Users | string>("");
   const [userId,setUserId] = useState<number>(0)
-  const [seed, setSeed] = useState<Seedlings | string>("");
+  const [seed, setSeed] = useState<Seedlings[]>([]);
 
   useEffect(() => {
     (async () => {
       const userData: Users = await axios.get(`/api/users`).then((res) => {
-        console.log(res.data)
         return res.data;
       });
-      setUser(userData);
       setUserId(userData.id)
     })();
     (async () => {
-      const seedlings: Seedlings = await axios
+      const seedlings: Seedlings[] = await axios
         .get(`/api/seedlings/${userId}`)
         .then((res) => {
           return res.data;
@@ -41,7 +38,7 @@ function App() {
   }, []);
   return (
     <>
-      <userData.Provider value={user}>
+      <userData.Provider value={userId}>
         <seedLings.Provider value={seed}>
           <div className="App">
             <BrowserRouter>
