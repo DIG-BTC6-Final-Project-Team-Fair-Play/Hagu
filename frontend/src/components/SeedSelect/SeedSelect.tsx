@@ -2,12 +2,14 @@ import { Avatar, Box, Center, Grid, GridCol, Space, Text } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Seedlings } from "../../types/globals";
+import { useNavigate } from "react-router-dom";
 
 export const SeedlingSelect = () => {
   //-------------UserIDが入る！--------
   const id = 1;
   //----------------------------------
   const [mySeedling, setMySeedling] = useState<Seedlings[]>([]);
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       const seedlings = await axios
@@ -30,10 +32,11 @@ export const SeedlingSelect = () => {
                     m={"auto"}
                     size={"xl"}
                     radius={"xl"}
-                    bg={"gray"}
-                    src={
-                      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghPf6kdy8bQqZLyblv9JcqcLZ9fZsV1uJhAZx0ADUVrYOCOMIxBrIP0dmohPg_YDdhPfsTcXDAIGvCKkQhC96g8CHxDK3XWTQnUIcN8K7jRNzziWjcQSmTPMG4p3v_Yp-MQWMNzVHyzzH8/s800/vegetable_white_piiman.png"
-                    }
+                    bg={"#cdd1d1"}
+                    src={`../.././public/images/0${obj.vegetable_id}_icon.png`}
+                    onClick={() => {
+                      navigate("/home");
+                    }}
                   />
                   <Space h={"xs"} />
                   <Text size="m">{mySeedling[index].seedling_name}</Text>
@@ -50,11 +53,16 @@ export const SeedlingSelect = () => {
                 m={"auto"}
                 size={"xl"}
                 radius={"xl"}
-                // bg={"gray"}
-                src={""}
+                bg={"#cdd1d1"}
+                src={"../.././public/images/plus_icon_152556.png"}
+                onClick={() => {
+                  navigate("/create");
+                }}
               />
               <Space h={"xs"} />
-              <Text size="m">新しい苗</Text>
+              <Text size="m" m={"auto"}>
+                新しい苗
+              </Text>
             </Box>
           </Center>
         </GridCol>
