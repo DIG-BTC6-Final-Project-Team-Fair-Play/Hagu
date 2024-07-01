@@ -1,5 +1,5 @@
 // import React from "react";
-import { Box, BackgroundImage, Text, Avatar, Flex } from "@mantine/core";
+import { Box, Text, Avatar, Flex } from "@mantine/core";
 
 interface UserProps {
   name?: string;
