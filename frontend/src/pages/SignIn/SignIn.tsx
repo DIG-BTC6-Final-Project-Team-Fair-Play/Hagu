@@ -1,4 +1,4 @@
-import { Button, Flex, Image } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import "./SignIn.css";
 
 export const SignIn = () => {
