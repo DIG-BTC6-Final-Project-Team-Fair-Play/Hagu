@@ -11,6 +11,7 @@ import {
   PostPhotos,
   Photos,
   Friends,
+  Users,
 } from "../types/globals";
 import type { Express, Request, Response } from "express";
 import { REPLCommand } from "repl";
@@ -142,5 +143,18 @@ export = {
       .leftOuterJoin("users", "users.id", "friends.friend_id")
       .where({ user_id: parseInt(id) });
     res.send(friends);
+  },
+
+  async getUsers(req: any, res: Response) {
+    if (req.session.user) {
+      const lineId: string = req.session.user.lineId;
+      const userData: Users = await knex("users")
+        .select("*")
+        .where({ line_id: lineId })
+        .first();
+      res.send(userData);
+    } else {
+      res.sendStatus(401);
+    }
   },
 };

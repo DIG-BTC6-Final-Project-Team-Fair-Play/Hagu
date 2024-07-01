@@ -1,38 +1,19 @@
 // const express = require("express");
 // tsのためimportに変更
 // コンパイル文に --esModuleInterlop
-import express from "express";
+import express, { response } from "express";
 import type { Express, Request, Response } from "express";
 import type { Knex } from "knex";
 import { NewSeedling, Vegetables } from "../types/globals";
 
 import controller from "../model/modelAndControllar";
+
 // knexを読み込み
 const knex: Knex = require("../db/index");
 
 const app: Express = express();
-// !linelogin
+
 const path = require("path");
-require("dotenv").config({
-  path: path.resolve(__dirname, "../../.env"),
-});
-
-// !linelogin2
-const line_login = require("line-login");
-const session = require("express-session");
-const session_options = {
-  secret: process.env.LINE_LOGIN_CHANNEL_SECRET,
-  resave: false,
-  saveUninitialized: false,
-};
-app.use(session(session_options));
-
-// !認証の設定。
-const login = new line_login({
-  channel_id: process.env.LINE_LOGIN_CHANNEL_ID,
-  channel_secret: process.env.LINE_LOGIN_CHANNEL_SECRET,
-  callback_url: process.env.LINE_LOGIN_CALLBACK_URL,
-});
 
 const setupExpressApp = () => {
   app.use(express.json());
@@ -40,27 +21,11 @@ const setupExpressApp = () => {
   app.use("/", express.static(path.join(__dirname, "../../dist")));
 
   // !====linelogin===
-  // 認証フローを開始するためのルーター設定。
-  app.get("/auth", login.auth());
 
-  // ユーザーが承認したあとに実行する処理のためのルーター設定。
-  app.get(
-    "/callback",
-    login.callback(
-      (req: Request, res: Response, next: Function, token_response: any) => {
-        // 認証フロー成功時
-        console.log("token_response: ", token_response);
+  app.use("/", require("./routes/login"));
 
-        res.json(token_response);
-      },
-      (req: Request, res: Response, next: Function, error: Error) => {
-        // 認証フロー失敗時
-        res.status(400).json(error);
-      }
-    )
-  );
+  app.get("/api/users", controller.getUsers);
 
-  // !====linelogin===
 
   app.get("/api/vegetables", controller.getVegetable);
 
@@ -90,3 +55,4 @@ const setupExpressApp = () => {
 };
 
 module.exports = { setupExpressApp };
+

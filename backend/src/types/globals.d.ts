@@ -1,7 +1,8 @@
 export interface Users {
   id: number;
-  line_id: number;
+  line_id: string;
   user_name: string;
+  picture: string;
 }
 
 export interface Friends {
