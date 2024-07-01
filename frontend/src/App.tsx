@@ -7,6 +7,7 @@ import { CameraPage } from "./pages/CameraPage";
 import { PhotosPage } from "./pages/PhotosPage";
 import { FriendsPage } from "./pages/FriendsPage";
 import { PhotosListPage } from "./pages/PhotosListPage";
+import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path="seedling" element={<SeedlingSelectPage />} />
             <Route path="create" element={<CreatePage />} />
             <Route path="home" element={<HomePage />} />
             <Route path="camera" element={<CameraPage />} />
