@@ -1,6 +1,7 @@
-import express, { response } from "express";
+import express from "express";
 import type { Express, Request, Response, Router } from "express";
 import type { Knex } from "knex";
+import { Users } from "../../types/globals";
 const router: Router = express.Router();
 
 // knexを読み込み
@@ -14,13 +15,25 @@ const line_login = require("line-login");
 require("dotenv").config({
   path: path.resolve(__dirname, "../../.env"),
 });
+// ====session.userの型定義======
+declare module "express-session" {
+  interface SessionData {
+    user?: {
+      lineId: string;
+      name: string;
+      picture: string;
+    } | null;
+  }
+}
+
+// /// <reference path="../../types/express-sesison.d.ts" />
 
 // heroku Linedeveloperのコールバックの変更も必要もしくはもう一つチャンネルを作って変更させるでもよし
-const environment = process.env.DATABASE_URL ? "production" : "development";
-const siteURL =
-  environment === "production"
-    ? "https://hagu-13249feb73b0.herokuapp.com"
-    : "http://localhost:3000";
+// const environment = process.env.DATABASE_URL ? "production" : "development";
+// const siteURL =
+//   environment === "production"
+//     ? "https://hagu-13249feb73b0.herokuapp.com"
+//     : "http://localhost:3000";
 
 // ===sessionの利用====60分のクッキー有効
 router.use(
@@ -38,7 +51,7 @@ router.use(
 const login = new line_login({
   channel_id: process.env.LINE_LOGIN_CHANNEL_ID,
   channel_secret: process.env.LINE_LOGIN_CHANNEL_SECRET,
-  callback_url: `${siteURL}/api/callback`,
+  callback_url: process.env.LINE_LOGIN_CALLBACK_URL,
 });
 
 // lineloginへリダイレクトさせる
@@ -48,7 +61,12 @@ router.get("/api/auth", login.auth());
 router.get(
   "/api/callback",
   login.callback(
-    async (req: any, res: Response, next: Function, token_response: any) => {
+    async (
+      req: Request,
+      res: Response,
+      next: Function,
+      token_response: any
+    ) => {
       // 認証フロー成功時
       req.session.user = {
         lineId: token_response.id_token.sub,
@@ -57,7 +75,7 @@ router.get(
       };
       //   console.log("req.session: ", req.session);
 
-      const lineId = await knex("users")
+      const lineId = await knex<Users>("users")
         .select("line_id")
         .where({ line_id: req.session.user.lineId })
         .first();
@@ -87,21 +105,24 @@ router.get(
 );
 
 // ログアウト
-router.get("api/logout", function (req: any, res: Response, next: Function) {
-  req.session.user = null;
-  req.session.save(function (err: Error) {
-    if (err) next(err);
-
-    req.session.regenerate(function (err: Error) {
+router.get(
+  "api/logout",
+  function (req: Request, res: Response, next: Function) {
+    req.session.user = null;
+    req.session.save(function (err: Error) {
       if (err) next(err);
-      res.redirect("/");
+
+      req.session.regenerate(function (err: Error) {
+        if (err) next(err);
+        res.redirect("/");
+      });
     });
-  });
-});
+  }
+);
 
 // !====各ページの認証チェック======
 // 認証チェックミドルウェア(セッションにJWTが含まれていなければ/リダイレクト)
-const isAuthenticated = (req: any, res: Response, next: Function) => {
+const isAuthenticated = (req: Request, res: Response, next: Function) => {
   console.log("====セッションID====: ", req.sessionID);
   console.log("req.session: ", req.session);
   console.log("req.session.user: ", req.session.user);

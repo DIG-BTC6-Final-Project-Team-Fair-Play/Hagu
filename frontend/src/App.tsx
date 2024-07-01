@@ -10,9 +10,11 @@ import { PhotosListPage } from "./pages/PhotosListPage";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Users, Seedlings } from "./types/globals";
+import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
 
 export const userData = createContext<Users | string>("");
 export const seedLings = createContext<Seedlings | string>("");
+
 
 function App() {
   const [user, setUser] = useState<Users | string>("");
@@ -44,6 +46,7 @@ function App() {
           <div className="App">
             <BrowserRouter>
               <Routes>
+                <Route path="seedling" element={<SeedlingSelectPage />} />
                 <Route path="create" element={<CreatePage />} />
                 <Route path="home" element={<HomePage />} />
                 <Route path="camera" element={<CameraPage />} />
