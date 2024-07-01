@@ -2,6 +2,7 @@ import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Image, Slider } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 
 const stages = [
     "./images/n_01.png",
@@ -11,7 +12,28 @@ const stages = [
     "./images/n_05.png",
   ]
 
+
 export const StageChange= () => {
+  const [seedLings,setSeedLings] = useState<object[]>([])
+
+
+  useEffect(() => {
+    (async () => {
+      const seedlingInfo: object[] = await axios
+        .get(`/api/seedlings/1`)
+        .then((res) => {
+          return res.data;
+        });
+      setSeedLings(seedlingInfo)
+      console.log("seedLings:",seedLings)
+      console.log("vegetable_id: ", seedlingInfo[0]);
+
+      // setPhotos(photos);
+      // setId(1);
+    })();
+  }, []);
+
+
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideNo, setSlideNo] = useState<number>(0);
