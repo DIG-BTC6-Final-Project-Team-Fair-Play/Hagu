@@ -1,7 +1,4 @@
-// const express = require("express");
-// tsのためimportに変更
-// コンパイル文に --esModuleInterlop
-import express, { response } from "express";
+import express from "express";
 import type { Express, Request, Response } from "express";
 import type { Knex } from "knex";
 import { NewSeedling, Vegetables } from "../types/globals";

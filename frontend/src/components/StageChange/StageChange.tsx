@@ -1,17 +1,26 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Image, Slider } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { userData,seedLings } from "../../App";
 
 const stages = [
-    "./images/n_01.png",
-    "./images/n_02.png",
-    "./images/n_03.png",
-    "./images/n_04.png",
-    "./images/n_05.png",
-  ]
+  "./images/01_stage_01.png",
+  "./images/01_stage_02.png",
+  "./images/01_stage_03.png",
+  "./images/01_stage_04.png",
+  "./images/01_stage_05.png",
+];
 
-export const StageChange= () => {
+export const StageChange = () => {
+
+  const user = useContext(userData);
+  console.log("userは:",user);
+
+  const seed = useContext(seedLings);
+  console.log("seedLingsは:",seed);
+
+
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideNo, setSlideNo] = useState<number>(0);
@@ -23,9 +32,8 @@ export const StageChange= () => {
   const handleScroll = useCallback(() => {
     if (!embla) return;
     const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
-    console.log(progress * 100);
     setScrollProgress(progress * 100);
-    console.log(scrollProgress);
+    console.log(scrollProgress)
     if (progress < 0.2) {
       console.log("slideは1です");
       setSlideNo(0);
@@ -64,19 +72,19 @@ export const StageChange= () => {
         {slides}
       </Carousel>
       <Slider
-      color="green"
-      m={"auto"}
-      w={"90%"}
-      size={"xl"}
-      value={slideNo * 25}
-      draggable={false}
-      marks={[
-        {value:0,label:"定植"},
-        {value:25,label:"開花"},
-        {value:50,label:"着実"},
-        {value:75,label:"色付"},
-        {value:100,label:"収穫"},
-      ]}
+        color="green"
+        m={"auto"}
+        w={"90%"}
+        size={"xl"}
+        value={slideNo * 25}
+        draggable={false}
+        marks={[
+          { value: 0, label: "定植" },
+          { value: 25, label: "開花" },
+          { value: 50, label: "着実" },
+          { value: 75, label: "色付" },
+          { value: 100, label: "収穫" },
+        ]}
       ></Slider>
     </>
   );

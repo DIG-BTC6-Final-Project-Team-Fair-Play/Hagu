@@ -1,5 +1,5 @@
-const knex: Knex = require("../db/index");
 import type { Knex } from "knex";
+const knex: Knex = require("../db/index");
 import {
   NewSeedling,
   Vegetable_advice,
@@ -14,7 +14,7 @@ import {
   Users,
 } from "../types/globals";
 import type { Express, Request, Response } from "express";
-import { REPLCommand } from "repl";
+
 
 // import storage from "../../../frontend/src/firebase/firebase";
 import { initializeApp } from "firebase/app";

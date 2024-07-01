@@ -3,7 +3,7 @@ import { Box, Tabs } from "@mantine/core";
 import { IconPhoto, IconHeartHandshake } from "@tabler/icons-react";
 import { PhotosList } from "../../components/PhotosList";
 import { FooterIcons } from "../../components/FooterIcons";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface PhotosList {
@@ -17,8 +17,7 @@ interface PhotosList {
 }
 
 export const PhotosListPage = () => {
-  const userData = useContext(userData);
-  const photosUrl = `/api/photos/`;
+  const userId = 1; // useContextでもらうかPropsでもらうか、他の画面でもたくさん使うのでcontextのが良いかも
   const [currentTab, setCurrentTab] = useState<string>("myPlants"); // 初期値として'myPlants'を設定
   const [displayData, setDisplayData] = useState<any>([]);
   const handleTabChange = (value: string) => {
@@ -38,7 +37,7 @@ export const PhotosListPage = () => {
         ? elem.user_id === userId
         : elem.user_id !== userId
     )
-    .filter((elem) => (elem.photo_data ? elem.user_id : null));
+    .filter((elem) => (elem.photo_data ? elem.user_id : true));
 
   return (
     <Box pos={"relative"}>

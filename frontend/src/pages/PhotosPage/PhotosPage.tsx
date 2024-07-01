@@ -1,14 +1,14 @@
 import { Button, Center, Space, Stack } from "@mantine/core";
-import { HeaderSeedling } from "../../components/HeaderSeedling";
 
 import { TimeLapsePhotos } from "../../components/TimeLapsePhotos";
 import { useNavigate } from "react-router-dom";
+import { Header } from "../../components/Header";
 
 export const PhotosPage = () => {
   const navigate = useNavigate();
   return (
     <>
-      <HeaderSeedling />
+      <Header />
       <Stack>
         <Center>
           <TimeLapsePhotos />
