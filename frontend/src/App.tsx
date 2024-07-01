@@ -11,6 +11,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Users, Seedlings } from "./types/globals";
 import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
+import { WateringPage } from "./pages/WateringPage";
 
 export const userData = createContext<number>(0);
 export const seedLings = createContext<Seedlings[] >([]);
@@ -43,6 +44,7 @@ function App() {
           <div className="App">
             <BrowserRouter>
               <Routes>
+                <Route path="watering" element={<WateringPage />} />
                 <Route path="seedling" element={<SeedlingSelectPage />} />
                 <Route path="create" element={<CreatePage />} />
                 <Route path="home" element={<HomePage />} />
