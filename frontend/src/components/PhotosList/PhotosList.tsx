@@ -1,6 +1,7 @@
 // import React, { useState } from "react";
 import { Box, Paper, Stack, Image, Text, ScrollArea } from "@mantine/core";
 import { LineAvatar } from "../LineAvatar";
+import { useNavigate } from "react-router-dom";
 
 //NOTE:上流のタブ選択により本人orフレンドの情報が含まれたpropsを渡す
 interface DisplayListProps {
@@ -18,8 +19,10 @@ interface PhotosListProps {
 }
 
 export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
-  const handleOnClick = (e) => {
-    console.log(e);
+  const navigate = useNavigate();
+  const handleOnClick = (seedlingId: number) => {
+    console.log(seedlingId);
+    navigate("/photos", { state: { seedlingId }, replace: true });
   };
   const items = displayList.map((item, index) => (
     <Box key={index} m={"0 auto"}>
@@ -35,6 +38,7 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
         bg={"#EBF6F6"}
         bd={"1px solid gray"}
         p={10}
+        onClick={() => handleOnClick(item.id)}
       >
         <Image
           src={item.photo_data}

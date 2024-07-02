@@ -15,11 +15,10 @@ import { WateringPage } from "./pages/WateringPage";
 import { ProfilePage } from "./pages/ProfilePage";
 
 export const userData = createContext<number>(0);
-export const seedLings = createContext<Seedlings[] >([]);
-
+export const seedLings = createContext<Seedlings[]>([]);
 
 function App() {
-  const [userId,setUserId] = useState<number>(0)
+  const [userId, setUserId] = useState<number>(0);
   const [seed, setSeed] = useState<Seedlings[]>([]);
 
   useEffect(() => {
@@ -27,9 +26,12 @@ function App() {
       const userData: Users = await axios.get(`/api/users`).then((res) => {
         return res.data;
       });
-      (async () => {
-        const seedlings: Seedlings[] = await axios
-        .get(`/api/seedlings/${userData.id}`)
+
+      setUserId(userData.id);
+    })();
+    (async () => {
+      const seedlings: Seedlings[] = await axios
+        .get(`/api/seedlings/${userId}`)
         .then((res) => {
           return res.data;
         });

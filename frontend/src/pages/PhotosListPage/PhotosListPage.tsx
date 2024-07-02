@@ -32,12 +32,12 @@ export const PhotosListPage = () => {
   }, []);
 
   const selectedDisplayList = displayData
-    .filter((elem) =>
+    .filter((elem: PhotosList) =>
       currentTab === "myPlants"
         ? elem.user_id === userId
         : elem.user_id !== userId
     )
-    .filter((elem) => (elem.photo_data ? elem.user_id : true));
+    .filter((elem: PhotosList) => (elem.photo_data ? elem.user_id : null)); //写真がない苗は非表示
 
   return (
     <Box pos={"relative"}>
