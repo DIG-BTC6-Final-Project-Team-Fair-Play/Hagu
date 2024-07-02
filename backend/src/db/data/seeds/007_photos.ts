@@ -1,8 +1,4 @@
 import { Knex } from "knex";
-// interface Photos {
-//   seedling_id: number;
-//   photo_data: string;
-// }
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
@@ -10,6 +6,9 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries
   const Okurachan: string[] = [
+    "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo1.png?alt=media&token=df4abc45-d0f9-4358-b070-b73d5ae3bad1",
+    "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo2.png?alt=media&token=2caf7116-0253-42c4-bbe0-7eab7b27aca2",
+    "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo3.png?alt=media&token=6673aab3-887a-43bb-87bd-7d4f53cfafa2",
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo3.png?alt=media&token=6673aab3-887a-43bb-87bd-7d4f53cfafa2",
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo4.png?alt=media&token=4e2726b2-1ef9-49bb-8917-a26b1578dad9",
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo5.png?alt=media&token=a727c029-9a97-4072-8ba6-59ad37be2d58",
@@ -24,9 +23,6 @@ export async function seed(knex: Knex): Promise<void> {
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fb4.png?alt=media&token=b5a796f1-7066-4be6-8dab-eec148aa9f61",
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fb5.png?alt=media&token=7171ab6d-0f7a-4c71-a1a2-9eb40c046a71",
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fb8.png?alt=media&token=bd67a01d-ac56-45d4-8330-1e467956b39f",
-    "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo1.png?alt=media&token=df4abc45-d0f9-4358-b070-b73d5ae3bad1",
-    "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo2.png?alt=media&token=2caf7116-0253-42c4-bbe0-7eab7b27aca2",
-    "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2Fo3.png?alt=media&token=6673aab3-887a-43bb-87bd-7d4f53cfafa2",
   ]; //2
   const Nasurou: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/hagu-882e3.appspot.com/o/image%2F%E3%81%AA%E3%81%99%E3%82%8D%E3%81%861.jpg?alt=media&token=0262979b-a36c-427e-8c32-45790f96f975",
@@ -66,26 +62,13 @@ export async function seed(knex: Knex): Promise<void> {
   for (let i = 0; i < list.length; i++) {
     // nae = [str,str,str...]
 
-    // list[i]
-    //   .map((url) => ({
-    //     seedling_id: i + 1,
-    //     photo_data: url,
-    //   }))
-    //   .forEach(async (insObj) => {
-    //     // obj = {seedlingid:1 ,photo_data:url}
-
-    //     await knex("photos").insert(insObj);
-    //     console.log("photos: ");
-    //     await sleep(500);
-    //   });
-
     for (const insObj of list[i].map((url) => ({
       seedling_id: i + 1,
       photo_data: url,
     }))) {
       await knex("photos").insert(insObj);
       console.log("photos: ");
-      await sleep(500);
+      await sleep(100);
     }
   }
 }
