@@ -17,7 +17,7 @@ export const SelectBtnDouble: React.FC<BtnProps> = ({
 
   const postSeedling = async () => {
     await axios.post("/api/seedlings", {
-      user_id: 1, //Lineログインができたらここを変えて
+      user_id: 4, //Lineログインができたらここを変えて
       vegetable_id: active,
       growing_stage_no: 1, //スタートは０からでいい？
       seedling_name: seedlingName,

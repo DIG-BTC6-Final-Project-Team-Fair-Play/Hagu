@@ -26,15 +26,15 @@ function App() {
       const userData: Users = await axios.get(`/api/users`).then((res) => {
         return res.data;
       });
-      setUserId(userData.id)
-    })();
-    (async () => {
-      const seedlings: Seedlings[] = await axios
-        .get(`/api/seedlings/${userId}`)
+      (async () => {
+        const seedlings: Seedlings[] = await axios
+        .get(`/api/seedlings/${userData.id}`)
         .then((res) => {
           return res.data;
         });
-      setSeed(seedlings);
+        setSeed(seedlings);
+      })();
+      setUserId(userData.id)
     })();
   }, []);
   return (
