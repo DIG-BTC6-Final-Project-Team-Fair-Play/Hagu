@@ -59,19 +59,33 @@ export async function seed(knex: Knex): Promise<void> {
 
   const list: string[][] = [Okurachan, Burochan, Nasurou, Nasuru];
 
+  // ! 指定msまたせる
+  const sleep = (time: number) => new Promise<void>((r) => setTimeout(r, time));
+
   // ループ処理
   for (let i = 0; i < list.length; i++) {
     // nae = [str,str,str...]
-    // await knex.transaction(function (trx) {
-    list[i]
-      .map((url) => ({
-        seedling_id: i + 1,
-        photo_data: url,
-      }))
-      .forEach(async (insObj) => {
-        // obj = {seedlingid:1 ,photo_data:url}
-        await knex("photos").insert(insObj);
-      });
-    // });
+
+    // list[i]
+    //   .map((url) => ({
+    //     seedling_id: i + 1,
+    //     photo_data: url,
+    //   }))
+    //   .forEach(async (insObj) => {
+    //     // obj = {seedlingid:1 ,photo_data:url}
+
+    //     await knex("photos").insert(insObj);
+    //     console.log("photos: ");
+    //     await sleep(500);
+    //   });
+
+    for (const insObj of list[i].map((url) => ({
+      seedling_id: i + 1,
+      photo_data: url,
+    }))) {
+      await knex("photos").insert(insObj);
+      console.log("photos: ");
+      await sleep(500);
+    }
   }
 }

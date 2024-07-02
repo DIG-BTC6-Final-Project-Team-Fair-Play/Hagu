@@ -165,8 +165,9 @@ export = {
     const id = req.params.id;
     const photos: Photos[] = await knex("photos")
       .select("*")
-      .where({ seedling_id: parseInt(id) });
-    // .orderBy("date", "asc");
+      .where({ seedling_id: parseInt(id) })
+      .orderBy("created_at", "asc");
+
     const mapData = photos.map(async (obj: Photos) => {
       const response = await axios.get(obj.photo_data, {
         responseType: "arraybuffer",
