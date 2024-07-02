@@ -1,9 +1,7 @@
 // import React from "react";
 import { Box, Button, Group } from "@mantine/core";
-import axios from "axios";
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { userData } from "../../App";
 
 interface BtnProps {
   seedlingName?: string;
@@ -15,16 +13,11 @@ export const SelectBtnDouble: React.FC<BtnProps> = ({
   active,
 }) => {
   const navigate = useNavigate();
-  const userID = useContext(userData);
 
   const postSeedling = async () => {
-    await axios.post("/api/seedlings", {
-      user_id: userID, //Lineログインができたらここを変えて
-      vegetable_id: active,
-      growing_stage_no: 1, //スタートは０からでいい？
-      seedling_name: seedlingName,
+    navigate("/first", {
+      state: { vegetableId: active, seedlingName: seedlingName },
     });
-    navigate("/home");
   };
 
   return (

@@ -60,6 +60,7 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
   const [seedlingName, setSeedlingName] = useState<string>("");
   const [active, setActive] = useState<string | null>(null);
   const handleAccordionChange = (value: string | null) => {
+    console.log({ value });
     setActive(value);
   };
 
