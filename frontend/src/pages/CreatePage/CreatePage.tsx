@@ -35,8 +35,8 @@ export const CreatePage = () => {
         .get("/api/vegetables")
         .then((res) => res.data);
 
-      console.log("data: ", data);
-      setVegetableData("data", data);
+      // console.log("data: ", data);
+      setVegetableData(data);
     })();
   }, []);
 

@@ -52,8 +52,10 @@ export = {
 
   async postSeedlings(req: Request, res: Response) {
     const newSeedling: NewSeedling = req.body;
-    await knex("seedlings").insert(newSeedling);
-    res.status(201).send("新しい苗作ったよ");
+    const seedlingId = await knex("seedlings")
+      .insert(newSeedling)
+      .returning("id");
+    res.status(201).send(seedlingId[0]);
   },
 
   async getAdvice(req: Request, res: Response) {
