@@ -8,6 +8,12 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("vegetable_advice").insert([
     {
       vegetable_id: 1,
+      growing_stage_no: 0,
+      advice:
+        "時期: 気温が安定し、霜の心配がなくなった春（4月下旬〜5月中旬）が最適です。\nポイント:\n場所: 日当たりが良く、風通しが良い場所を選びます。土壌は排水性が良く、肥沃な場所が適しています。\n土壌準備: 定植の2〜3週間前に堆肥と元肥を施し、土を良く耕します。ピーマンは酸性土壌を嫌うため、必要ならば石灰をまいてpHを調整します。\n間隔: 苗同士の間隔は約50cm、列間は70〜80cmを目安にします。これにより、十分なスペースを確保できます。",
+    },
+    {
+      vegetable_id: 1,
       growing_stage_no: 1,
       advice:
         "時期: 気温が安定し、霜の心配がなくなった春（4月下旬〜5月中旬）が最適です。\nポイント:\n場所: 日当たりが良く、風通しが良い場所を選びます。土壌は排水性が良く、肥沃な場所が適しています。\n土壌準備: 定植の2〜3週間前に堆肥と元肥を施し、土を良く耕します。ピーマンは酸性土壌を嫌うため、必要ならば石灰をまいてpHを調整します。\n間隔: 苗同士の間隔は約50cm、列間は70〜80cmを目安にします。これにより、十分なスペースを確保できます。",
@@ -38,6 +44,11 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       vegetable_id: 2,
+      growing_stage_no: 0,
+      advice: "なすの定植に適したアドバイス",
+    },
+    {
+      vegetable_id: 2,
       growing_stage_no: 1,
       advice: "なすの定植に適したアドバイス",
     },
@@ -60,6 +71,11 @@ export async function seed(knex: Knex): Promise<void> {
       vegetable_id: 2,
       growing_stage_no: 5,
       advice: "なすの収穫に適したアドバイス",
+    },
+    {
+      vegetable_id: 3,
+      growing_stage_no: 0,
+      advice: "トマトの定植に適したアドバイス",
     },
     {
       vegetable_id: 3,
