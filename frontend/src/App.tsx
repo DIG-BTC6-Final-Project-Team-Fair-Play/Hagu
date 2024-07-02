@@ -29,7 +29,7 @@ function App() {
 
       (async () => {
         const seedlings: Seedlings[] = await axios
-          .get(`/api/seedlings/${userId}`)
+          .get(`/api/seedlings/${userData.id}`)
           .then((res) => {
             return res.data;
           });

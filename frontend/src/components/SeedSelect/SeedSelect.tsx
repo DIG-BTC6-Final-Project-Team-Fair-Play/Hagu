@@ -33,7 +33,7 @@ export const SeedlingSelect = () => {
                     size={"xl"}
                     radius={"xl"}
                     bg={"#cdd1d1"}
-                    src={`../.././public/images/0${obj.vegetable_id}_icon.png`}
+                    src={`./images/0${obj.vegetable_id}_icon.png`}
                     onClick={() => {
                       navigate("/home");
                     }}
