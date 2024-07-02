@@ -34,7 +34,9 @@ export const CreatePage = () => {
       const data: Vegetables[] = await axios
         .get("/api/vegetables")
         .then((res) => res.data);
-      setVegetableData(data);
+
+      console.log("data: ", data);
+      setVegetableData("data", data);
     })();
   }, []);
 
