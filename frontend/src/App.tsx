@@ -12,6 +12,7 @@ import axios from "axios";
 import { Users, Seedlings } from "./types/globals";
 import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
 import { WateringPage } from "./pages/WateringPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 export const userData = createContext<number>(0);
 export const seedLings = createContext<Seedlings[] >([]);
@@ -44,6 +45,7 @@ function App() {
           <div className="App">
             <BrowserRouter>
               <Routes>
+                <Route path="profile" element={<ProfilePage />} />
                 <Route path="watering" element={<WateringPage />} />
                 <Route path="seedling" element={<SeedlingSelectPage />} />
                 <Route path="create" element={<CreatePage />} />
