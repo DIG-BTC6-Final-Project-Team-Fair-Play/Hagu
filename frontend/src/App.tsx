@@ -27,17 +27,15 @@ function App() {
         return res.data;
       });
 
-      setUserId(userData.id);
-    })();
-    (async () => {
-      const seedlings: Seedlings[] = await axios
-        .get(`/api/seedlings/${userId}`)
-        .then((res) => {
-          return res.data;
-        });
+      (async () => {
+        const seedlings: Seedlings[] = await axios
+          .get(`/api/seedlings/${userId}`)
+          .then((res) => {
+            return res.data;
+          });
         setSeed(seedlings);
       })();
-      setUserId(userData.id)
+      setUserId(userData.id);
     })();
   }, []);
   return (
