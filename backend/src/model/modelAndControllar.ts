@@ -15,7 +15,6 @@ import {
 } from "../types/globals";
 import type { Express, Request, Response } from "express";
 
-
 // import storage from "../../../frontend/src/firebase/firebase";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -175,7 +174,9 @@ export = {
       const base64 = response.data.toString("base64");
       return base64;
     });
+
     const promiseAll = await Promise.all(mapData);
+    console.log(promiseAll);
     res.send(promiseAll);
     // const mapData = photos.map((obj: Photos) => obj.photo_data);
     // res.send(mapData);

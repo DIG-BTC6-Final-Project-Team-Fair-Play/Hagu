@@ -2,23 +2,23 @@ import { Box, Image, Loader, Slider, Space, Stack, Text } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const TimeLapsePhotos = () => {
-  const [id, setId] = useState<number>(1); //USERID来たらそれに変える
+export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
   const [value, setValue] = useState<number>(0);
   const [photos, setPhotos] = useState<string[]>([]);
   console.log("value: ", value);
+  console.log("selectSeedId: ", selectSeedId);
 
   useEffect(() => {
     (async () => {
       const photos: string[] = await axios
-        .get(`/api/seedlings/${id}/timelapse`)
+        .get(`/api/seedlings/${selectSeedId.selectSeedId}/timelapse`)
         .then((res) => {
+          console.log(res.data);
           return res.data;
         });
       console.log("photos: ", photos[0]);
 
       setPhotos(photos);
-      setId(1); //ここは後で消す！！！！！ESLint回避用
     })();
   }, []);
 
