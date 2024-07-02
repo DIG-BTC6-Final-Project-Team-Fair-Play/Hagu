@@ -1,19 +1,22 @@
 import { Avatar, Box, Center, Grid, GridCol, Space, Text } from "@mantine/core";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Seedlings } from "../../types/globals";
 import { useNavigate } from "react-router-dom";
+import { userData } from "../../App";
 
 export const SeedlingSelect = () => {
   //-------------UserIDが入る！--------
-  const id = 1;
+
+  const userID = useContext(userData);
+  // const id = 1;
   //----------------------------------
   const [mySeedling, setMySeedling] = useState<Seedlings[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       const seedlings = await axios
-        .get(`/api/seedlings/${id}`)
+        .get(`/api/seedlings/${userID}`)
         .then((res) => res.data);
       setMySeedling(seedlings);
       console.log("seedlings : ", seedlings);
@@ -35,7 +38,8 @@ export const SeedlingSelect = () => {
                     bg={"#cdd1d1"}
                     src={`./images/0${obj.vegetable_id}_icon.png`}
                     onClick={() => {
-                      navigate("/home");
+                      navigate("/home", { state: { id: obj.id } });
+                      console.log(obj.id, "をクリック");
                     }}
                   />
                   <Space h={"xs"} />
@@ -54,7 +58,7 @@ export const SeedlingSelect = () => {
                 size={"xl"}
                 radius={"xl"}
                 bg={"#cdd1d1"}
-                src={"../.././public/images/plus_icon_152556.png"}
+                src={"./images/plus_icon_152556.png"}
                 onClick={() => {
                   navigate("/create");
                 }}
