@@ -5,24 +5,24 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { userData, seedLings } from "../../App";
 import { AdviceBox } from "../AdviceBox";
 
-const testSeed = [
-  {
-    id: 1,
-    user_id: 1,
-    vegetable_id: 3,
-    growing_stage_no: 1,
-    last_watering: "2024-06-25T01:00:00.000Z",
-    seedling_name: "苗ろう",
-  },
-  {
-    id: 2,
-    user_id: 1,
-    vegetable_id: 2,
-    growing_stage_no: 2,
-    last_watering: "2024-06-25T02:00:00.000Z",
-    seedling_name: "苗る",
-  },
-];
+// const testSeed = [
+//   {
+//     id: 1,
+//     user_id: 1,
+//     vegetable_id: 3,
+//     growing_stage_no: 1,
+//     last_watering: "2024-06-25T01:00:00.000Z",
+//     seedling_name: "苗ろう",
+//   },
+//   {
+//     id: 2,
+//     user_id: 1,
+//     vegetable_id: 2,
+//     growing_stage_no: 2,
+//     last_watering: "2024-06-25T02:00:00.000Z",
+//     seedling_name: "苗る",
+//   },
+// ];
 
 export const StageChange = () => {
   const [seedId, setSeedId] = useState<number>(0);
@@ -31,15 +31,16 @@ export const StageChange = () => {
   const [slideNo, setSlideNo] = useState<number>(0);
   const [newComer, setNewComer] = useState<boolean>(false);
   const [vegetableId,setVegetableId] = useState<number>(0)
-
+  
   const user = useContext(userData);
   console.log("userは:", user);
-
+  
   const seed= useContext(seedLings);
   // const seed= testSeed; //test用
   console.log("seedLingsは:", seed);
-
-
+  console.log("vegetableId",vegetableId)
+  
+  
   const stages = [
     `./images/0${vegetableId}_stage_01.png`,
     `./images/0${vegetableId}_stage_02.png`,
@@ -48,14 +49,15 @@ export const StageChange = () => {
     `./images/0${vegetableId}_stage_05.png`,
   ];
 
+  
   useEffect(() => {
     if (seed.length !== 0) {
-      setNewComer(true);
       setVegetableId(seed[seedId].vegetable_id)
+      setNewComer(true);
     }
     setSeedId(0)
-  }, []);
-
+  }, [seed]);
+  
   const slides = stages.map((url) => (
     <Carousel.Slide key={url}>
       <Image src={url} />
@@ -111,7 +113,7 @@ export const StageChange = () => {
           slideSize="60%"
           slideGap="lg"
           getEmblaApi={setEmbla}
-          initialSlide={testSeed[seedId].growing_stage_no - 1}
+          initialSlide={seed[seedId].growing_stage_no - 1}
           withIndicators={false}
           withControls={false}
         >

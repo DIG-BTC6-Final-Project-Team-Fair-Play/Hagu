@@ -11,6 +11,8 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Users, Seedlings } from "./types/globals";
 import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
+import { WateringPage } from "./pages/WateringPage";
+import { ProfilePage } from "./pages/ProfilePage";
 
 export const userData = createContext<number>(0);
 export const seedLings = createContext<Seedlings[]>([]);
@@ -24,6 +26,7 @@ function App() {
       const userData: Users = await axios.get(`/api/users`).then((res) => {
         return res.data;
       });
+
       setUserId(userData.id);
     })();
     (async () => {
@@ -32,7 +35,9 @@ function App() {
         .then((res) => {
           return res.data;
         });
-      setSeed(seedlings);
+        setSeed(seedlings);
+      })();
+      setUserId(userData.id)
     })();
   }, []);
   return (
@@ -42,6 +47,8 @@ function App() {
           <div className="App">
             <BrowserRouter>
               <Routes>
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="watering" element={<WateringPage />} />
                 <Route path="seedling" element={<SeedlingSelectPage />} />
                 <Route path="create" element={<CreatePage />} />
                 <Route path="home" element={<HomePage />} />
