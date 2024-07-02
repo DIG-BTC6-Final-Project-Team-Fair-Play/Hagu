@@ -1,5 +1,4 @@
 import { Box, Flex } from "@mantine/core";
-import { Watering } from "../../components/Watering";
 import { FooterIcons } from "../../components/FooterIcons";
 import { ProfileSetting } from "../../components/ProfileSetting";
 
@@ -8,7 +7,7 @@ export const ProfilePage = () => {
     <>
       <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
         <Box h={`calc(100vh - 60px - 48px -60px)`}>
-        <ProfileSetting></ProfileSetting>
+          <ProfileSetting></ProfileSetting>
         </Box>
         <Box
           style={{
@@ -22,5 +21,5 @@ export const ProfilePage = () => {
         </Box>
       </Flex>
     </>
-  )
+  );
 };
