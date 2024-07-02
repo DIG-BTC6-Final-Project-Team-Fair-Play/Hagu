@@ -21,6 +21,7 @@ export async function seed(knex: Knex): Promise<void> {
         "麻紐",
         "園芸用はさみ",
       ]),
+      image: "./images/01_icon.png",
     },
     {
       label: "なす",
@@ -37,6 +38,7 @@ export async function seed(knex: Knex): Promise<void> {
         "麻紐",
         "園芸用はさみ",
       ]),
+      image: "./images/02_icon.png",
     },
     {
       label: "トマト",
@@ -53,6 +55,7 @@ export async function seed(knex: Knex): Promise<void> {
         "麻紐",
         "園芸用はさみ",
       ]),
+      image: "./images/03_icon.png",
     },
   ]);
 }

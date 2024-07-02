@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     t.text("description");
     t.string("content");
     t.string("equipment_list");
+    t.text("image");
   });
 }
 
