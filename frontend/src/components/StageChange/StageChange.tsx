@@ -105,7 +105,7 @@ export const StageChange = () => {
             size={"xl"}
             radius={"xl"}
             bg={"#cdd1d1"}
-            src={`../.././public/images/0${vegetableId}_icon.png`}
+            src={`./images/0${vegetableId}_icon.png`}
           />
         </Group>
           <Space h={"xl"}></Space>
