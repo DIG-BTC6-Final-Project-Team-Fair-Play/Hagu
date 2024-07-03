@@ -192,6 +192,22 @@ export = {
     res.send(friends);
   },
 
+  async postFriends(req: Request, res: Response) {
+    const id = req.params.userId;
+    const addFriend_id: number = req.body.friendId;
+    await knex("friends").insert({ user_id: id, friend_id: addFriend_id });
+    res.sendStatus(201);
+  },
+
+  async deleteFriends(req: Request, res: Response) {
+    const id: string = req.params.userId;
+    const deleteFriend_id: string = req.params.friendId;
+    await knex("friends")
+      .delete()
+      .where({ user_id: parseInt(id), friend_id: parseInt(deleteFriend_id) });
+    res.sendStatus(204);
+  },
+
   async getUsersList(req: Request, res: Response) {
     // サブクエリで各ユーザーの育てている苗の数をカウント
     const seedlingsCountSubquery = knex("seedlings")

@@ -8,6 +8,9 @@ import {
   Button,
   Center,
 } from "@mantine/core";
+import axios from "axios";
+import { useContext } from "react";
+import { userData } from "../../App";
 // import { useNavigate } from "react-router-dom";
 
 interface UsersListProps {
@@ -27,16 +30,24 @@ interface FriendsListProps {
 interface DisplayListProps {
   usersList: UsersListProps[];
   friendsList: FriendsListProps[];
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const FriendsList: React.FC<DisplayListProps> = ({
   usersList,
   friendsList,
+  setRefresh,
 }) => {
   // const navigate = useNavigate();
-  // const handleOnClick = (seedlingId: number) => {
-  //   navigate("/photos", { state: { seedlingId }, replace: true });
-  // };
+  const userId = useContext(userData);
+  const addHandleOnClick = async (friendId: number) => {
+    await axios.post(`/api/friends/${userId}`, { friendId });
+    setRefresh((prev) => !prev);
+  };
+  const deleteHandleOnClick = async (friendId: number) => {
+    await axios.delete(`/api/friends/${userId}/${friendId}`);
+    setRefresh((prev) => !prev);
+  };
   const items = usersList.map((item, index) => (
     <Box key={index} w={"100%"} h={80}>
       <Flex
@@ -45,7 +56,9 @@ export const FriendsList: React.FC<DisplayListProps> = ({
         justify={"space-evenly"}
         align={"center"}
       >
-        <Image src={item.picture} radius={100} h={60} w={60}></Image>
+        <Box w={60}>
+          <Image src={item.picture} radius={100} h={60} w={60}></Image>
+        </Box>
         <Box w={"40vw"}>
           <Text size="lg">{item.user_name}</Text>
           <Text size="xs" c="gray">
@@ -60,11 +73,19 @@ export const FriendsList: React.FC<DisplayListProps> = ({
             {friendsList
               .map((elem) => elem.friend_id)
               .includes(item.user_id) ? (
-              <Button radius={100} size="xs">
+              <Button
+                radius={100}
+                size="xs"
+                onClick={() => deleteHandleOnClick(item.user_id)}
+              >
                 フォロー解除
               </Button>
             ) : (
-              <Button radius={100} size="xs">
+              <Button
+                radius={100}
+                size="xs"
+                onClick={() => addHandleOnClick(item.user_id)}
+              >
                 フォローする
               </Button>
             )}
