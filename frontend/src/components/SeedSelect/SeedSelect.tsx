@@ -37,7 +37,6 @@ export const SeedlingSelect = () => {
                   src={`./images/0${obj.vegetable_id}_icon.png`}
                   onClick={() => {
                     navigate("/home", { state: { id: obj.id } });
-                    console.log(obj.id, "をクリック");
                   }}
                 />
                 <Space h={"xs"} />

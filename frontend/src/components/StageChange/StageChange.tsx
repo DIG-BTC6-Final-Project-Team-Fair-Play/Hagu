@@ -10,12 +10,13 @@ import { Seedlings } from "../../types/globals";
 
 interface StageChangeProps {
   seed: Seedlings[];
+  setSeed: React.Dispatch<React.SetStateAction<Seedlings[]>>;
 }
 
-export const StageChange = ({ seed }: StageChangeProps) => {
+export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
   const location = useLocation();
 
-  let seedId =
+  let seedIndex =
     location.state === null
       ? 0
       : seed.findIndex((ele) => ele.id === location.state.id);
@@ -46,9 +47,9 @@ export const StageChange = ({ seed }: StageChangeProps) => {
   //seedファイルの有/無で初期値を設定
   useEffect(() => {
     if (seed.length !== 0) {
-      setVegetableId(seed[seedId].vegetable_id);
+      setVegetableId(seed[seedIndex].vegetable_id);
       setNewComer(true);
-      setSlideId(seed[seedId].growing_stage_no - 1);
+      setSlideId(seed[seedIndex].growing_stage_no - 1);
     }
   }, [seed]);
 
@@ -114,8 +115,9 @@ export const StageChange = ({ seed }: StageChangeProps) => {
             prev={(jump) => embla?.scrollNext(jump)}
             setSlideId={setSlideId}
             setBackOn={setBackOn}
-            growingStage={seed[seedId].growing_stage_no}
-            seedId={seed[seedId].id}
+            growingStage={seed[seedIndex].growing_stage_no}
+            seedIndex={seed[seedIndex].id}
+            setSeed={setSeed}
           ></HomeBack>
         )}
         {nextOn && (
@@ -124,8 +126,9 @@ export const StageChange = ({ seed }: StageChangeProps) => {
             prev={(jump) => embla?.scrollPrev(jump)}
             setSlideId={setSlideId}
             setNextOn={setNextOn}
-            growingStage={seed[seedId].growing_stage_no}
-            seedId={seed[seedId].id}
+            growingStage={seed[seedIndex].growing_stage_no}
+            seedIndex={seed[seedIndex].id}
+            setSeed={setSeed}
           ></HomeNext>
         )}
 
@@ -142,7 +145,7 @@ export const StageChange = ({ seed }: StageChangeProps) => {
             />
             <Space h={"xs"} />
             <Text size="m" ta={"center"}>
-              {seed[seedId].seedling_name}
+              {seed[seedIndex].seedling_name}
             </Text>
           </Box>
         </Group>

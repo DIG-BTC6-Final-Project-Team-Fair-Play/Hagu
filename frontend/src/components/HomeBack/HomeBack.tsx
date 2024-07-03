@@ -1,13 +1,17 @@
 // import React from "react";
 import { Box, Button, Group, Text, Flex } from "@mantine/core";
 import axios from "axios";
+import { useContext } from "react";
+import { userData } from "../../App";
+import { Seedlings } from "../../types/globals";
 
 interface BtnProps {
   setSlideId: React.Dispatch<React.SetStateAction<number>>;
   setBackOn: React.Dispatch<React.SetStateAction<boolean>>;
   prev: (jump: boolean) => void;
   growingStage: number;
-  seedId: number;
+  seedIndex: number;
+  setSeed: React.Dispatch<React.SetStateAction<Seedlings[]>>;
 }
 
 export const HomeBack = ({
@@ -15,11 +19,16 @@ export const HomeBack = ({
   setBackOn,
   prev,
   growingStage,
-  seedId,
+  seedIndex,
+  setSeed,
 }: BtnProps) => {
+  const user = useContext(userData);
   const growingStagePost = async () => {
-    await axios.put(`/api/seedlings/${seedId}/growth`, {
+    await axios.put(`/api/seedlings/${seedIndex}/growth`, {
       growing_stage_no: growingStage - 1,
+    });
+    await axios.get(`/api/seedlings/${user}`).then((res) => {
+      setSeed(res.data);
     });
   };
   return (
