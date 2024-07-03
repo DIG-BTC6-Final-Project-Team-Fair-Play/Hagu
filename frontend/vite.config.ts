@@ -11,6 +11,13 @@ export default defineConfig({
       // includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       includeAssets: ["favicon.ico"],
       injectRegister: "auto", // added
+      workbox: {
+        navigateFallbackDenylist: [
+          new RegExp("/api/auth"),
+          new RegExp("/api/callback"),
+          new RegExp("/api/logout"),
+        ],
+      }, // added
       manifest: {
         lang: "ja", // added
         name: "はぐはぐ",
@@ -19,6 +26,8 @@ export default defineConfig({
         theme_color: "#5F907B",
         background_color: "#F2EBD9",
         display: "standalone",
+        // scope: "/", // added
+        start_url: "http://localhost:3000/api/auth", // added
         icons: [
           {
             src: "pwa-192x192.png",
