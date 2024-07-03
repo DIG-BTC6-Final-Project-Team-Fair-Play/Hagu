@@ -41,7 +41,7 @@ export const FirstExplain = () => {
       })
       .then((res) => res.data);
     console.log("seedlingId.id: ", seedlingId.id);
-    navigate("/home", { state: { seedlingId: seedlingId.id } });
+    navigate("/home", { state: { id: seedlingId.id } });
   };
   return (
     <>

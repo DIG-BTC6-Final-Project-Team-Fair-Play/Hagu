@@ -28,7 +28,6 @@ export const SeedlingSelect = () => {
         .get(`/api/seedlings/${userID}`)
         .then((res) => res.data);
       setMySeedling(seedlings);
-      console.log("seedlings : ", seedlings);
     })();
   }, []);
   return (
@@ -48,13 +47,11 @@ export const SeedlingSelect = () => {
                     src={`./images/0${obj.vegetable_id}_icon.png`}
                     onClick={() => {
                       navigate("/home", { state: { id: obj.id } });
-                      console.log(obj.id, "をクリック");
                     }}
                   />
                   <Space h={"xs"} />
-                  <Center>
-                    <Text size="m">{mySeedling[index].seedling_name}</Text>
-                  </Center>
+                  <Text size="m" ta={"center"}>{mySeedling[index].seedling_name}</Text>
+
                 </Box>
               </Center>
             </GridCol>
