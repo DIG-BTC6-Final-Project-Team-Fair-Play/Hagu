@@ -21,7 +21,6 @@ interface PhotosListProps {
 export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
   const navigate = useNavigate();
   const handleOnClick = (seedlingId: number) => {
-    console.log(seedlingId);
     navigate("/photos", { state: { seedlingId }, replace: true });
   };
   const items = displayList.map((item, index) => (

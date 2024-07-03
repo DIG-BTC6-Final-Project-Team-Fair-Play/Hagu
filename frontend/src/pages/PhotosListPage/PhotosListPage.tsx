@@ -1,10 +1,16 @@
 import "./PhotosListPage.css";
 import { Box, Tabs } from "@mantine/core";
-import { IconPhoto, IconHeartHandshake } from "@tabler/icons-react";
+import {
+  IconPhoto,
+  IconHeartHandshake,
+  IconCirclePlusFilled,
+} from "@tabler/icons-react";
 import { PhotosList } from "../../components/PhotosList";
 import { FooterIcons } from "../../components/FooterIcons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { userData } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 interface PhotosList {
   id: number; //seedlingId
@@ -17,16 +23,16 @@ interface PhotosList {
 }
 
 export const PhotosListPage = () => {
-  const userId = 1; // useContextでもらうかPropsでもらうか、他の画面でもたくさん使うのでcontextのが良いかも
+  const userId = useContext(userData);
   const [currentTab, setCurrentTab] = useState<string>("myPlants"); // 初期値として'myPlants'を設定
   const [displayData, setDisplayData] = useState<any>([]);
+  const navigate = useNavigate();
   const handleTabChange = (value: string) => {
     setCurrentTab(value);
   };
 
   useEffect(() => {
     axios.get(`/api/photos/${userId}`).then((res) => {
-      console.log(res.data);
       setDisplayData(res.data);
     });
   }, []);
@@ -73,6 +79,15 @@ export const PhotosListPage = () => {
       <Box h={`calc(100vh - 60px - 48px - 60px)`}>
         {/* ↑スクロールエリアの高さ指定 */}
         <PhotosList displayList={selectedDisplayList}></PhotosList>
+      </Box>
+      <Box
+        pos={"absolute"}
+        bottom={"2vh"}
+        right={"5vw"}
+        c={"#5F907B"}
+        display={currentTab === "myPlants" ? "none" : "block"}
+      >
+        <IconCirclePlusFilled onClick={() => navigate("/friends")} size={50} />
       </Box>
       <Box
         style={{

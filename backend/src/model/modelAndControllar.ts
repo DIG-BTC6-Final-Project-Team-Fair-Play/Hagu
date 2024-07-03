@@ -192,6 +192,31 @@ export = {
     res.send(friends);
   },
 
+  async getUsersList(req: Request, res: Response) {
+    // サブクエリで各ユーザーの育てている苗の数をカウント
+    const seedlingsCountSubquery = knex("seedlings")
+      .select("user_id")
+      .count("* as seedling_count")
+      .groupBy("user_id")
+      .as("seedlings_count_subquery");
+    // メインクエリでユーザー情報と苗のカウントを取得
+    const usersList = await knex("users")
+      .select(
+        "users.id as user_id",
+        "users.user_name",
+        "users.picture",
+        knex.raw(
+          "coalesce(seedlings_count_subquery.seedling_count, 0) as seedling_count"
+        )
+      )
+      .leftJoin(
+        seedlingsCountSubquery,
+        "users.id",
+        "seedlings_count_subquery.user_id"
+      );
+    res.send(usersList);
+  },
+
   async getUsers(req: any, res: Response) {
     if (req.session.user) {
       const lineId: string = req.session.user.lineId;

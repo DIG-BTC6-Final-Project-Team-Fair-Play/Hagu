@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
   const [value, setValue] = useState<number>(0);
   const [photos, setPhotos] = useState<string[]>([]);
-  console.log("value: ", value);
-  console.log("selectSeedId: ", selectSeedId);
 
   useEffect(() => {
     (async () => {
@@ -16,8 +14,6 @@ export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
           console.log(res.data);
           return res.data;
         });
-      console.log("photos: ", photos[0]);
-
       setPhotos(photos);
     })();
   }, []);
