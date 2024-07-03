@@ -26,21 +26,22 @@ import { AdviceBox } from "../AdviceBox";
 
 export const StageChange = () => {
   const [seedId, setSeedId] = useState<number>(0);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  // const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
-  const [slideNo, setSlideNo] = useState<number>(0);
+  const [slideId, setSlideId] = useState<number>(0);
   const [newComer, setNewComer] = useState<boolean>(false);
-  const [vegetableId,setVegetableId] = useState<number>(0)
-  
+  const [vegetableId, setVegetableId] = useState<number>(0);
+
   const user = useContext(userData);
   console.log("userは:", user);
-  
-  const seed= useContext(seedLings);
+
+  const seed = useContext(seedLings);
   // const seed= testSeed; //test用
   console.log("seedLingsは:", seed);
-  console.log("vegetableId",vegetableId)
-  
-  
+  console.log("vegetableId", vegetableId);
+
+  let slideNo = seed[seedId].growing_stage_no - 1;
+
   const stages = [
     `./images/0${vegetableId}_stage_01.png`,
     `./images/0${vegetableId}_stage_02.png`,
@@ -48,46 +49,50 @@ export const StageChange = () => {
     `./images/0${vegetableId}_stage_04.png`,
     `./images/0${vegetableId}_stage_05.png`,
   ];
-
-  
-  useEffect(() => {
-    if (seed.length !== 0) {
-      setVegetableId(seed[seedId].vegetable_id)
-      setNewComer(true);
-    }
-    setSeedId(0)
-  }, [seed]);
   
   const slides = stages.map((url) => (
     <Carousel.Slide key={url}>
       <Image src={url} />
     </Carousel.Slide>
   ));
-
+  
   const handleScroll = useCallback(() => {
     if (!embla) return;
     const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
-    setScrollProgress(progress);
+    // setScrollProgress(progress);
     console.log("slideNo", slideNo);
-    console.log(scrollProgress);
     if (progress < 0.2) {
       console.log("slideは1です");
-      setSlideNo(0);
+      // console.log("scrollProgress",scrollProgress);
+      setSlideId(0);
+      slideNo = 1;
     } else if (progress >= 0.2 && progress < 0.45) {
       console.log("slideは2です");
-      setSlideNo(1);
+      setSlideId(1);
+      slideNo = 2;
     } else if (progress >= 0.45 && progress < 0.7) {
       console.log("slideは3です");
-      setSlideNo(2);
+      setSlideId(2);
+      slideNo = 3;
     } else if (progress >= 0.7 && progress < 0.95) {
       console.log("slideは4です");
-      setSlideNo(3);
+      setSlideId(3);
+      slideNo = 4;
     } else if (progress >= 0.95) {
       console.log("slideは5です");
-      setSlideNo(4);
+      setSlideId(4);
+      slideNo = 5;
     }
-  }, [embla, setScrollProgress]);
+  }, [embla]);
 
+  useEffect(() => {
+    if (seed.length !== 0) {
+      setVegetableId(seed[seedId].vegetable_id);
+      setNewComer(true);
+    }
+    setSeedId(0);
+  }, [seed]);
+  
   useEffect(() => {
     if (embla) {
       embla.on("scroll", handleScroll);
@@ -108,7 +113,7 @@ export const StageChange = () => {
             src={`./images/0${vegetableId}_icon.png`}
           />
         </Group>
-          <Space h={"xl"}></Space>
+        <Space h={"xl"}></Space>
         <Carousel
           slideSize="60%"
           slideGap="lg"
@@ -124,7 +129,7 @@ export const StageChange = () => {
           m={"auto"}
           w={"90%"}
           size={"xl"}
-          value={slideNo * 25}
+          value={slideId * 25}
           draggable={false}
           marks={[
             { value: 0, label: "定植" },
