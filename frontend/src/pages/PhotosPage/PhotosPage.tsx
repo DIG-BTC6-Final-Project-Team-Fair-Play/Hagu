@@ -12,7 +12,7 @@ export const PhotosPage = () => {
   const selectSeedId: { seedlingId: number } = location.state;
   return (
     <>
-      <Header />
+      <Header content="タイムラプス" />
       <Stack>
         <Center>
           <TimeLapsePhotos selectSeedId={selectSeedId.seedlingId} />

@@ -43,8 +43,8 @@ export const CreatePage = () => {
   return (
     <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
       <Box>
-        <Header />
-        <HeaderSeedling />
+        <Header content="" />
+        {/* <HeaderSeedling /> */}
       </Box>
       {/* NOTE:Routeで表示するコンポーネントを切り替える予定 */}
       <Box style={{ flex: 1 }}>
