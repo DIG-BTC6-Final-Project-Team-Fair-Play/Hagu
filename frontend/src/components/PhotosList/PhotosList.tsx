@@ -35,21 +35,21 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
         radius={"lg"}
         w={"90vw"}
         bg={"#EBF6F6"}
-        bd={"1px solid gray"}
+        bd={"1px solid lightgray"}
         p={10}
         onClick={() => handleOnClick(item.id)}
       >
-        <Image
-          src={item.photo_data}
-          h={200}
-          alt="lastUPloaded"
-          radius={"sm"}
-        ></Image>
-        <Text>
-          {item.label}
-          {"   " + item.seedling_name}
-          {"   userId:" + item.user_id}
-          {"   seedlingId:" + item.id}
+        <Box pos={"relative"}>
+          <Image
+            src={item.photo_data}
+            h={200}
+            alt="lastUPloaded"
+            radius={"sm"}
+          ></Image>
+        </Box>
+        <Text className="zen-maru-gothic-regular">
+          {item.label} <br></br>
+          {item.seedling_name}
         </Text>
       </Paper>
     </Box>

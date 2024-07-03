@@ -41,7 +41,7 @@ export const CreatePage = () => {
   }, []);
 
   return (
-    <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
+    <Flex direction="column" bg={"#F2EBD9"} style={{ height: "100vh" }}>
       <Box>
         <Header content="" />
         {/* <HeaderSeedling /> */}
