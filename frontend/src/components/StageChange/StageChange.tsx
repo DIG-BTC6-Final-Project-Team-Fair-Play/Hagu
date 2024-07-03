@@ -8,6 +8,8 @@ import { HomeNext } from "../HomeNext";
 // import { useLocation } from "react-router-dom";
 import { Seedlings } from "../../types/globals";
 import { selectSeedIdContext } from "../../App";
+import { Leaf } from "tabler-icons-react";
+
 
 interface StageChangeProps {
   seed: Seedlings[];
@@ -59,9 +61,9 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
   }, [seed]);
 
   const slides = stages.map((url) => (
-    <Carousel.Slide key={url}>
-      <Image src={url} />
-    </Carousel.Slide>
+      <Carousel.Slide key={url}>
+        <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
+      </Carousel.Slide>
   ));
 
   //カルーセルのスクロール状態を取得
@@ -147,6 +149,7 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
               radius={"xl"}
               bg={"#cdd1d1"}
               src={`./images/0${vegetableId}_icon.png`}
+              style={{ filter: "drop-shadow(1px 1px 2px black" }}
             />
             <Space h={"xs"} />
             <Text size="m" ta={"center"}>
@@ -166,12 +169,15 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
           {slides}
         </Carousel>
         <Slider
-          color="green"
+          thumbChildren={<Leaf size="1rem"/>}
+          label={null}
+          color="#5F907B"
           m={"auto"}
           w={"90%"}
           size={"xl"}
           value={slideId * 25}
           draggable={false}
+          thumbSize={26}
           marks={[
             { value: 0, label: "定植" },
             { value: 25, label: "開花" },

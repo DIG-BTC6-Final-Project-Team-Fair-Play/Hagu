@@ -26,6 +26,28 @@ export const SeedlingSelect = () => {
   }, []);
   return (
     <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
+      <GridCol span={6}>
+        <Center h={"100%"}>
+          <Box h={"70%"}>
+            <Space h={"md"} />
+            <Avatar
+              m={"auto"}
+              size={"xl"}
+              radius={"xl"}
+              bg={"lightgray"}
+              bd={"2px dashed #4D4D4D"}
+              src={"./images/plus_icon_152556.png"}
+              onClick={() => {
+                navigate("/create");
+              }}
+            />
+            <Space h={"xs"} />
+            <Center>
+              <Text size="md">新しい苗</Text>
+            </Center>
+          </Box>
+        </Center>
+      </GridCol>
       {mySeedling.map((obj, index) => {
         return (
           <GridCol span={6} key={index} p={0}>
@@ -36,8 +58,9 @@ export const SeedlingSelect = () => {
                   m={"auto"}
                   size={"xl"}
                   radius={"xl"}
-                  bg={"#cdd1d1"}
+                  bg={"#CAD6C5"}
                   src={`./images/0${obj.vegetable_id}_icon.png`}
+                  style={{filter:"drop-shadow(1px 1px 2px black"}}
                   onClick={() => {
                     setSelectSeedId(obj.id);
                     // navigate("/home", { state: { id: obj.id } });
@@ -53,27 +76,6 @@ export const SeedlingSelect = () => {
           </GridCol>
         );
       })}
-      <GridCol span={6}>
-        <Center h={"100%"}>
-          <Box h={"70%"}>
-            <Space h={"md"} />
-            <Avatar
-              m={"auto"}
-              size={"xl"}
-              radius={"xl"}
-              bg={"#cdd1d1"}
-              src={"./images/plus_icon_152556.png"}
-              onClick={() => {
-                navigate("/create");
-              }}
-            />
-            <Space h={"xs"} />
-            <Center>
-              <Text size="md">新しい苗</Text>
-            </Center>
-          </Box>
-        </Center>
-      </GridCol>
     </Grid>
   );
 };

@@ -125,9 +125,10 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               label={(value) => `${Math.trunc(value * 100)} %`}
               onChange={(value) => setOpacity(value)}
               min={0}
-              max={1}
-              step={0.05}
+              max={0.8}
+              step={0.04}
               defaultValue={0.5}
+              thumbSize={26}
             ></Slider>
           </Box>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
