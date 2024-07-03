@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// import { VitePWA } from "vite-plugin-pwa"; // added
+import { VitePWA } from "vite-plugin-pwa"; // added
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,7 +27,7 @@ export default defineConfig({
         background_color: "#F2EBD9",
         display: "standalone",
         // scope: "/", // added
-        start_url: "http://localhost:3000/api/auth", // added
+        // start_url: "http://localhost:3000/api/auth", // added
         icons: [
           {
             src: "pwa-192x192.png",
