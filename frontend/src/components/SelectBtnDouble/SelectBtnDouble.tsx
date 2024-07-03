@@ -14,10 +14,12 @@ export const SelectBtnDouble: React.FC<BtnProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const postSeedling = async () => {
-    navigate("/first", {
-      state: { vegetableId: active, seedlingName: seedlingName },
-    });
+  const navigateFirstExplain = async () => {
+    if(active && seedlingName){
+      navigate("/first", {
+        state: { vegetableId: active, seedlingName: seedlingName },
+      });
+    }
   };
 
   return (
@@ -29,7 +31,7 @@ export const SelectBtnDouble: React.FC<BtnProps> = ({
           p={"10px 30px"}
           radius={50}
           bg={"#47BB01"}
-          onClick={postSeedling}
+          onClick={navigateFirstExplain}
         >
           選択する
         </Button>

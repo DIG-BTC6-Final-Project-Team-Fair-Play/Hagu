@@ -1,21 +1,32 @@
 // import React from "react";
 import { Box, Button, Group, Text, Flex, Space } from "@mantine/core";
+import axios from "axios";
 
 //例:nextMessage : "実が大きくなったら、"
 interface BtnProps {
   nextMessage: string;
   setSlideId: React.Dispatch<React.SetStateAction<number>>;
   setNextOn: React.Dispatch<React.SetStateAction<boolean>>;
-  prev:(jump:boolean)=>void;
-
+  prev: (jump: boolean) => void;
+  growingStage: number;
+  seedId: number;
 }
 
 export const HomeNext = ({
   nextMessage,
   setSlideId,
   setNextOn,
-  prev
+  prev,
+  growingStage,
+  seedId,
 }: BtnProps) => {
+  const growingStagePost = async () => {
+    await axios.put(`/api/seedlings/${seedId}/growth`, {
+      growing_stage_no: growingStage + 1,
+    });
+  };
+
+
   return (
     <Box
       h={"100vh"}
@@ -45,10 +56,11 @@ export const HomeNext = ({
               radius={50}
               bg={"#47BB01"}
               onClick={() => {
-                setSlideId(prev => {
-                  return prev+1
+                setSlideId((prev) => {
+                  return prev + 1;
                 });
                 setNextOn(false);
+                growingStagePost();
               }}
             >
               すすむ

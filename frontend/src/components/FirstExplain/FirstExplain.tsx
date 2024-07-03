@@ -18,7 +18,6 @@ export const FirstExplain = () => {
     growing_stage_no: 0,
     advice: "string",
   });
-  console.log("advice: ", advice);
 
   useEffect(() => {
     (async () => {
@@ -40,8 +39,7 @@ export const FirstExplain = () => {
         seedling_name: seedlingName,
       })
       .then((res) => res.data);
-    console.log("seedlingId.id: ", seedlingId.id);
-    navigate("/home", { state: { seedlingId: seedlingId.id } });
+    navigate("/home", { state: { id: seedlingId.id } });
   };
   return (
     <>

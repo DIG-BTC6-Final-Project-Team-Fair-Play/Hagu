@@ -19,7 +19,6 @@ export const SeedlingSelect = () => {
         .get(`/api/seedlings/${userID}`)
         .then((res) => res.data);
       setMySeedling(seedlings);
-      console.log("seedlings : ", seedlings);
     })();
   }, []);
   return (
