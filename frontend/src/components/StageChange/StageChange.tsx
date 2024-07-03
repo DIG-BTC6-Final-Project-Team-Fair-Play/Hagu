@@ -1,13 +1,15 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Avatar, Box, Group, Image, Slider, Space, Text } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { AdviceBox } from "../AdviceBox";
 import { HomeBack } from "../HomeBack";
 import { HomeNext } from "../HomeNext";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { Seedlings } from "../../types/globals";
+import { selectSeedIdContext } from "../../App";
 import { Leaf } from "tabler-icons-react";
+
 
 interface StageChangeProps {
   seed: Seedlings[];
@@ -15,12 +17,16 @@ interface StageChangeProps {
 }
 
 export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
-  const location = useLocation();
+  // const location = useLocation();
 
+  const { selectSeedId } = useContext(selectSeedIdContext);
+
+  // let seedIndex =
+  //   location.state === null
+  //     ? 0
+  //     : seed.findIndex((ele) => ele.id === location.state.id);
   let seedIndex =
-    location.state === null
-      ? 0
-      : seed.findIndex((ele) => ele.id === location.state.id);
+    selectSeedId === 0 ? 0 : seed.findIndex((ele) => ele.id === selectSeedId);
 
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
