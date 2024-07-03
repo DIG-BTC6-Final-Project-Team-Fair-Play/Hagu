@@ -7,18 +7,13 @@ export const SeedlingSelectPage = () => {
   return (
     <>
       <Flex direction="column" style={{ height: "100vh" }}>
-        <Box h={`calc(100vh - 60px)`}>
+        <Box h={60}>育てている苗</Box>
+        <hr style={{ margin: 0 }}></hr>
+        <Box flex={1}>
           {/* <Header /> */}
           <SeedlingSelect />
         </Box>
-        <Box
-          style={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            width: "100%",
-          }}
-        >
+        <Box h={60}>
           <FooterIcons />
         </Box>
       </Flex>

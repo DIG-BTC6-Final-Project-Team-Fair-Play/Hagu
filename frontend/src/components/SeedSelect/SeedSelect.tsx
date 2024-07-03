@@ -1,4 +1,13 @@
-import { Avatar, Box, Center, Grid, GridCol, Space, Text } from "@mantine/core";
+import {
+  Avatar,
+  Box,
+  Center,
+  Grid,
+  GridCol,
+  ScrollArea,
+  Space,
+  Text,
+} from "@mantine/core";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Seedlings } from "../../types/globals";
@@ -23,12 +32,12 @@ export const SeedlingSelect = () => {
     })();
   }, []);
   return (
-    <Box h={"80vh"}>
-      <Grid>
+    <ScrollArea h={"calc(100vh - 60px - 60px)"}>
+      <Grid h={"100%"}>
         {mySeedling.map((obj, index) => {
           return (
             <GridCol span={6} key={index}>
-              <Center>
+              <Center h={"100%"}>
                 <Box h={"70%"}>
                   <Space h={"md"} />
                   <Avatar
@@ -43,14 +52,16 @@ export const SeedlingSelect = () => {
                     }}
                   />
                   <Space h={"xs"} />
-                  <Text size="m">{mySeedling[index].seedling_name}</Text>
+                  <Center>
+                    <Text size="m">{mySeedling[index].seedling_name}</Text>
+                  </Center>
                 </Box>
               </Center>
             </GridCol>
           );
         })}
         <GridCol span={6}>
-          <Center>
+          <Center h={"100%"}>
             <Box h={"70%"}>
               <Space h={"md"} />
               <Avatar
@@ -64,13 +75,15 @@ export const SeedlingSelect = () => {
                 }}
               />
               <Space h={"xs"} />
-              <Text size="m" m={"auto"}>
-                新しい苗
-              </Text>
+              <Center>
+                <Text size="m" m={"auto"}>
+                  新しい苗
+                </Text>
+              </Center>
             </Box>
           </Center>
         </GridCol>
       </Grid>
-    </Box>
+    </ScrollArea>
   );
 };
