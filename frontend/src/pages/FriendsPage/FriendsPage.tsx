@@ -8,6 +8,7 @@ import { userData } from "../../App";
 export const FriendsPage = () => {
   const [usersList, setUsersList] = useState<any>([]);
   const [friendsList, setFriendsList] = useState<any>([]);
+  const [refresh, setRefresh] = useState(false);
   const userId = useContext(userData);
 
   useEffect(() => {
@@ -17,10 +18,9 @@ export const FriendsPage = () => {
   }, []);
   useEffect(() => {
     axios.get(`/api/friends/${userId}`).then((res) => {
-      console.log(res.data);
       setFriendsList(res.data);
     });
-  }, []);
+  }, [refresh]);
   return (
     <>
       <Box h={60}>友達候補</Box>
@@ -28,6 +28,7 @@ export const FriendsPage = () => {
       <FriendsList
         usersList={usersList}
         friendsList={friendsList}
+        setRefresh={setRefresh}
       ></FriendsList>
       <Box pos={"absolute"} w={"100%"} bottom={0}>
         <FooterIcons />

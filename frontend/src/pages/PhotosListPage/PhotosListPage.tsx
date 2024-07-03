@@ -55,7 +55,7 @@ export const PhotosListPage = () => {
         m="0 auto"
         defaultValue={"myPlants"}
         variant="outline"
-        radius={"lg"}
+        radius={"xl"}
       >
         <Tabs.List bg={"#5CB697"} grow={true}>
           <Tabs.Tab

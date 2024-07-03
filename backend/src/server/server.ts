@@ -45,6 +45,10 @@ const setupExpressApp = () => {
 
   app.get("/api/friends/:userId", controller.getFriends);
 
+  app.post("/api/friends/:userId", controller.postFriends);
+
+  app.delete("/api/friends/:userId/:friendId", controller.deleteFriends);
+
   app.get("/api/users/list", controller.getUsersList);
 
   app.use((req, res, next) => {
