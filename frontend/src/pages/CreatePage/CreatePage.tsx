@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 // import React from "react";
 import { Header } from "../../components/Header";
-import { HeaderSeedling } from "../../components/HeaderSeedling";
+// import { HeaderSeedling } from "../../components/HeaderSeedling";
 
 import { SelectSeedling } from "../../components/SelectSeedling";
 // import { SelectBtnDouble } from "../../components/SelectBtnDouble";
