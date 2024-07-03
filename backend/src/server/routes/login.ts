@@ -26,15 +26,6 @@ declare module "express-session" {
   }
 }
 
-// /// <reference path="../../types/express-sesison.d.ts" />
-
-// heroku Linedeveloperのコールバックの変更も必要もしくはもう一つチャンネルを作って変更させるでもよし
-// const environment = process.env.DATABASE_URL ? "production" : "development";
-// const siteURL =
-//   environment === "production"
-//     ? "https://hagu-13249feb73b0.herokuapp.com"
-//     : "http://localhost:3000";
-
 // ===sessionの利用====60分のクッキー有効
 router.use(
   session({
@@ -42,7 +33,7 @@ router.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 60 * 60 * 1000,
+      maxAge: 180 * 60 * 1000,
     },
   })
 );
@@ -124,7 +115,6 @@ router.get(
 // 認証チェックミドルウェア(セッションにJWTが含まれていなければ/リダイレクト)
 const isAuthenticated = (req: Request, res: Response, next: Function) => {
   console.log("====セッションID====: ", req.sessionID);
-  console.log("req.session: ", req.session);
   console.log("req.session.user: ", req.session.user);
 
   if (req.session.user) {

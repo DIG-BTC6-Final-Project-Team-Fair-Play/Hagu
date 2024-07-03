@@ -9,18 +9,19 @@ import { FriendsPage } from "./pages/FriendsPage";
 import { PhotosListPage } from "./pages/PhotosListPage";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Users, Seedlings } from "./types/globals";
+import { Users } from "./types/globals";
 import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
 import { WateringPage } from "./pages/WateringPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { FirstExplainPage } from "./pages/FirstExplainPage";
+import OneSignal from "react-onesignal";
 
 export const userData = createContext<number>(0);
-export const seedLings = createContext<Seedlings[]>([]);
+// export const seedLings = createContext<Seedlings[]>([]);
 
 function App() {
   const [userId, setUserId] = useState<number>(0);
-  const [seed, setSeed] = useState<Seedlings[]>([]);
+  // const [seed, setSeed] = useState<Seedlings[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -28,21 +29,28 @@ function App() {
         return res.data;
       });
 
-      (async () => {
-        const seedlings: Seedlings[] = await axios
-          .get(`/api/seedlings/${getUserData.id}`)
-          .then((res) => {
-            return res.data;
-          });
-        setSeed(seedlings);
-      })();
+      // (async () => {
+      //   const seedlings: Seedlings[] = await axios
+      //     .get(`/api/seedlings/${getUserData.id}`)
+      //     .then((res) => {
+      //       return res.data;
+      //     });
+      //   setSeed(seedlings);
+      // })();
       setUserId(getUserData.id);
+
+      (async () => {
+        OneSignal.init({
+          // TODO: 事前にメモしておいた appID に置き換えてください。OneSignal のダッシュボードでヘッダーの Settins → Keys & IDs でも確認できます。 //
+          appId: "f8ee020f-6c48-4593-b7fa-e697507e3e8f",
+        });
+      })();
     })();
   }, []);
   return (
     <>
       <userData.Provider value={userId}>
-        <seedLings.Provider value={seed}>
+        {/* <seedLings.Provider value={seed}> */}
           <div className="App">
             <BrowserRouter>
               <Routes>
@@ -61,7 +69,7 @@ function App() {
               </Routes>
             </BrowserRouter>
           </div>
-        </seedLings.Provider>
+        {/* </seedLings.Provider> */}
       </userData.Provider>
     </>
   );

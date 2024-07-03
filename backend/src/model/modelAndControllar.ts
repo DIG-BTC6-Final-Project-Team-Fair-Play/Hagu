@@ -70,7 +70,8 @@ export = {
     const id = req.params.userId;
     const data: Seedlings[] = await knex("seedlings")
       .select("*")
-      .where("user_id", parseInt(id));
+      .where("user_id", parseInt(id))
+      .orderBy("id")
     res.json(data);
   },
 
