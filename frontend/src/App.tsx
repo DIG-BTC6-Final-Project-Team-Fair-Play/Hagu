@@ -14,6 +14,7 @@ import { SeedlingSelectPage } from "./pages/SeedlingSelectPage";
 import { WateringPage } from "./pages/WateringPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { FirstExplainPage } from "./pages/FirstExplainPage";
+import OneSignal from "react-onesignal";
 
 export const userData = createContext<number>(0);
 export const seedLings = createContext<Seedlings[]>([]);
@@ -37,6 +38,13 @@ function App() {
         setSeed(seedlings);
       })();
       setUserId(getUserData.id);
+
+      (async () => {
+        OneSignal.init({
+          // TODO: 事前にメモしておいた appID に置き換えてください。OneSignal のダッシュボードでヘッダーの Settins → Keys & IDs でも確認できます。 //
+          appId: "f8ee020f-6c48-4593-b7fa-e697507e3e8f",
+        });
+      })();
     })();
   }, []);
   return (
