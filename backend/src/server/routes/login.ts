@@ -123,10 +123,15 @@ const isAuthenticated = (req: Request, res: Response, next: Function) => {
     res.redirect("/");
   }
 };
-router.get("/home", isAuthenticated);
+router.get("/first", isAuthenticated);
+router.get("/profile", isAuthenticated);
+router.get("/watering", isAuthenticated);
+router.get("/seedling", isAuthenticated);
 router.get("/create", isAuthenticated);
+router.get("/home", isAuthenticated);
 router.get("/camera", isAuthenticated);
 router.get("/photos", isAuthenticated);
+router.get("/photosList", isAuthenticated);
 router.get("/friends", isAuthenticated);
 
 module.exports = router;
