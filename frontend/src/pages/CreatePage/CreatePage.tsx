@@ -1,7 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 // import React from "react";
 import { Header } from "../../components/Header";
-import { HeaderSeedling } from "../../components/HeaderSeedling";
+// import { HeaderSeedling } from "../../components/HeaderSeedling";
 
 import { SelectSeedling } from "../../components/SelectSeedling";
 // import { SelectBtnDouble } from "../../components/SelectBtnDouble";
@@ -41,10 +41,10 @@ export const CreatePage = () => {
   }, []);
 
   return (
-    <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
+    <Flex direction="column" bg={"#F2EBD9"} style={{ height: "100vh" }}>
       <Box>
-        <Header />
-        <HeaderSeedling />
+        <Header content="" />
+        {/* <HeaderSeedling /> */}
       </Box>
       {/* NOTE:Routeで表示するコンポーネントを切り替える予定 */}
       <Box style={{ flex: 1 }}>

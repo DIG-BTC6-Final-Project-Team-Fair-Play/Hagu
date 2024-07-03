@@ -13,23 +13,13 @@ export const FooterIcons = () => {
   const iconSize = 30;
   const navigate = useNavigate();
 
-  //  <Route path="seedling" element={<SeedlingSelectPage />} />
-  // <Route path="create" element={<CreatePage />} />
-  // <Route path="home" element={<HomePage />} />
-  // <Route path="camera" element={<CameraPage />} />
-  // <Route path="photos" element={<PhotosPage />} />
-  // <Route path="photosList" element={<PhotosListPage />} />
-  // <Route path="friends" element={<FriendsPage />} />
-  // <Route path="/" element={<SignIn />} />
-  // <Route path="*" element={<h1>Not Found Page</h1>} />
-
   return (
     <Box h={footerH}>
       <Flex
         direction="row"
         align="center"
         justify={"space-evenly"}
-        bg={"#5CB697"}
+        bg={"#5F907B"}
       >
         <IconHomeEco
           size={iconSize}
