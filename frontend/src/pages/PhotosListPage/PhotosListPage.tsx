@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { userData } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { Header } from "../../components/Header";
 
 interface PhotosList {
   id: number; //seedlingId
@@ -47,42 +48,41 @@ export const PhotosListPage = () => {
 
   return (
     <Box pos={"relative"}>
-      <Box h={60} bg={"#5CB697"}>
-        成長の記録 Header
-      </Box>
+      <Header content="写真一覧"></Header>
       <Tabs
         w={"100vw"}
         m="0 auto"
         defaultValue={"myPlants"}
         variant="outline"
         radius={"xl"}
+        bg={"white"}
       >
-        <Tabs.List bg={"#5CB697"} grow={true}>
+        <Tabs.List bg={"#5F907B"} grow={true}>
           <Tabs.Tab
             value="myPlants"
-            c={currentTab === "myPlants" ? "#5CB697" : "white"}
-            bg={currentTab === "myPlants" ? "white" : "#5CB697"}
+            c={currentTab === "myPlants" ? "#5F907B" : "white"}
+            bg={currentTab === "myPlants" ? "#F2EBD9" : "#5F907B"}
             onClick={() => handleTabChange("myPlants")}
           >
             <IconPhoto></IconPhoto>
           </Tabs.Tab>
           <Tabs.Tab
             value="friends"
-            c={currentTab === "friends" ? "#5CB697" : "white"}
-            bg={currentTab === "friends" ? "white" : "#5CB697"}
+            c={currentTab === "friends" ? "#5F907B" : "white"}
+            bg={currentTab === "friends" ? "#F2EBD9" : "#5F907B"}
             onClick={() => handleTabChange("friends")}
           >
             <IconHeartHandshake></IconHeartHandshake>
           </Tabs.Tab>
         </Tabs.List>
       </Tabs>
-      <Box h={`calc(100vh - 60px - 48px - 60px)`}>
+      <Box h={`calc(100vh - 60px - 48px - 60px)`} bg={"#F2EBD9"}>
         {/* ↑スクロールエリアの高さ指定 */}
         <PhotosList displayList={selectedDisplayList}></PhotosList>
       </Box>
       <Box
-        pos={"absolute"}
-        bottom={"2vh"}
+        pos={"fixed"}
+        bottom={"60px"}
         right={"5vw"}
         c={"#5F907B"}
         display={currentTab === "myPlants" ? "none" : "block"}
@@ -91,6 +91,7 @@ export const PhotosListPage = () => {
       </Box>
       <Box
         style={{
+          zIndex: 10,
           position: "fixed",
           bottom: 0,
           left: 0,

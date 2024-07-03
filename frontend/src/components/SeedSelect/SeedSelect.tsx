@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Center,
-  Grid,
-  GridCol,
-  ScrollArea,
-  Space,
-  Text,
-} from "@mantine/core";
+import { Avatar, Box, Center, Grid, GridCol, Space, Text } from "@mantine/core";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Seedlings } from "../../types/globals";
@@ -32,58 +23,54 @@ export const SeedlingSelect = () => {
     })();
   }, []);
   return (
-    <ScrollArea h={"calc(100vh - 60px - 60px)"}>
-      <Grid h={"100%"}>
-        {mySeedling.map((obj, index) => {
-          return (
-            <GridCol span={6} key={index}>
-              <Center h={"100%"}>
-                <Box h={"70%"}>
-                  <Space h={"md"} />
-                  <Avatar
-                    m={"auto"}
-                    size={"xl"}
-                    radius={"xl"}
-                    bg={"#cdd1d1"}
-                    src={`./images/0${obj.vegetable_id}_icon.png`}
-                    onClick={() => {
-                      navigate("/home", { state: { id: obj.id } });
-                      console.log(obj.id, "をクリック");
-                    }}
-                  />
-                  <Space h={"xs"} />
-                  <Center>
-                    <Text size="m">{mySeedling[index].seedling_name}</Text>
-                  </Center>
-                </Box>
-              </Center>
-            </GridCol>
-          );
-        })}
-        <GridCol span={6}>
-          <Center h={"100%"}>
-            <Box h={"70%"}>
-              <Space h={"md"} />
-              <Avatar
-                m={"auto"}
-                size={"xl"}
-                radius={"xl"}
-                bg={"#cdd1d1"}
-                src={"./images/plus_icon_152556.png"}
-                onClick={() => {
-                  navigate("/create");
-                }}
-              />
-              <Space h={"xs"} />
-              <Center>
-                <Text size="m" m={"auto"}>
-                  新しい苗
-                </Text>
-              </Center>
-            </Box>
-          </Center>
-        </GridCol>
-      </Grid>
-    </ScrollArea>
+    <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
+      {mySeedling.map((obj, index) => {
+        return (
+          <GridCol span={6} key={index} p={0}>
+            <Center h={"100%"}>
+              <Box h={"70%"}>
+                <Space h={"md"} />
+                <Avatar
+                  m={"auto"}
+                  size={"xl"}
+                  radius={"xl"}
+                  bg={"#cdd1d1"}
+                  src={`./images/0${obj.vegetable_id}_icon.png`}
+                  onClick={() => {
+                    navigate("/home", { state: { id: obj.id } });
+                    console.log(obj.id, "をクリック");
+                  }}
+                />
+                <Space h={"xs"} />
+                <Center>
+                  <Text size="m">{mySeedling[index].seedling_name}</Text>
+                </Center>
+              </Box>
+            </Center>
+          </GridCol>
+        );
+      })}
+      <GridCol span={6}>
+        <Center h={"100%"}>
+          <Box h={"70%"}>
+            <Space h={"md"} />
+            <Avatar
+              m={"auto"}
+              size={"xl"}
+              radius={"xl"}
+              bg={"#cdd1d1"}
+              src={"./images/plus_icon_152556.png"}
+              onClick={() => {
+                navigate("/create");
+              }}
+            />
+            <Space h={"xs"} />
+            <Center>
+              <Text size="md">新しい苗</Text>
+            </Center>
+          </Box>
+        </Center>
+      </GridCol>
+    </Grid>
   );
 };

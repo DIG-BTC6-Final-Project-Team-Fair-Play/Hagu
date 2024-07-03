@@ -1,19 +1,21 @@
 import { FooterIcons } from "../../components/FooterIcons";
+import { Header } from "../../components/Header";
 // import { Header } from "../../components/Header";
 import { SeedlingSelect } from "../../components/SeedSelect";
-import { Box, Flex } from "@mantine/core";
+import { Box, Flex, ScrollArea } from "@mantine/core";
 
 export const SeedlingSelectPage = () => {
   return (
     <>
       <Flex direction="column" style={{ height: "100vh" }}>
-        <Box h={60}>育てている苗</Box>
-        <hr style={{ margin: 0 }}></hr>
+        <Header content="育てている苗"></Header>
         <Box flex={1}>
-          {/* <Header /> */}
-          <SeedlingSelect />
+          <ScrollArea h={"calc(100vh - 60px - 60px)"}>
+            {/* <Header /> */}
+            <SeedlingSelect />
+          </ScrollArea>
         </Box>
-        <Box h={60}>
+        <Box h={60} pos={"fixed"} bottom={0} w={"100%"}>
           <FooterIcons />
         </Box>
       </Flex>
