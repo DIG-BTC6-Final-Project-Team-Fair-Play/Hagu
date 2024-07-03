@@ -1,13 +1,27 @@
 // import React from "react";
 import { Box, Button, Group, Text, Flex } from "@mantine/core";
+import axios from "axios";
 
 interface BtnProps {
   setSlideId: React.Dispatch<React.SetStateAction<number>>;
   setBackOn: React.Dispatch<React.SetStateAction<boolean>>;
-  prev:(jump:boolean)=>void;
+  prev: (jump: boolean) => void;
+  growingStage: number;
+  seedId: number;
 }
 
-export const HomeBack = ({ setSlideId, setBackOn,prev }: BtnProps) => {
+export const HomeBack = ({
+  setSlideId,
+  setBackOn,
+  prev,
+  growingStage,
+  seedId,
+}: BtnProps) => {
+  const growingStagePost = async () => {
+    await axios.put(`/api/seedlings/${seedId}/growth`, {
+      growing_stage_no: growingStage - 1,
+    });
+  };
   return (
     <Box
       h={"100vh"}
@@ -28,13 +42,20 @@ export const HomeBack = ({ setSlideId, setBackOn,prev }: BtnProps) => {
           </Box>
 
           <Group justify="center" mt={30}>
-            <Button h={50} w={"35%"} p={"10px 20px"} radius={50} bg={"#47BB01"}
-            onClick={() => {
-              setSlideId(prev => {
-                return prev -1
-              });
-              setBackOn(false)
-            }}>
+            <Button
+              h={50}
+              w={"35%"}
+              p={"10px 20px"}
+              radius={50}
+              bg={"#47BB01"}
+              onClick={() => {
+                setSlideId((prev) => {
+                  return prev - 1;
+                });
+                setBackOn(false);
+                growingStagePost();
+              }}
+            >
               もどる
             </Button>
             <Button

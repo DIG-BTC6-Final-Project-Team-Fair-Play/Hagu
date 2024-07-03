@@ -114,6 +114,8 @@ export const StageChange = ({ seed }: StageChangeProps) => {
             prev={(jump) => embla?.scrollNext(jump)}
             setSlideId={setSlideId}
             setBackOn={setBackOn}
+            growingStage={seed[seedId].growing_stage_no}
+            seedId={seed[seedId].id}
           ></HomeBack>
         )}
         {nextOn && (
@@ -122,6 +124,8 @@ export const StageChange = ({ seed }: StageChangeProps) => {
             prev={(jump) => embla?.scrollPrev(jump)}
             setSlideId={setSlideId}
             setNextOn={setNextOn}
+            growingStage={seed[seedId].growing_stage_no}
+            seedId={seed[seedId].id}
           ></HomeNext>
         )}
 
