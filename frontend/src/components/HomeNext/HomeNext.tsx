@@ -1,6 +1,9 @@
 // import React from "react";
 import { Box, Button, Group, Text, Flex, Space } from "@mantine/core";
 import axios from "axios";
+import { Seedlings } from "../../types/globals";
+import { useContext } from "react";
+import { userData } from "../../App";
 
 //例:nextMessage : "実が大きくなったら、"
 interface BtnProps {
@@ -9,7 +12,8 @@ interface BtnProps {
   setNextOn: React.Dispatch<React.SetStateAction<boolean>>;
   prev: (jump: boolean) => void;
   growingStage: number;
-  seedId: number;
+  seedIndex: number;
+  setSeed: React.Dispatch<React.SetStateAction<Seedlings[]>>;
 }
 
 export const HomeNext = ({
@@ -18,14 +22,18 @@ export const HomeNext = ({
   setNextOn,
   prev,
   growingStage,
-  seedId,
+  seedIndex,
+  setSeed,
 }: BtnProps) => {
+  const user = useContext(userData);
   const growingStagePost = async () => {
-    await axios.put(`/api/seedlings/${seedId}/growth`, {
+    await axios.put(`/api/seedlings/${seedIndex}/growth`, {
       growing_stage_no: growingStage + 1,
     });
+    await axios.get(`/api/seedlings/${user}`).then((res) => {
+      setSeed(res.data);
+    });
   };
-
 
   return (
     <Box
