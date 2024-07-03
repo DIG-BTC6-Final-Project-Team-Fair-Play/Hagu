@@ -1,30 +1,46 @@
 // import React from "react";
-import { Box, BackgroundImage, Text, Avatar, Flex } from "@mantine/core";
+import { Box, Text, Avatar, Flex, Center } from "@mantine/core";
 
-interface UserProps {
-  name?: string;
-  avatarUrl?: string;
+interface HeaderProps {
+  content: string;
 }
 
-export const Header = ({ name = "未設定", avatarUrl }: UserProps) => {
-  const headerH = "80px";
+export const Header = ({ content }: HeaderProps) => {
+  const headerH = "60px";
   const textShadow = "2px 2px 4px rgba(0, 0, 0, 0.5)";
   return (
-    <BackgroundImage src="https://th.bing.com/th/id/R.b906be825ecb0e63b4ac928c466bb30d?rik=wPjtUe2O3ZF9vA&riu=http%3a%2f%2fgahag.net%2fimg%2f201510%2f30s%2fgahag-0019952550-1.jpg&ehk=d5WpkAlaTiQ%2bUIAjSrVzDqkOci1dBaEcW88arzqKnW8%3d&risl=&pid=ImgRaw&r=0">
-      <Box h={headerH}>
+    <Box h={headerH} bg="#5F907B">
+      <Box h={headerH} pos={"fixed"} top={0} w={"100%"}>
         <Flex direction="row" align="center">
-          <Avatar src={avatarUrl} ml={"5px"}></Avatar>
+          <Avatar
+            size={"50px"}
+            src={"./images/hagu_chara.png"}
+            ml={"5px"}
+          ></Avatar>
           <Text
+            className="darumadrop-one-regular"
             c="white"
+            size="35px"
             h={headerH}
-            lh={headerH}
-            ml={10}
+            lh={"50px"}
+            ml={5}
             style={{ textShadow }}
           >
-            {name}
+            はぐ
           </Text>
         </Flex>
       </Box>
-    </BackgroundImage>
+      <Center>
+        <Text
+          c={"white"}
+          h={headerH}
+          lh={headerH}
+          size="14px"
+          className="zen-maru-gothic-regular"
+        >
+          {content}
+        </Text>
+      </Center>
+    </Box>
   );
 };
