@@ -2,45 +2,25 @@ import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Avatar, Group, Image, Slider, Space } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { userData, seedLings } from "../../App";
+import { seedLings } from "../../App";
 import { AdviceBox } from "../AdviceBox";
+import { HomeBack } from "../HomeBack";
+import { HomeNext } from "../HomeNext";
 
-// const testSeed = [
-//   {
-//     id: 1,
-//     user_id: 1,
-//     vegetable_id: 3,
-//     growing_stage_no: 1,
-//     last_watering: "2024-06-25T01:00:00.000Z",
-//     seedling_name: "苗ろう",
-//   },
-//   {
-//     id: 2,
-//     user_id: 1,
-//     vegetable_id: 2,
-//     growing_stage_no: 2,
-//     last_watering: "2024-06-25T02:00:00.000Z",
-//     seedling_name: "苗る",
-//   },
-// ];
 
 export const StageChange = () => {
-  const [seedId, setSeedId] = useState<number>(0);
-  // const [scrollProgress, setScrollProgress] = useState<number>(0);
+  // const [seedId, setSeedId] = useState<number>(0);
+  let seedId = 0
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideId, setSlideId] = useState<number>(0);
   const [newComer, setNewComer] = useState<boolean>(false);
   const [vegetableId, setVegetableId] = useState<number>(0);
+  const [nextOn, setNextOn] = useState<boolean>(false);
+  const [backOn, setBackOn] = useState<boolean>(false);
 
-  const user = useContext(userData);
-  console.log("userは:", user);
 
   const seed = useContext(seedLings);
-  // const seed= testSeed; //test用
-  console.log("seedLingsは:", seed);
-  console.log("vegetableId", vegetableId);
-
-  let slideNo = seed[seedId].growing_stage_no - 1;
 
   const stages = [
     `./images/0${vegetableId}_stage_01.png`,
@@ -49,50 +29,68 @@ export const StageChange = () => {
     `./images/0${vegetableId}_stage_04.png`,
     `./images/0${vegetableId}_stage_05.png`,
   ];
+
+  const message = [
+    `花が咲いたら`,
+    `実がついたら`,
+    `実が大きくなったら`,
+    `収穫できるようになったら`,
+  ];
+
+  //seedファイルの有/無で初期値を設定
+  useEffect(() => {
+    if (seed.length !== 0) {
+      setVegetableId(seed[seedId].vegetable_id);
+      setNewComer(true);
+      setSlideId(seed[seedId].growing_stage_no-1);
+    }
+  }, [seed]);
   
   const slides = stages.map((url) => (
     <Carousel.Slide key={url}>
       <Image src={url} />
     </Carousel.Slide>
   ));
-  
+
+  //カルーセルのスクロール状態を取得
   const handleScroll = useCallback(() => {
     if (!embla) return;
-    const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
-    // setScrollProgress(progress);
-    console.log("slideNo", slideNo);
-    if (progress < 0.2) {
-      console.log("slideは1です");
-      // console.log("scrollProgress",scrollProgress);
-      setSlideId(0);
-      slideNo = 1;
-    } else if (progress >= 0.2 && progress < 0.45) {
-      console.log("slideは2です");
-      setSlideId(1);
-      slideNo = 2;
-    } else if (progress >= 0.45 && progress < 0.7) {
-      console.log("slideは3です");
-      setSlideId(2);
-      slideNo = 3;
-    } else if (progress >= 0.7 && progress < 0.95) {
-      console.log("slideは4です");
-      setSlideId(3);
-      slideNo = 4;
-    } else if (progress >= 0.95) {
-      console.log("slideは5です");
-      setSlideId(4);
-      slideNo = 5;
-    }
-  }, [embla]);
+    const progress = parseFloat(Math.max(0, Math.min(1, embla.scrollProgress())).toFixed(3));
+    setScrollProgress(progress);
+  }, [embla,setScrollProgress]);
 
-  useEffect(() => {
-    if (seed.length !== 0) {
-      setVegetableId(seed[seedId].vegetable_id);
-      setNewComer(true);
-    }
-    setSeedId(0);
-  }, [seed]);
+  //現ステージとカルーセル位置からNext/Backを判断それぞれのコンポーネントを呼び出し
+ useEffect(()=> {
+   if (slideId=== 0) {
+     if (scrollProgress > 0.2) {
+       setNextOn(true);
+     }
+   } else if (slideId === 1) {
+     if (scrollProgress < 0.05) {
+       setBackOn(true)
+     } else if (scrollProgress > 0.45) {
+       setNextOn(true);
+     }
+   } else if (slideId === 2) {
+     if (scrollProgress < 0.3) {
+       setBackOn(true)
+     } else if (scrollProgress > 0.7) {
+       setNextOn(true);
+     }
+   } else if (slideId === 3) {
+     if (scrollProgress < 0.55) {
+       setBackOn(true)
+     } else if (scrollProgress > 0.95) {
+      setNextOn(true);
+     }
+   } else if (slideId === 4) {
+     if (scrollProgress < 0.8) {
+       setBackOn(true)
+     }
+   }
+ },[scrollProgress])
   
+//カルーセルの移動でhandleScrollを実行
   useEffect(() => {
     if (embla) {
       embla.on("scroll", handleScroll);
@@ -103,6 +101,22 @@ export const StageChange = () => {
   return (
     newComer && (
       <>
+        {backOn && (
+          <HomeBack
+          prev={(jump)=> embla?.scrollNext(jump)}
+          setSlideId={setSlideId}
+          setBackOn={setBackOn}
+          ></HomeBack>)}
+        {nextOn && (
+          <HomeNext
+            nextMessage={message[slideId]}
+            prev={(jump) => embla?.scrollPrev(jump)}
+            setSlideId={setSlideId}
+            setNextOn={setNextOn}
+          ></HomeNext>
+        )}
+
+        <Space h={"xl"}></Space>
         <Group>
           <AdviceBox></AdviceBox>
           <Avatar
@@ -118,7 +132,7 @@ export const StageChange = () => {
           slideSize="60%"
           slideGap="lg"
           getEmblaApi={setEmbla}
-          initialSlide={seed[seedId].growing_stage_no - 1}
+          initialSlide={slideId}
           withIndicators={false}
           withControls={false}
         >
