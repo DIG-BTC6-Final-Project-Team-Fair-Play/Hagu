@@ -9,8 +9,8 @@ export const Header = ({ content }: HeaderProps) => {
   const headerH = "60px";
   const textShadow = "2px 2px 4px rgba(0, 0, 0, 0.5)";
   return (
-    <Box h={headerH} bg="#5F907B">
-      <Box h={headerH} pos={"fixed"} top={0} w={"100%"}>
+    <Box h={headerH} bg="#5F907B" pos={"relative"}>
+      <Box h={headerH} pos={"relative"} top={0} w={"100%"}>
         <Flex direction="row" align="center">
           <Avatar
             size={"50px"}
@@ -29,18 +29,23 @@ export const Header = ({ content }: HeaderProps) => {
             はぐ
           </Text>
         </Flex>
-      </Box>
-      <Center>
-        <Text
-          c={"white"}
-          h={headerH}
-          lh={headerH}
-          size="14px"
-          className="zen-maru-gothic-regular"
+        <Center
+          pos="absolute"
+          top="50%"
+          left="50%"
+          style={{ transform: "translate(-50%, -50%)" }}
         >
-          {content}
-        </Text>
-      </Center>
+          <Text
+            c={"white"}
+            h={headerH}
+            lh={headerH}
+            size="14px"
+            className="zen-maru-gothic-regular"
+          >
+            {content}
+          </Text>
+        </Center>
+      </Box>
     </Box>
   );
 };

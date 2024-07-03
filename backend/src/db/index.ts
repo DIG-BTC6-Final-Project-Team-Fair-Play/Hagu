@@ -7,3 +7,5 @@ import config from "./knexfile";
 const environment = process.env.DATABASE_URL ? "production" : "development";
 
 module.exports = knex(config[environment]);
+
+

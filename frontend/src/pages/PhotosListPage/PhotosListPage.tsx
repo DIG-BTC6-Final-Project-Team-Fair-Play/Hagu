@@ -87,7 +87,11 @@ export const PhotosListPage = () => {
         c={"#5F907B"}
         display={currentTab === "myPlants" ? "none" : "block"}
       >
-        <IconCirclePlusFilled onClick={() => navigate("/friends")} size={50} />
+        <IconCirclePlusFilled
+          style={{ filter: "drop-shadow(1px 1px 2px gray)" }}
+          onClick={() => navigate("/friends")}
+          size={50}
+        />
       </Box>
       <Box
         style={{

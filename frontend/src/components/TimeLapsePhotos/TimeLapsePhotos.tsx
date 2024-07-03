@@ -1,4 +1,14 @@
-import { Box, Image, Loader, Slider, Space, Stack, Text } from "@mantine/core";
+import {
+  Box,
+  Flex,
+  Image,
+  Loader,
+  Slider,
+  Space,
+  Center,
+  Text,
+} from "@mantine/core";
+import { IconPlant } from "@tabler/icons-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -21,43 +31,52 @@ export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
   return (
     <Box>
       {photos.length === 0 ? (
-        <>
-          <Stack>
-            <Space h="xl" />
-            <Space h="xl" />
+        <Box h={"80vh"}>
+          <Box h={"40vh"}>
             <Text
+              pt={"30vh"}
+              className="zen-maru-gothic-regular"
               size="xl"
               fw={900}
-              variant="gradient"
-              gradient={{ from: "blue", to: "cyan", deg: 90 }}
+              c={"#5F907B"}
               m={"auto"}
             >
-              画像読み込み中
+              タイムラプス作成中だよ
             </Text>
-            <Space h="xl" />
-            <Loader color="teal" h={"45vh"} m={"auto"} />
-          </Stack>
-        </>
+          </Box>
+          <Box h="40vh">
+            <Center>
+              <Loader color={"#5F907B"} h={"45vh"} m={"auto"} />
+            </Center>
+          </Box>
+        </Box>
       ) : (
-        <>
-          <Image
-            radius="md"
-            h={"70vh"}
-            p={10}
-            fit="contain"
-            src={`data:image/png;base64,${photos[value]}`}
-          />
-          <Space h="xl" />
-          <Slider
-            m={"auto"}
-            color="blue"
-            w={"90%"}
-            marks={[{ value: 20 }, { value: 50 }, { value: 80 }]}
-            value={value}
-            onChange={setValue}
-            max={photos.length - 1}
-          />
-        </>
+        <Flex direction={"column"}>
+          <Box h={"80vh"}>
+            <Image
+              h={"70vh"}
+              radius="30px"
+              p={15}
+              fit="cover"
+              src={`data:image/png;base64,${photos[value]}`}
+            />
+            <Box>
+              <Space h={"xl"} />
+              <Slider
+                thumbChildren={<IconPlant size={"1rem"} />}
+                thumbSize={36}
+                m={"auto"}
+                size={"md"}
+                color="#5F907B"
+                w={"85%"}
+                value={value}
+                onChange={setValue}
+                max={photos.length - 1}
+              />
+              <Space h={"xl"} />
+            </Box>
+          </Box>
+        </Flex>
       )}
     </Box>
   );
