@@ -4,9 +4,18 @@ import { Box, Button, Group, Text, Flex, Space } from "@mantine/core";
 //例:nextMessage : "実が大きくなったら、"
 interface BtnProps {
   nextMessage: string;
+  setSlideId: React.Dispatch<React.SetStateAction<number>>;
+  setNextOn: React.Dispatch<React.SetStateAction<boolean>>;
+  prev:(jump:boolean)=>void;
+
 }
 
-export const HomeNext = ({ nextMessage }: BtnProps) => {
+export const HomeNext = ({
+  nextMessage,
+  setSlideId,
+  setNextOn,
+  prev
+}: BtnProps) => {
   return (
     <Box
       h={"100vh"}
@@ -29,7 +38,19 @@ export const HomeNext = ({ nextMessage }: BtnProps) => {
           </Box>
 
           <Group justify="center" mt={30}>
-            <Button h={50} w={"35%"} p={"10px 20px"} radius={50} bg={"#47BB01"}>
+            <Button
+              h={50}
+              w={"35%"}
+              p={"10px 20px"}
+              radius={50}
+              bg={"#47BB01"}
+              onClick={() => {
+                setSlideId(prev => {
+                  return prev+1
+                });
+                setNextOn(false);
+              }}
+            >
               すすむ
             </Button>
             <Button
@@ -39,6 +60,10 @@ export const HomeNext = ({ nextMessage }: BtnProps) => {
               radius={50}
               bg={"#59635D"}
               ml={20}
+              onClick={() => {
+                setNextOn(false);
+                prev(true);
+              }}
             >
               すすまない
             </Button>

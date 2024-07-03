@@ -1,7 +1,13 @@
 // import React from "react";
 import { Box, Button, Group, Text, Flex } from "@mantine/core";
 
-export const HomeBack = () => {
+interface BtnProps {
+  setSlideId: React.Dispatch<React.SetStateAction<number>>;
+  setBackOn: React.Dispatch<React.SetStateAction<boolean>>;
+  prev:(jump:boolean)=>void;
+}
+
+export const HomeBack = ({ setSlideId, setBackOn,prev }: BtnProps) => {
   return (
     <Box
       h={"100vh"}
@@ -22,7 +28,13 @@ export const HomeBack = () => {
           </Box>
 
           <Group justify="center" mt={30}>
-            <Button h={50} w={"35%"} p={"10px 20px"} radius={50} bg={"#47BB01"}>
+            <Button h={50} w={"35%"} p={"10px 20px"} radius={50} bg={"#47BB01"}
+            onClick={() => {
+              setSlideId(prev => {
+                return prev -1
+              });
+              setBackOn(false)
+            }}>
               もどる
             </Button>
             <Button
@@ -32,6 +44,10 @@ export const HomeBack = () => {
               radius={50}
               bg={"#59635D"}
               ml={20}
+              onClick={() => {
+                setBackOn(false);
+                prev(true);
+              }}
             >
               もどらない
             </Button>

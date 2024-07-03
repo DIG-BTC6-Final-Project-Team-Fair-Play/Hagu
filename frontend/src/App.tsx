@@ -24,19 +24,19 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const userData: Users = await axios.get(`/api/users`).then((res) => {
+      const getUserData: Users = await axios.get(`/api/users`).then((res) => {
         return res.data;
       });
 
       (async () => {
         const seedlings: Seedlings[] = await axios
-          .get(`/api/seedlings/${userData.id}`)
+          .get(`/api/seedlings/${getUserData.id}`)
           .then((res) => {
             return res.data;
           });
         setSeed(seedlings);
       })();
-      setUserId(userData.id);
+      setUserId(getUserData.id);
     })();
   }, []);
   return (
