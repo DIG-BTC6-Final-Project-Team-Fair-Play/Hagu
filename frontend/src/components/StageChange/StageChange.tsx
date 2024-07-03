@@ -2,15 +2,24 @@ import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Avatar, Group, Image, Slider, Space } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { seedLings } from "../../App";
+import { seedLings, userData } from "../../App";
 import { AdviceBox } from "../AdviceBox";
 import { HomeBack } from "../HomeBack";
 import { HomeNext } from "../HomeNext";
+import { useLocation } from "react-router-dom";
 
 
 export const StageChange = () => {
+  const location = useLocation()
+  const user = useContext(userData)
+  console.log(user)
+  const seed = useContext(seedLings);
+  console.log(seed)
+
   // const [seedId, setSeedId] = useState<number>(0);
-  let seedId = 0
+  console.log("location.state",location.state)
+  let seedId = location.state === null ? 0 : seed.findIndex(ele=>ele.id ===location.state.id)
+  console.log('seedId: ', seedId);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [embla, setEmbla] = useState<Embla | null>(null);
   const [slideId, setSlideId] = useState<number>(0);
@@ -18,10 +27,7 @@ export const StageChange = () => {
   const [vegetableId, setVegetableId] = useState<number>(0);
   const [nextOn, setNextOn] = useState<boolean>(false);
   const [backOn, setBackOn] = useState<boolean>(false);
-
-
-  const seed = useContext(seedLings);
-
+  
   const stages = [
     `./images/0${vegetableId}_stage_01.png`,
     `./images/0${vegetableId}_stage_02.png`,
