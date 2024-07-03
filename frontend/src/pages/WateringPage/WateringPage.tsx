@@ -10,7 +10,7 @@ export const WateringPage = () => {
   return (
     <>
       <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
-        <Box h={`calc(100vh - 60px - 48px -60px)`}>
+        <Box h={`calc(100vh - 60px - 48px -60px)`} >
         <Watering></Watering>
         </Box>
         <Box
