@@ -1,6 +1,7 @@
 import { Box, Flex } from "@mantine/core";
 import { Watering } from "../../components/Watering";
 import { FooterIcons } from "../../components/FooterIcons";
+import { Header } from "../../components/Header";
 
 export const WateringPage = () => {
   // 現在の苗の写真
@@ -9,9 +10,15 @@ export const WateringPage = () => {
   // 写真記録のアイコンボタん（カメラ起動 navigate）
   return (
     <>
-      <Flex direction="column" bg={"#E2D9C1"} style={{ height: "100vh" }}>
-        <Box h={`calc(100vh - 60px - 48px -60px)`} >
-        <Watering></Watering>
+      <Flex
+        className=".darumadrop-one-regular"
+        direction="column"
+        bg={"#F2EBD9"}
+        style={{ height: "100vh" }}
+      >
+        <Header content="おせわ"></Header>
+        <Box h={`calc(100vh - 60px - 48px -60px)`}>
+          <Watering></Watering>
         </Box>
         <Box
           style={{
@@ -25,5 +32,5 @@ export const WateringPage = () => {
         </Box>
       </Flex>
     </>
-  )
+  );
 };

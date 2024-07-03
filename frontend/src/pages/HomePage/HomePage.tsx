@@ -8,16 +8,16 @@ import axios from "axios";
 import { userData } from "../../App";
 
 export const HomePage = () => {
-  const user = useContext(userData)
+  const user = useContext(userData);
   const [seed, setSeed] = useState<Seedlings[]>([]);
-  
+
   useEffect(() => {
     (async () => {
       const seedlings: Seedlings[] = await axios
-      .get(`/api/seedlings/${user}`)
-      .then((res) => {
-        return res.data;
-      });
+        .get(`/api/seedlings/${user}`)
+        .then((res) => {
+          return res.data;
+        });
       setSeed(seedlings);
     })();
   }, [user]);

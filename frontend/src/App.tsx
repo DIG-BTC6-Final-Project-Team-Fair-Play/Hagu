@@ -18,9 +18,16 @@ import OneSignal from "react-onesignal";
 
 export const userData = createContext<number>(0);
 // export const seedLings = createContext<Seedlings[]>([]);
+export const selectSeedIdContext = createContext(
+  {} as {
+    selectSeedId: number;
+    setSelectSeedId: React.Dispatch<React.SetStateAction<number>>;
+  }
+);
 
 function App() {
   const [userId, setUserId] = useState<number>(0);
+  const [selectSeedId, setSelectSeedId] = useState<number>(0);
   // const [seed, setSeed] = useState<Seedlings[]>([]);
 
   useEffect(() => {
@@ -50,26 +57,26 @@ function App() {
   return (
     <>
       <userData.Provider value={userId}>
-        {/* <seedLings.Provider value={seed}> */}
-        <div className="App">
-          <BrowserRouter>
-            <Routes>
-              <Route path="first" element={<FirstExplainPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="watering" element={<WateringPage />} />
-              <Route path="seedling" element={<SeedlingSelectPage />} />
-              <Route path="create" element={<CreatePage />} />
-              <Route path="home" element={<HomePage />} />
-              <Route path="camera" element={<CameraPage />} />
-              <Route path="photos" element={<PhotosPage />} />
-              <Route path="photosList" element={<PhotosListPage />} />
-              <Route path="friends" element={<FriendsPage />} />
-              <Route path="/" element={<SignIn />} />
-              <Route path="*" element={<h1>Not Found Page</h1>} />
-            </Routes>
-          </BrowserRouter>
-        </div>
-        {/* </seedLings.Provider> */}
+        <selectSeedIdContext.Provider value={{ selectSeedId, setSelectSeedId }}>
+          <div className="App">
+            <BrowserRouter>
+              <Routes>
+                <Route path="first" element={<FirstExplainPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="watering" element={<WateringPage />} />
+                <Route path="seedling" element={<SeedlingSelectPage />} />
+                <Route path="create" element={<CreatePage />} />
+                <Route path="home" element={<HomePage />} />
+                <Route path="camera" element={<CameraPage />} />
+                <Route path="photos" element={<PhotosPage />} />
+                <Route path="photosList" element={<PhotosListPage />} />
+                <Route path="friends" element={<FriendsPage />} />
+                <Route path="/" element={<SignIn />} />
+                <Route path="*" element={<h1>Not Found Page</h1>} />
+              </Routes>
+            </BrowserRouter>
+          </div>
+        </selectSeedIdContext.Provider>
       </userData.Provider>
     </>
   );
