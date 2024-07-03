@@ -3,7 +3,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Seedlings } from "../../types/globals";
 import { useNavigate } from "react-router-dom";
-import { userData } from "../../App";
+import { selectSeedIdContext, userData } from "../../App";
 
 export const SeedlingSelect = () => {
   //-------------UserIDが入る！--------
@@ -11,6 +11,9 @@ export const SeedlingSelect = () => {
   const userID = useContext(userData);
   // const id = 1;
   //----------------------------------
+  // ================================
+  const { setSelectSeedId } = useContext(selectSeedIdContext);
+  //
   const [mySeedling, setMySeedling] = useState<Seedlings[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -36,7 +39,9 @@ export const SeedlingSelect = () => {
                   bg={"#cdd1d1"}
                   src={`./images/0${obj.vegetable_id}_icon.png`}
                   onClick={() => {
-                    navigate("/home", { state: { id: obj.id } });
+                    setSelectSeedId(obj.id);
+                    // navigate("/home", { state: { id: obj.id } });
+                    navigate("/home");
                   }}
                 />
                 <Space h={"xs"} />
