@@ -27,9 +27,14 @@ export const HomeBack = ({
     await axios.put(`/api/seedlings/${seedIndex}/growth`, {
       growing_stage_no: growingStage - 1,
     });
+    await new Promise((resolve) => setTimeout(resolve,500))
     await axios.get(`/api/seedlings/${user}`).then((res) => {
       setSeed(res.data);
     });
+    setSlideId((prev) => {
+      return prev - 1;
+    });
+    setBackOn(false);
   };
   return (
     <Box
@@ -58,10 +63,6 @@ export const HomeBack = ({
               radius={50}
               bg={"#47BB01"}
               onClick={() => {
-                setSlideId((prev) => {
-                  return prev - 1;
-                });
-                setBackOn(false);
                 growingStagePost();
               }}
             >
