@@ -107,7 +107,6 @@ export = {
       .where({ seedling_id: id })
       .orderBy("created_at", "desc")
       .first();
-    console.log(id, lastPhotoList);
     res.json(lastPhotoList);
   },
 

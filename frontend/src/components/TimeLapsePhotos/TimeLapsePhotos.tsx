@@ -40,8 +40,9 @@ export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
               fw={900}
               c={"#5F907B"}
               m={"auto"}
+              ta={"center"}
             >
-              タイムラプス作成中だよ
+              せいちょうきろく(成長記録)<br></br>作成中だよ
             </Text>
           </Box>
           <Box h="40vh">

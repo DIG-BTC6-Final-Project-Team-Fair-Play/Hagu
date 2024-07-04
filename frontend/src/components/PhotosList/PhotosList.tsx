@@ -36,6 +36,8 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
         w={"90vw"}
         bg={"#EBF6F6"}
         bd={"1px solid lightgray"}
+        mt={5}
+        mb={10}
         p={10}
         onClick={() => handleOnClick(item.id)}
       >
@@ -52,6 +54,10 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
           {item.seedling_name}
         </Text>
       </Paper>
+      {/* <hr style={{ marginBottom: 0, borderWidth: "1px", color: "lightgray" }} /> */}
+      <hr
+        style={{ margin: 0, border: "none", borderTop: "1px solid lightgray" }}
+      ></hr>
     </Box>
   ));
   return (
