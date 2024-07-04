@@ -22,6 +22,7 @@ export const WateringPage = () => {
         </Box>
         <Box
           style={{
+            zIndex: 10,
             position: "fixed",
             bottom: 0,
             left: 0,
