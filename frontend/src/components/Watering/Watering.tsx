@@ -91,6 +91,9 @@ export const Watering = () => {
             />
           </Tooltip>
           <Space h={"xl"}></Space>
+          <div>{new Date().toString()}</div>
+          <div>{new Date(seedData[index].last_watering).toString()}</div>
+          <div>{new Date(seedData[index].last_watering).getDate()}</div>
           <Center>
             <Group justify="space-between">
               <Image
