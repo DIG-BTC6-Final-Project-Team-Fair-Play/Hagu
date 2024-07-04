@@ -101,29 +101,34 @@ export const SeedlingSelect = () => {
             </GridCol>
           );
         })}
-        <GridCol span={6}>
-          <Center h={"100%"}>
-            <Box h={"70%"}>
-              <Space h={"md"} />
-              <Avatar
-                m={"auto"}
-                size={"xl"}
-                radius={"100"}
-                bg={"lightgray"}
-                bd={"2px dashed #4D4D4D"}
-                src={"./images/minus.png"}
-                onClick={() => {
-                  setDeletePreparation(!deletePreparation);
-                  console.log({ deletePreparation });
-                }}
-              />
-              <Space h={"xs"} />
-              <Center>
-                <Text size="md">苗を削除</Text>
-              </Center>
-            </Box>
-          </Center>
-        </GridCol>
+        {mySeedling.length !== 0 ? (
+          <GridCol span={6}>
+            <Center h={"100%"}>
+              <Box h={"70%"}>
+                <Space h={"md"} />
+                <Avatar
+                  m={"auto"}
+                  size={"xl"}
+                  radius={"100"}
+                  bg={"lightgray"}
+                  bd={"2px dashed #4D4D4D"}
+                  src={"./images/minus.png"}
+                  onClick={() => {
+                    setDeletePreparation(!deletePreparation);
+                    console.log({ deletePreparation });
+                  }}
+                />
+                <Space h={"xs"} />
+                <Center>
+                  <Text size="md">苗を削除</Text>
+                </Center>
+              </Box>
+            </Center>
+          </GridCol>
+        ) : (
+          ""
+        )}
+
       </Grid>
       <DeleteSeed
         opened={opened}

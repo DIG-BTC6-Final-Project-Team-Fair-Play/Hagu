@@ -55,6 +55,7 @@ export = {
     const seedlingId = await knex("seedlings")
       .insert(newSeedling)
       .returning("id");
+
     res.status(201).send(seedlingId[0]);
   },
 
@@ -71,6 +72,7 @@ export = {
     const data: Seedlings[] = await knex("seedlings")
       .select("*")
       .where("user_id", parseInt(id))
+      .whereNot("growing_stage_no", 999)
       .orderBy("id");
     res.json(data);
   },
