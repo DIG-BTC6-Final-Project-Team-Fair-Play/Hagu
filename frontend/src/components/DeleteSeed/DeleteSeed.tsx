@@ -32,61 +32,49 @@ BtnProps) => {
   };
 
   return (
-    <Box
-      h={"100vh"}
-      w={"100vw"}
-      bg={"#00000080"}
-      style={{ position: "absolute", zIndex: 10 }}
-    >
-      <Modal opened={opened} onClose={closeModal} title="苗の削除" centered>
-        <Flex
-          direction={"column"}
-          justify={"center"}
-          align={"center"}
-          h={"100%"}
-          w={"100%"}
-        >
-          <Box
-            h={"30%"}
-            w={"80%"}
-            bg={"white"}
-            style={{ borderRadius: "20px" }}
-          >
-            <Box mt={30}>
-              <Text ta={"center"}>{`${seedName}`}</Text>
-              <Space h={"sm"} />
-              <Text ta={"center"}>削除しますか？</Text>
-            </Box>
-
-            <Group justify="center" mt={30}>
-              <Button
-                h={50}
-                w={"35%"}
-                p={"10px 20px"}
-                radius={50}
-                bg={"red"}
-                onClick={() => {
-                  deleteSeedling();
-                  closeModal();
-                }}
-              >
-                削除
-              </Button>
-              <Button
-                h={50}
-                w={"35%"}
-                p={"10px 20px"}
-                radius={50}
-                bg={"#59635D"}
-                ml={20}
-                onClick={closeModal}
-              >
-                戻る
-              </Button>
-            </Group>
+    <Modal opened={opened} onClose={closeModal} title="苗の削除" centered>
+      <Flex
+        direction={"column"}
+        justify={"center"}
+        align={"center"}
+        h={"100%"}
+        w={"100%"}
+      >
+        <Box h={"30%"} w={"80%"} bg={"white"} style={{ borderRadius: "20px" }}>
+          <Box mt={30}>
+            <Text ta={"center"}>{`${seedName}`}</Text>
+            <Space h={"sm"} />
+            <Text ta={"center"}>削除しますか？</Text>
           </Box>
-        </Flex>
-      </Modal>
-    </Box>
+
+          <Group justify="center" mt={30}>
+            <Button
+              h={50}
+              w={"35%"}
+              p={"10px 20px"}
+              radius={50}
+              bg={"red"}
+              onClick={() => {
+                deleteSeedling();
+                closeModal();
+              }}
+            >
+              削除
+            </Button>
+            <Button
+              h={50}
+              w={"35%"}
+              p={"10px 20px"}
+              radius={50}
+              bg={"#59635D"}
+              ml={20}
+              onClick={closeModal}
+            >
+              戻る
+            </Button>
+          </Group>
+        </Box>
+      </Flex>
+    </Modal>
   );
 };
