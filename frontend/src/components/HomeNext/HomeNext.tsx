@@ -30,9 +30,14 @@ export const HomeNext = ({
     await axios.put(`/api/seedlings/${seedIndex}/growth`, {
       growing_stage_no: growingStage + 1,
     });
+    await new Promise((resolve) => setTimeout(resolve,500))
     await axios.get(`/api/seedlings/${user}`).then((res) => {
       setSeed(res.data);
     });
+    setSlideId((prev) => {
+      return prev + 1;
+    });
+    setNextOn(false);
   };
 
   return (
@@ -60,14 +65,9 @@ export const HomeNext = ({
             <Button
               h={50}
               w={"35%"}
-              p={"10px 20px"}
               radius={50}
               bg={"#47BB01"}
               onClick={() => {
-                setSlideId((prev) => {
-                  return prev + 1;
-                });
-                setNextOn(false);
                 growingStagePost();
               }}
             >
@@ -76,7 +76,6 @@ export const HomeNext = ({
             <Button
               h={50}
               w={"35%"}
-              p={"10px 20px"}
               radius={50}
               bg={"#59635D"}
               ml={20}

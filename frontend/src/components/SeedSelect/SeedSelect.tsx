@@ -35,6 +35,7 @@ export const SeedlingSelect = () => {
     })();
   }, [selectSeedId]);
   return (
+
     <>
       <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
         <GridCol span={6}>
@@ -44,7 +45,7 @@ export const SeedlingSelect = () => {
               <Avatar
                 m={"auto"}
                 size={"xl"}
-                radius={"xl"}
+                radius={"100"}
                 bg={"lightgray"}
                 bd={"2px dashed #4D4D4D"}
                 src={"./images/plus.png"}
@@ -75,7 +76,7 @@ export const SeedlingSelect = () => {
                     <Avatar
                       m={"auto"}
                       size={"xl"}
-                      radius={"xl"}
+                      radius={"100"}
                       bg={"#CAD6C5"}
                       src={`./images/0${obj.vegetable_id}_icon.png`}
                       style={{ filter: "drop-shadow(1px 1px 2px black" }}
@@ -107,7 +108,7 @@ export const SeedlingSelect = () => {
               <Avatar
                 m={"auto"}
                 size={"xl"}
-                radius={"xl"}
+                radius={"100"}
                 bg={"lightgray"}
                 bd={"2px dashed #4D4D4D"}
                 src={"./images/minus.png"}
@@ -131,5 +132,6 @@ export const SeedlingSelect = () => {
         setMySeedling={setMySeedling}
       />
     </>
+
   );
 };

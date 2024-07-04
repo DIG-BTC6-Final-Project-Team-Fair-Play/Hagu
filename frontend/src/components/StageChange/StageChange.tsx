@@ -1,6 +1,6 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import { Avatar, Box, Group, Image, Slider, Space, Text } from "@mantine/core";
+import { Avatar, Box, Flex, Image, Slider, Space, Text } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AdviceBox } from "../AdviceBox";
 import { HomeBack } from "../HomeBack";
@@ -10,21 +10,13 @@ import { Seedlings } from "../../types/globals";
 import { selectSeedIdContext } from "../../App";
 import { Leaf } from "tabler-icons-react";
 
-
 interface StageChangeProps {
   seed: Seedlings[];
   setSeed: React.Dispatch<React.SetStateAction<Seedlings[]>>;
 }
 
 export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
-  // const location = useLocation();
-
   const { selectSeedId } = useContext(selectSeedIdContext);
-
-  // let seedIndex =
-  //   location.state === null
-  //     ? 0
-  //     : seed.findIndex((ele) => ele.id === location.state.id);
   let seedIndex =
     selectSeedId === 0 ? 0 : seed.findIndex((ele) => ele.id === selectSeedId);
 
@@ -61,9 +53,9 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
   }, [seed]);
 
   const slides = stages.map((url) => (
-      <Carousel.Slide key={url}>
-        <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
-      </Carousel.Slide>
+    <Carousel.Slide key={url}>
+      <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
+    </Carousel.Slide>
   ));
 
   //カルーセルのスクロール状態を取得
@@ -139,53 +131,54 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
           ></HomeNext>
         )}
 
-        <Space h={"xl"}></Space>
-        <Group>
-          <AdviceBox></AdviceBox>
+        <Space h={"xs"}></Space>
+        <Flex gap={"sm"} justify={"center"}>
+          <AdviceBox slideId={slideId} vegetableId={vegetableId}></AdviceBox>
           <Box>
             <Avatar
               m={"auto"}
-              size={"xl"}
-              radius={"xl"}
-              bg={"#cdd1d1"}
+              size={"60"}
+              radius={"100"}
+              bg={"#CAD6C5"}
               src={`./images/0${vegetableId}_icon.png`}
               style={{ filter: "drop-shadow(1px 1px 2px black" }}
             />
-            <Space h={"xs"} />
-            <Text size="m" ta={"center"}>
+            <Text size="xs" ta={"center"} w={60}>
               {seed[seedIndex].seedling_name}
             </Text>
           </Box>
-        </Group>
-        <Space h={"xl"}></Space>
-        <Carousel
-          slideSize="60%"
-          slideGap="lg"
-          getEmblaApi={setEmbla}
-          initialSlide={slideId}
-          withIndicators={false}
-          withControls={false}
-        >
-          {slides}
-        </Carousel>
-        <Slider
-          thumbChildren={<Leaf size="1rem"/>}
-          label={null}
-          color="#5F907B"
-          m={"auto"}
-          w={"90%"}
-          size={"xl"}
-          value={slideId * 25}
-          draggable={false}
-          thumbSize={26}
-          marks={[
-            { value: 0, label: "定植" },
-            { value: 25, label: "開花" },
-            { value: 50, label: "着実" },
-            { value: 75, label: "色付" },
-            { value: 100, label: "収穫" },
-          ]}
-        ></Slider>
+        </Flex>
+        <Box w={"100%"} h={"55%"} pos={"fixed"} bottom={"90px"}>
+          <Carousel
+            slideSize="30vh"
+            slideGap="lg"
+            getEmblaApi={setEmbla}
+            initialSlide={slideId}
+            withIndicators={false}
+            withControls={false}
+          >
+            {slides}
+          </Carousel>
+          <Space h={"xs"}></Space>
+          <Slider
+            thumbChildren={<Leaf size="1rem" />}
+            label={null}
+            color="#5F907B"
+            m={"auto"}
+            w={"90%"}
+            size={"xl"}
+            value={slideId * 25}
+            draggable={false}
+            thumbSize={26}
+            marks={[
+              { value: 0, label: "定植" },
+              { value: 25, label: "開花" },
+              { value: 50, label: "着実" },
+              { value: 75, label: "色付" },
+              { value: 100, label: "収穫" },
+            ]}
+          ></Slider>
+        </Box>
       </>
     )
   );

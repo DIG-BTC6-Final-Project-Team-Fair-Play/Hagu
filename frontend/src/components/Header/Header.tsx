@@ -39,7 +39,9 @@ export const Header = ({ content }: HeaderProps) => {
             c={"white"}
             h={headerH}
             lh={headerH}
-            size="14px"
+            size="15px"
+            fw={600}
+            // td={"underline"}
             className="zen-maru-gothic-regular"
           >
             {content}

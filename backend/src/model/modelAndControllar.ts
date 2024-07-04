@@ -107,7 +107,6 @@ export = {
       .where({ seedling_id: id })
       .orderBy("created_at", "desc")
       .first();
-    console.log(id, lastPhotoList);
     res.json(lastPhotoList);
   },
 
@@ -190,7 +189,6 @@ export = {
     });
 
     const promiseAll = await Promise.all(mapData);
-    console.log(promiseAll);
     res.send(promiseAll);
     // const mapData = photos.map((obj: Photos) => obj.photo_data);
     // res.send(mapData);

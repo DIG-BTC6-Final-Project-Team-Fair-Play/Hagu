@@ -11,7 +11,6 @@ interface cameraProps {
   seedlingId: number;
 }
 
-
 export const CameraOn = ({ seedlingId }: cameraProps) => {
   const navigate = useNavigate();
   const camera = useRef<CameraType | null>(null);
@@ -150,13 +149,18 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               min={0}
               max={0.8}
               step={0.04}
-              defaultValue={0.5}
+              defaultValue={0.4}
               thumbSize={26}
             ></Slider>
           </Box>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"start"} pl={10}>
-              <Text c="#AAB787" onClick={() => {}}>
+              <Text
+                c="#AAB787"
+                onClick={() => {
+                  navigate("/watering");
+                }}
+              >
                 キャンセル
               </Text>
             </Box>

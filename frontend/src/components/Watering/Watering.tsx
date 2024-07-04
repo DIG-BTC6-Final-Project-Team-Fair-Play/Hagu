@@ -75,7 +75,8 @@ export const Watering = () => {
             radius={"30px"}
             c="black"
             className="zen-maru-gothic-regular"
-            style={{ fontSize: 30 }}
+            style={{ fontSize: 20 }}
+            offset={{ mainAxis: 50, crossAxis: 0 }}
           >
             <Image
               className={compareDate() ? "after-watering" : "before-watering"}
@@ -91,9 +92,6 @@ export const Watering = () => {
             />
           </Tooltip>
           <Space h={"xl"}></Space>
-          <div>{new Date().toString()}</div>
-          <div>{new Date(seedData[index].last_watering).toString()}</div>
-          <div>{new Date(seedData[index].last_watering).getDate()}</div>
           <Center>
             <Group justify="space-between">
               <Image
