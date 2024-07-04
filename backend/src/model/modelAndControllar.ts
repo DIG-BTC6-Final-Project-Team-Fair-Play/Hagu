@@ -189,7 +189,6 @@ export = {
     });
 
     const promiseAll = await Promise.all(mapData);
-    console.log(promiseAll);
     res.send(promiseAll);
     // const mapData = photos.map((obj: Photos) => obj.photo_data);
     // res.send(mapData);

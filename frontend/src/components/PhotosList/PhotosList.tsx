@@ -20,8 +20,15 @@ interface PhotosListProps {
 
 export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
   const navigate = useNavigate();
-  const handleOnClick = (seedlingId: number) => {
-    navigate("/photos", { state: { seedlingId }, replace: true });
+  const handleOnClick = (
+    seedlingId: number,
+    seedlingName: string,
+    label: string
+  ) => {
+    navigate("/photos", {
+      state: { seedlingId, seedlingName, label },
+      replace: true,
+    });
   };
   const items = displayList.map((item, index) => (
     <Box key={index} m={"0 auto"}>
@@ -39,7 +46,7 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
         mt={5}
         mb={10}
         p={10}
-        onClick={() => handleOnClick(item.id)}
+        onClick={() => handleOnClick(item.id, item.seedling_name, item.label)}
       >
         <Box pos={"relative"}>
           <Image
@@ -54,7 +61,6 @@ export const PhotosList: React.FC<PhotosListProps> = ({ displayList }) => {
           {item.seedling_name}
         </Text>
       </Paper>
-      {/* <hr style={{ marginBottom: 0, borderWidth: "1px", color: "lightgray" }} /> */}
       <hr
         style={{ margin: 0, border: "none", borderTop: "1px solid lightgray" }}
       ></hr>
