@@ -3,10 +3,6 @@ import "./SignIn.css";
 
 export const SignIn = () => {
 
-  const [signInIcon, setSignInIcon] = useState(
-    "./images/LINE_Login_Button_01.png"
-  );
-
   return (
     <Flex
       direction="column"

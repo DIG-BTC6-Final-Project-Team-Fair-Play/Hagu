@@ -1,6 +1,6 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import { Avatar, Box, Group, Image, Slider, Space, Text } from "@mantine/core";
+import { Avatar, Box, Flex, Image, Slider, Space, Text } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AdviceBox } from "../AdviceBox";
 import { HomeBack } from "../HomeBack";
