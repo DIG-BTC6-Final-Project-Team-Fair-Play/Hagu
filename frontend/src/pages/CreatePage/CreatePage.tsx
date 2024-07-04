@@ -16,7 +16,6 @@ const dummyItems = {
   vegetable_name: "ピーマン",
   equipment_list: [
     "スコップ",
-    "ピーマンの種",
     "培養土",
     "鉢底石",
     "化成肥料",
