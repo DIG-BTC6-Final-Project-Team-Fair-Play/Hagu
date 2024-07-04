@@ -65,7 +65,6 @@ export const HomeNext = ({
             <Button
               h={50}
               w={"35%"}
-              p={"10px 20px"}
               radius={50}
               bg={"#47BB01"}
               onClick={() => {
@@ -77,7 +76,6 @@ export const HomeNext = ({
             <Button
               h={50}
               w={"35%"}
-              p={"10px 20px"}
               radius={50}
               bg={"#59635D"}
               ml={20}

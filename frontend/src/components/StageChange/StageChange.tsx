@@ -10,21 +10,13 @@ import { Seedlings } from "../../types/globals";
 import { selectSeedIdContext } from "../../App";
 import { Leaf } from "tabler-icons-react";
 
-
 interface StageChangeProps {
   seed: Seedlings[];
   setSeed: React.Dispatch<React.SetStateAction<Seedlings[]>>;
 }
 
 export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
-  // const location = useLocation();
-
   const { selectSeedId } = useContext(selectSeedIdContext);
-
-  // let seedIndex =
-  //   location.state === null
-  //     ? 0
-  //     : seed.findIndex((ele) => ele.id === location.state.id);
   let seedIndex =
     selectSeedId === 0 ? 0 : seed.findIndex((ele) => ele.id === selectSeedId);
 
@@ -140,8 +132,8 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
         )}
 
         <Space h={"xs"}></Space>
-        <Flex justify={"space-around"}>
-          <AdviceBox></AdviceBox>
+        <Flex gap={"sm"} justify={"center"}>
+          <AdviceBox slideId={slideId} vegetableId={vegetableId}></AdviceBox>
           <Box>
             <Avatar
               m={"auto"}
@@ -151,12 +143,11 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
               src={`./images/0${vegetableId}_icon.png`}
               style={{ filter: "drop-shadow(1px 1px 2px black" }}
             />
-            <Text size="m" ta={"center"}>
+            <Text size="xs" ta={"center"} w={60}>
               {seed[seedIndex].seedling_name}
             </Text>
           </Box>
         </Flex>
-        <Space></Space>
         <Box w={"100%"} h={"55%"} pos={"fixed"} bottom={"90px"}>
           <Carousel
             slideSize="30vh"

@@ -2,7 +2,6 @@ import { Flex } from "@mantine/core";
 import "./SignIn.css";
 
 export const SignIn = () => {
-
   return (
     <Flex
       direction="column"
@@ -22,7 +21,6 @@ export const SignIn = () => {
             src={"./images/LINE_Login_Button_01.png"}
             style={{ height: "100%" }}
           />
-
         </a>
       </div>
     </Flex>
