@@ -5,12 +5,15 @@ import { Refresh, CameraPlus } from "tabler-icons-react";
 import storage from "../../firebase/firebase";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface cameraProps {
   seedlingId: number;
 }
 
-export const CameraOn = ({ seedlingId = 6 }: cameraProps) => {
+
+export const CameraOn = ({ seedlingId }: cameraProps) => {
+  const navigate = useNavigate();
   const camera = useRef<CameraType | null>(null);
   const [image, setImage] = useState<string | ImageData | null>(null);
   const [lastPhoto, setLastPhoto] = useState<string>("");
@@ -67,6 +70,8 @@ export const CameraOn = ({ seedlingId = 6 }: cameraProps) => {
             photo_data: "gs://hagu-882e3.appspot.com/image/" + fileName,
           });
           console.log("sent to server", loading);
+          // ナビゲート
+          navigate("/watering");
         }
       );
     } else {
