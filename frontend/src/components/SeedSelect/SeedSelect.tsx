@@ -44,7 +44,7 @@ export const SeedlingSelect = () => {
               <Avatar
                 m={"auto"}
                 size={"xl"}
-                radius={"xl"}
+                radius={"100"}
                 bg={"lightgray"}
                 bd={"2px dashed #4D4D4D"}
                 src={"./images/plus.png"}
@@ -75,7 +75,7 @@ export const SeedlingSelect = () => {
                     <Avatar
                       m={"auto"}
                       size={"xl"}
-                      radius={"xl"}
+                      radius={"100"}
                       bg={"#CAD6C5"}
                       src={`./images/0${obj.vegetable_id}_icon.png`}
                       style={{ filter: "drop-shadow(1px 1px 2px black" }}
@@ -100,29 +100,33 @@ export const SeedlingSelect = () => {
             </GridCol>
           );
         })}
-        <GridCol span={6}>
-          <Center h={"100%"}>
-            <Box h={"70%"}>
-              <Space h={"md"} />
-              <Avatar
-                m={"auto"}
-                size={"xl"}
-                radius={"xl"}
-                bg={"lightgray"}
-                bd={"2px dashed #4D4D4D"}
-                src={"./images/minus.png"}
-                onClick={() => {
-                  setDeletePreparation(!deletePreparation);
-                  console.log({ deletePreparation });
-                }}
-              />
-              <Space h={"xs"} />
-              <Center>
-                <Text size="md">苗を削除</Text>
-              </Center>
-            </Box>
-          </Center>
-        </GridCol>
+        {mySeedling.length !== 0 ? (
+          <GridCol span={6}>
+            <Center h={"100%"}>
+              <Box h={"70%"}>
+                <Space h={"md"} />
+                <Avatar
+                  m={"auto"}
+                  size={"xl"}
+                  radius={"100"}
+                  bg={"lightgray"}
+                  bd={"2px dashed #4D4D4D"}
+                  src={"./images/minus.png"}
+                  onClick={() => {
+                    setDeletePreparation(!deletePreparation);
+                    console.log({ deletePreparation });
+                  }}
+                />
+                <Space h={"xs"} />
+                <Center>
+                  <Text size="md">苗を削除</Text>
+                </Center>
+              </Box>
+            </Center>
+          </GridCol>
+        ) : (
+          ""
+        )}
       </Grid>
       <DeleteSeed
         opened={opened}

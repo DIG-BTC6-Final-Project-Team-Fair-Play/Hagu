@@ -22,13 +22,11 @@ BtnProps) => {
   // const userID = useContext(userData);
 
   const deleteSeedling = async () => {
-    await axios.delete(`/api/seedlings/${selectSeedId}`);
+    await axios.put(`/api/seedlings/${selectSeedId}/growth`, {
+      growing_stage_no: 999,
+    });
+    // await axios.delete(`/api/seedlings/${selectSeedId}`);
     setSelectSeedId(0);
-
-    // const seedlings = await axios
-    //   .get(`/api/seedlings/${userID}`)
-    //   .then((res) => res.data);
-    // setMySeedling(seedlings);
   };
 
   return (
