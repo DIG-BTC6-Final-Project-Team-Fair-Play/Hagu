@@ -18,9 +18,16 @@ import OneSignal from "react-onesignal";
 
 export const userData = createContext<number>(0);
 // export const seedLings = createContext<Seedlings[]>([]);
+export const selectSeedIdContext = createContext(
+  {} as {
+    selectSeedId: number;
+    setSelectSeedId: React.Dispatch<React.SetStateAction<number>>;
+  }
+);
 
 function App() {
   const [userId, setUserId] = useState<number>(0);
+  const [selectSeedId, setSelectSeedId] = useState<number>(0);
   // const [seed, setSeed] = useState<Seedlings[]>([]);
 
   useEffect(() => {
@@ -50,7 +57,7 @@ function App() {
   return (
     <>
       <userData.Provider value={userId}>
-        {/* <seedLings.Provider value={seed}> */}
+        <selectSeedIdContext.Provider value={{ selectSeedId, setSelectSeedId }}>
           <div className="App">
             <BrowserRouter>
               <Routes>
@@ -69,7 +76,7 @@ function App() {
               </Routes>
             </BrowserRouter>
           </div>
-        {/* </seedLings.Provider> */}
+        </selectSeedIdContext.Provider>
       </userData.Provider>
     </>
   );

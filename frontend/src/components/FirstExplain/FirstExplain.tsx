@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Vegetable_advice } from "../../types/globals";
 import { Badge, Button, Card, Center, Group, Image, Text } from "@mantine/core";
-import { userData } from "../../App";
+import { selectSeedIdContext, userData } from "../../App";
 
 export const FirstExplain = () => {
   const location = useLocation();
@@ -12,6 +12,8 @@ export const FirstExplain = () => {
   const seedlingName = location.state.seedlingName;
   const userID = useContext(userData);
   const navigate = useNavigate();
+
+  const { setSelectSeedId } = useContext(selectSeedIdContext);
 
   const [advice, setAdvice] = useState<Vegetable_advice>({
     vegetable_id: 0,
@@ -31,7 +33,7 @@ export const FirstExplain = () => {
   }, []);
 
   const postSeedling = async () => {
-    const seedlingId = await axios
+    const seedling = await axios
       .post("/api/seedlings", {
         user_id: userID, //Lineログインができたらここを変えて
         vegetable_id: vegetableId,
@@ -39,7 +41,9 @@ export const FirstExplain = () => {
         seedling_name: seedlingName,
       })
       .then((res) => res.data);
-    navigate("/home", { state: { id: seedlingId.id } });
+    setSelectSeedId(seedling.id);
+    // navigate("/home", { state: { id: seedling.id } });
+    navigate("/home");
   };
   return (
     <>

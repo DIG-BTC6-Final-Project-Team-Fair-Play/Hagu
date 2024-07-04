@@ -1,4 +1,4 @@
-import { Button, Center, Space, Stack } from "@mantine/core";
+import { Button, Center, Flex, Box } from "@mantine/core";
 
 import { TimeLapsePhotos } from "../../components/TimeLapsePhotos";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,24 +11,31 @@ export const PhotosPage = () => {
 
   const selectSeedId: { seedlingId: number } = location.state;
   return (
-    <>
-      <Header content="タイムラプス" />
-      <Stack>
-        <Center>
-          <TimeLapsePhotos selectSeedId={selectSeedId.seedlingId} />
-          <Space h={"xl"} />
-        </Center>
+    <Flex direction={"column"} h={"100vh"} bg={"#F2EBD9"}>
+      <Box>
+        <Flex direction={"column"}>
+          <Header content="タイムラプス" />
+          <Center>
+            <TimeLapsePhotos selectSeedId={selectSeedId.seedlingId} />
+          </Center>
+        </Flex>
+      </Box>
+      <Box h={"10vh"} flex={1}>
         <Center>
           <Button
-            w={"100"}
+            display={"block"}
+            radius={"50px"}
+            bg={"#5F907B"}
+            m={"10 auto"}
+            w={100}
             onClick={() => {
               navigate("/photosList");
             }}
           >
-            戻る
+            もどる
           </Button>
         </Center>
-      </Stack>
-    </>
+      </Box>
+    </Flex>
   );
 };

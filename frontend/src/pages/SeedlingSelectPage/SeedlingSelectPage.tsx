@@ -8,6 +8,7 @@ export const SeedlingSelectPage = () => {
   return (
     <>
       <Flex className="zen-maru-gothic-regular"direction="column" bg={"#F2EBD9"} style={{ height: "100vh" }}>
+
         <Header content="育てている苗"></Header>
         <Box flex={1}>
           <ScrollArea h={"calc(100vh - 60px - 60px)"}>

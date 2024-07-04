@@ -74,14 +74,18 @@ export const FriendsList: React.FC<DisplayListProps> = ({
               .map((elem) => elem.friend_id)
               .includes(item.user_id) ? (
               <Button
+                bg={"#5F907B1F"}
+                c={"#5F907B"}
                 radius={100}
                 size="xs"
+                style={{ border: "2px solid #5F907B" }}
                 onClick={() => deleteHandleOnClick(item.user_id)}
               >
                 フォロー解除
               </Button>
             ) : (
               <Button
+                bg={"#5F907B"}
                 radius={100}
                 size="xs"
                 onClick={() => addHandleOnClick(item.user_id)}
@@ -97,5 +101,5 @@ export const FriendsList: React.FC<DisplayListProps> = ({
       ></hr>
     </Box>
   ));
-  return <ScrollArea h={"300"}>{items}</ScrollArea>;
+  return <ScrollArea h={"calc(100vh - 60px - 60px)"}>{items}</ScrollArea>;
 };

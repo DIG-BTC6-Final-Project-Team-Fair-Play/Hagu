@@ -4,6 +4,7 @@ import { FooterIcons } from "../../components/FooterIcons";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { userData } from "../../App";
+import { Header } from "../../components/Header";
 
 export const FriendsPage = () => {
   const [usersList, setUsersList] = useState<any>([]);
@@ -23,8 +24,7 @@ export const FriendsPage = () => {
   }, [refresh]);
   return (
     <>
-      <Box h={60}>友達候補</Box>
-      <hr style={{ margin: 0 }}></hr>
+      <Header content="フォロワー"></Header>
       <FriendsList
         usersList={usersList}
         friendsList={friendsList}
