@@ -41,7 +41,7 @@ export const Watering = () => {
   // 水やり更新
   const putWatering = async () => {
     await axios.put(`/api/seedlings/${selectSeedId}/water`, {
-      last_watering: new Date().toLocaleString(),
+      last_watering: new Date().toISOString(),
     });
     await getUserSeedlings();
   };
