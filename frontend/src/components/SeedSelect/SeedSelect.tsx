@@ -35,6 +35,7 @@ export const SeedlingSelect = () => {
     })();
   }, [selectSeedId]);
   return (
+
     <>
       <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
         <GridCol span={6}>
@@ -127,6 +128,7 @@ export const SeedlingSelect = () => {
         ) : (
           ""
         )}
+
       </Grid>
       <DeleteSeed
         opened={opened}
@@ -135,5 +137,6 @@ export const SeedlingSelect = () => {
         setMySeedling={setMySeedling}
       />
     </>
+
   );
 };
