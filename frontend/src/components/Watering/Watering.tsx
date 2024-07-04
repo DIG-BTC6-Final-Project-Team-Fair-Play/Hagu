@@ -1,12 +1,4 @@
-import {
-  Center,
-  Group,
-  Image,
-  Box,
-  Space,
-  Button,
-  Tooltip,
-} from "@mantine/core";
+import { Center, Group, Image, Box, Space, Tooltip } from "@mantine/core";
 import "./Watering.css";
 import { useContext, useEffect, useState } from "react";
 import { selectSeedIdContext, userData } from "../../App";
