@@ -39,6 +39,8 @@ const setupExpressApp = () => {
 
   app.get("/api/photos/:userId", controller.getPhotosList);
 
+  app.get("/api/lastPhotos/:seedlingId", controller.getLastPhoto);
+
   app.post("/api/photos", controller.postPhotos);
 
   app.get("/api/seedlings/:id/timelapse", controller.getTimelapse);

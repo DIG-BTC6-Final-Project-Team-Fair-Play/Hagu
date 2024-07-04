@@ -1,5 +1,5 @@
 import { Container, Image, Box, Text, Flex, Slider } from "@mantine/core";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
 import storage from "../../firebase/firebase";
@@ -10,12 +10,18 @@ interface cameraProps {
   seedlingId: number;
 }
 
-export const CameraOn = ({ seedlingId }: cameraProps) => {
+export const CameraOn = ({ seedlingId = 6 }: cameraProps) => {
   const camera = useRef<CameraType | null>(null);
   const [image, setImage] = useState<string | ImageData | null>(null);
+  const [lastPhoto, setLastPhoto] = useState<string>("");
   const [numberOfCameras, setNumberOfCameras] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [opacity, setOpacity] = useState<number>(0.5);
+  useEffect(() => {
+    axios.get(`/api/lastPhotos/${seedlingId}`).then((res) => {
+      if (res.data.photo_data) setLastPhoto(res.data.photo_data);
+    });
+  }, []);
   const takePhoto = () => {
     if (camera.current) {
       const photo = camera.current.takePhoto();
@@ -105,17 +111,29 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               facingMode="environment"
               numberOfCamerasCallback={setNumberOfCameras}
             />
-            <Image
-              src={
-                "https://booth.pximg.net/fde8b078-d39f-4221-8463-1050ba7db401/i/2143735/b4faf31b-e93d-4542-a2d7-427959d3130f_base_resized.jpg"
-              }
-              style={{
-                height: "75vh",
-                position: "absolute",
-                zIndex: 100,
-                opacity: opacity,
-              }}
-            ></Image>
+            {lastPhoto.length === 0 ? (
+              <Image
+                src={
+                  "https://booth.pximg.net/fde8b078-d39f-4221-8463-1050ba7db401/i/2143735/b4faf31b-e93d-4542-a2d7-427959d3130f_base_resized.jpg"
+                }
+                style={{
+                  height: "75vh",
+                  position: "absolute",
+                  zIndex: 100,
+                  opacity: opacity,
+                }}
+              ></Image>
+            ) : (
+              <Image
+                src={lastPhoto}
+                style={{
+                  height: "75vh",
+                  position: "absolute",
+                  zIndex: 100,
+                  opacity: opacity,
+                }}
+              ></Image>
+            )}
           </Box>
           <Box h={"5vh"} w={"80vw"} m={"0 auto"}>
             <Slider
