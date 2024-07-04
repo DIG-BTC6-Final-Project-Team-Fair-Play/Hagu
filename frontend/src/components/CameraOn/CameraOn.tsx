@@ -156,7 +156,12 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
           </Box>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"start"} pl={10}>
-              <Text c="#AAB787" onClick={() => {}}>
+              <Text
+                c="#AAB787"
+                onClick={() => {
+                  navigate("/watering");
+                }}
+              >
                 キャンセル
               </Text>
             </Box>
