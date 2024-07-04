@@ -53,6 +53,8 @@ const setupExpressApp = () => {
 
   app.get("/api/users/list", controller.getUsersList);
 
+  app.delete("/api/seedlings/:id", controller.deleteSeedling);
+
   app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "../../dist", "index.html"));
   });

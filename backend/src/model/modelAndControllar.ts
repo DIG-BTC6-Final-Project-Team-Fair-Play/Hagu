@@ -219,6 +219,14 @@ export = {
     res.sendStatus(204);
   },
 
+  async deleteSeedling(req: Request, res: Response) {
+    const id: string = req.params.id;
+    await knex("seedlings")
+      .delete()
+      .where({ id: parseInt(id) });
+    res.sendStatus(204);
+  },
+
   async getUsersList(req: Request, res: Response) {
     // サブクエリで各ユーザーの育てている苗の数をカウント
     const seedlingsCountSubquery = knex("seedlings")
