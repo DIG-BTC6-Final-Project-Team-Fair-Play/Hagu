@@ -1,5 +1,5 @@
 // import React from "react";
-import { Box, Flex, Indicator, Tooltip } from "@mantine/core";
+import { Box, Flex, Tooltip } from "@mantine/core";
 import {
   IconHomeEco,
   IconBellHeart,
