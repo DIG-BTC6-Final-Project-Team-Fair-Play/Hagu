@@ -25,7 +25,6 @@ export const TimeLapsePhotos: React.FC<TimeLapsePhotosProps> = ({
 }) => {
   const [value, setValue] = useState<number>(0);
   const [photos, setPhotos] = useState<string[]>([]);
-  console.log(selectVegeLabel);
   let vegeLabel = "";
   switch (selectVegeLabel) {
     case "ピーマン":
