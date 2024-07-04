@@ -11,7 +11,6 @@ interface cameraProps {
   seedlingId: number;
 }
 
-
 export const CameraOn = ({ seedlingId }: cameraProps) => {
   const navigate = useNavigate();
   const camera = useRef<CameraType | null>(null);
@@ -150,7 +149,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               min={0}
               max={0.8}
               step={0.04}
-              defaultValue={0.5}
+              defaultValue={0.4}
               thumbSize={26}
             ></Slider>
           </Box>

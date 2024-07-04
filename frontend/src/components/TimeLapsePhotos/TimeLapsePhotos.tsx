@@ -12,16 +12,37 @@ import { IconPlant } from "@tabler/icons-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
+interface TimeLapsePhotosProps {
+  selectSeedId: number;
+  selectSeedName: string;
+  selectVegeLabel: string;
+}
+
+export const TimeLapsePhotos: React.FC<TimeLapsePhotosProps> = ({
+  selectSeedId,
+  selectSeedName,
+  selectVegeLabel,
+}) => {
   const [value, setValue] = useState<number>(0);
   const [photos, setPhotos] = useState<string[]>([]);
-
+  console.log(selectVegeLabel);
+  let vegeLabel = "";
+  switch (selectVegeLabel) {
+    case "ピーマン":
+      vegeLabel = "🫑";
+      break;
+    case "トマト":
+      vegeLabel = "🍅";
+      break;
+    case "なす":
+      vegeLabel = "🍆";
+      break;
+  }
   useEffect(() => {
     (async () => {
       const photos: string[] = await axios
-        .get(`/api/seedlings/${selectSeedId.selectSeedId}/timelapse`)
+        .get(`/api/seedlings/${selectSeedId}/timelapse`)
         .then((res) => {
-          console.log(res.data);
           return res.data;
         });
       setPhotos(photos);
@@ -34,7 +55,7 @@ export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
         <Box h={"80vh"}>
           <Box h={"40vh"}>
             <Text
-              pt={"30vh"}
+              pt={"20vh"}
               className="zen-maru-gothic-regular"
               size="xl"
               fw={900}
@@ -42,7 +63,8 @@ export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
               m={"auto"}
               ta={"center"}
             >
-              せいちょうきろく(成長記録)<br></br>作成中だよ
+              {`${selectSeedName}の`}
+              <br></br>せいちょうきろく(成長記録)<br></br>作成中だよ
             </Text>
           </Box>
           <Box h="40vh">
@@ -70,6 +92,11 @@ export const TimeLapsePhotos = (selectSeedId: { selectSeedId: number }) => {
                 size={"md"}
                 color="#5F907B"
                 w={"85%"}
+                marks={[
+                  { value: 0, label: "🌱" },
+                  { value: photos.length + 1, label: vegeLabel },
+                ]}
+                styles={{ markLabel: { fontSize: 25 } }}
                 value={value}
                 onChange={setValue}
                 max={photos.length - 1}

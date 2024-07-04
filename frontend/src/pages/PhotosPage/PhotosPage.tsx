@@ -9,14 +9,22 @@ export const PhotosPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const selectSeedId: { seedlingId: number } = location.state;
+  const selectSeedId: {
+    seedlingId: number;
+    seedlingName: string;
+    label: string;
+  } = location.state;
   return (
     <Flex direction={"column"} h={"100vh"} bg={"#F2EBD9"}>
       <Box>
         <Flex direction={"column"}>
           <Header content="タイムラプス" />
           <Center>
-            <TimeLapsePhotos selectSeedId={selectSeedId.seedlingId} />
+            <TimeLapsePhotos
+              selectSeedId={selectSeedId.seedlingId}
+              selectSeedName={selectSeedId.seedlingName}
+              selectVegeLabel={selectSeedId.label}
+            />
           </Center>
         </Flex>
       </Box>
