@@ -71,7 +71,7 @@ export = {
     const data: Seedlings[] = await knex("seedlings")
       .select("*")
       .where("user_id", parseInt(id))
-      .orderBy("id")
+      .orderBy("id");
     res.json(data);
   },
 
@@ -99,6 +99,16 @@ export = {
       .update(water);
 
     res.sendStatus(204);
+  },
+
+  async getLastPhoto(req: Request, res: Response) {
+    const id = parseInt(req.params.seedlingId);
+    const lastPhotoList = await knex("photos")
+      .where({ seedling_id: id })
+      .orderBy("created_at", "desc")
+      .first();
+    console.log(id, lastPhotoList);
+    res.json(lastPhotoList);
   },
 
   async getPhotosList(req: Request, res: Response) {

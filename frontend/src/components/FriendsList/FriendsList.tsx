@@ -101,5 +101,5 @@ export const FriendsList: React.FC<DisplayListProps> = ({
       ></hr>
     </Box>
   ));
-  return <ScrollArea h={"300"}>{items}</ScrollArea>;
+  return <ScrollArea h={"calc(100vh - 60px - 60px)"}>{items}</ScrollArea>;
 };
