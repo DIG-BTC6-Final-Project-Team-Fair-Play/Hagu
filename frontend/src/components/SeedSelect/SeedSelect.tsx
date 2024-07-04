@@ -31,11 +31,9 @@ export const SeedlingSelect = () => {
         .get(`/api/seedlings/${userID}`)
         .then((res) => res.data);
       setMySeedling(seedlings);
-      console.log("sss");
     })();
   }, [selectSeedId]);
   return (
-
     <>
       <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
         <GridCol span={6}>
@@ -128,7 +126,6 @@ export const SeedlingSelect = () => {
         ) : (
           ""
         )}
-
       </Grid>
       <DeleteSeed
         opened={opened}
@@ -137,6 +134,5 @@ export const SeedlingSelect = () => {
         setMySeedling={setMySeedling}
       />
     </>
-
   );
 };

@@ -1,17 +1,32 @@
 // import React from "react";
-import { Box, Flex } from "@mantine/core";
+import { Box, Flex, Indicator, Tooltip } from "@mantine/core";
 import {
   IconHomeEco,
   IconBellHeart,
   IconPhotoSearch,
   IconPlant,
 } from "@tabler/icons-react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { userData } from "../../App";
+import axios from "axios";
 
 export const FooterIcons = () => {
   const footerH = 60;
   const iconSize = 30;
   const navigate = useNavigate();
+  const [seedView, setSeedView] = useState<boolean>(true);
+
+  const userID = useContext(userData);
+
+  useEffect(() => {
+    (async () => {
+      const seedlings = await axios
+        .get(`/api/seedlings/${userID}`)
+        .then((res) => res.data);
+      setSeedView(seedlings.length === 0);
+    })();
+  }, []);
 
   return (
     <Box h={footerH}>
@@ -27,12 +42,25 @@ export const FooterIcons = () => {
           style={{ margin: (footerH - iconSize) / 2 }}
           onClick={() => navigate("/home")}
         ></IconHomeEco>
-        <IconPlant
-          size={iconSize}
-          color="white"
-          style={{ margin: (footerH - iconSize) / 2 }}
-          onClick={() => navigate("/seedling")}
-        ></IconPlant>
+        <Tooltip
+          arrowOffset={10}
+          arrowSize={10}
+          label="苗をつくろう！"
+          withArrow
+          opened
+          position="top-start"
+          offset={{ mainAxis: 20, crossAxis: 0 }}
+          color={"white"}
+          style={{ color: "black" }}
+          disabled={!seedView}
+        >
+          <IconPlant
+            size={iconSize}
+            color="white"
+            style={{ margin: (footerH - iconSize) / 2 }}
+            onClick={() => navigate("/seedling")}
+          ></IconPlant>
+        </Tooltip>
         <IconBellHeart
           size={iconSize}
           color="white"
