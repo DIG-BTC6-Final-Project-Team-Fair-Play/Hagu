@@ -1,4 +1,4 @@
-.before-watering{
+/* .before-watering{
     animation: shake .1s infinite;
   }
   
@@ -8,4 +8,39 @@
     50% {transform: translate(0px, 2px) rotateZ(0deg)}
     75% {transform: translate(2px, 0px) rotateZ(-1deg)}
     100% {transform: translate(0px, 0px) rotateZ(0deg)}
-  }
+  } */
+
+  /* 吹き出し本体*/
+.vegetable-comment {
+  position: relative;
+  display: inline-block;
+  background: #fff;
+  border-radius: 1.5rem;
+  border: 2px solid #808080;
+  box-sizing: border-box;
+}
+
+/* 吹き出し三角：背景用*/
+.vegetable-comment :before {
+  content: "";
+  position: absolute;
+  display: block;
+  top:16px;
+  right: -1.43rem;
+  /* transform: translateY(-50%); */
+  border: 12px solid transparent;
+  border-left: 12px solid #ffffff;
+  z-index: 2;
+}
+
+/*吹き出し三角：枠線用*/
+.vegetable-comment :after {
+  content: "";
+  position: absolute;
+  display: block;
+  top:15.5px;
+  right: -1.62rem;
+  border: 12px solid transparent;
+  border-left: 12px solid #808080;
+  z-index: 1;
+}
