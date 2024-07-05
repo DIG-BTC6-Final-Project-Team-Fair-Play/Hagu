@@ -1,36 +1,18 @@
 import { useState } from "react";
-import { Box, Group, Avatar, Text, Accordion, TextInput } from "@mantine/core";
+import {
+  Box,
+  Group,
+  Avatar,
+  Text,
+  Accordion,
+  TextInput,
+  RangeSlider,
+  Space,
+  Slider,
+} from "@mantine/core";
 import { SelectBtnDouble } from "../SelectBtnDouble";
 import { Vegetables } from "../../types/globals";
-
-// const seedlingList = [
-//   {
-//     id: "1",
-//     image:
-//       "https://media.istockphoto.com/id/495070436/ja/%E3%82%B9%E3%83%88%E3%83%83%E3%82%AF%E3%83%95%E3%82%A9%E3%83%88/%E7%B7%91%E8%83%A1%E6%A4%92%E7%99%BD%E3%81%A7%E5%88%86%E9%9B%A2.jpg?s=612x612&w=0&k=20&c=myz8RseDzJKR8hJiyI35ef7M5ziOM5K1_2_3Da1n7HQ=",
-//     label: "ピーマン",
-//     description: "種植え時期５月くらい",
-//     content: "ピーマンのコツ",
-//   },
-
-//   {
-//     id: "2",
-//     image:
-//       "https://hagi-gochi.jp/wp/wp-content/themes/hagigochi/images/food/nasu/img_lead.jpg",
-//     label: "なす",
-//     description: "種植え時期４月くらい",
-//     content: "なすのコツ",
-//   },
-
-//   {
-//     id: "トマト",
-//     image:
-//       "https://t4.ftcdn.net/jpg/04/58/75/79/360_F_458757982_MefO01wxlEef901gpO4Z8ISN0EEK0su3.jpg",
-//     label: "トマト",
-//     description: "種植え時期５月くらい",
-//     content: "トマトのコツ",
-//   },
-// ];
+import "./SelectSeedling.css";
 
 interface AccordionLabelProps {
   label: string;
@@ -62,25 +44,56 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
   const handleAccordionChange = (value: string | null) => {
     setActive(value);
   };
-
-  // const items = seedlingList.map((item) => (
-  //   <Accordion.Item value={item.id} key={item.label}>
-  //     <Accordion.Control>
-  //       <AccordionLabel {...item} />
-  //     </Accordion.Control>
-  //     <Accordion.Panel>
-  //       <Text size="sm">{item.content}</Text>
-  //     </Accordion.Panel>
-  //   </Accordion.Item>
-  // ));
-
   const items = vegetableData.map((item) => (
     <Accordion.Item value={`${item.id}`} key={item.label}>
       <Accordion.Control>
         <AccordionLabel {...item} />
       </Accordion.Control>
       <Accordion.Panel>
-        <Text size="sm">{item.content}</Text>
+        <Group >
+          <Text>{item.content}</Text>
+          <Text fw={700} size="sm"c={"#8E5E75"}>ー 植付</Text>
+          <Text fw={700} size="sm" c={"#5F907B"}>ー 収穫</Text>
+        </Group>
+        <Space h={3}></Space>
+        <Slider
+          disabled
+          draggable={false}
+          size={"xs"}
+          showLabelOnHover={false}
+          marks={[
+            { value: 0, label: "1月" },
+            { value: 100 / 11, label: "2月" },
+            { value: (100 / 11) * 2, label: "3月" },
+            { value: (100 / 11) * 3, label: "4月" },
+            { value: (100 / 11) * 4, label: "5月" },
+            { value: (100 / 11) * 5, label: "6月" },
+            { value: (100 / 11) * 6, label: "7月" },
+            { value: (100 / 11) * 7, label: "8月" },
+            { value: (100 / 11) * 8, label: "9月" },
+            { value: (100 / 11) * 9, label: "10月" },
+            { value: (100 / 11) * 10, label: "11月" },
+            { value: (100 / 11) * 11, label: "12月" },
+          ]}
+        ></Slider>
+        <RangeSlider
+          top={-8}
+          draggable={false}
+          color="#8E5E75"
+          size={"xs"}
+          showLabelOnHover={false}
+          defaultValue={[(100 / 11) * (item.planting_start -1), (100 / 11) * (item.planting_end -1)]}
+        ></RangeSlider>
+        <RangeSlider
+          top={-16}
+          draggable={false}
+          color="#5F907B"
+          size={"xs"}
+          showLabelOnHover={false}
+          defaultValue={[(100 / 11) * (item.harvest_start -1), (100 / 11) * (item.harvest_end -1)]}
+        ></RangeSlider>
+
+        <Space></Space>
       </Accordion.Panel>
     </Accordion.Item>
   ));

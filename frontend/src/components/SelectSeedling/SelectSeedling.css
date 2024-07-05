@@ -1,0 +1,8 @@
+.mark {
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+    transform: translateX(-3px) translateY(-2px);
+    border-color: light-dark(var(--mantine-color-blue-1), var(--mantine-color-dark-3));
+  }
+  

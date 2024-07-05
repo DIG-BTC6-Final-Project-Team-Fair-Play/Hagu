@@ -25,6 +25,10 @@ export interface Vegetables {
   label: string;
   description: string;
   content: string;
+  planting_start: number;
+  planting_end: number;
+  harvest_start: number;
+  harvest_end: number;
 }
 
 export interface Equipments {

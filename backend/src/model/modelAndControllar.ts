@@ -38,7 +38,11 @@ export = {
       "image",
       "label",
       "description",
-      "content"
+      "content",
+      "planting_start",
+      "planting_end",
+      "harvest_start",
+      "harvest_end",
     );
     res.status(200).send(vegetables);
   },
