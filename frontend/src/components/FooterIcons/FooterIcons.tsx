@@ -8,7 +8,7 @@ import {
 } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userData } from "../../App";
+import { selectSeedIdContext, userData } from "../../App";
 import axios from "axios";
 
 export const FooterIcons = () => {
@@ -18,6 +18,7 @@ export const FooterIcons = () => {
   const [seedView, setSeedView] = useState<boolean>(true);
 
   const userID = useContext(userData);
+  const { selectSeedId } = useContext(selectSeedIdContext);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +27,7 @@ export const FooterIcons = () => {
         .then((res) => res.data);
       setSeedView(seedlings.length === 0);
     })();
-  }, []);
+  }, [selectSeedId]);
 
   return (
     <Box h={footerH}>

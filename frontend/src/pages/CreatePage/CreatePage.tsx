@@ -6,25 +6,25 @@ import { Header } from "../../components/Header";
 import { SelectSeedling } from "../../components/SelectSeedling";
 // import { SelectBtnDouble } from "../../components/SelectBtnDouble";
 
-import { ItemsList } from "../../components/ItemsList";
+// import { ItemsList } from "../../components/ItemsList";
 import { useEffect, useState } from "react";
 import { Vegetables } from "../../types/globals";
 import axios from "axios";
 
-const dummyItems = {
-  id: 1,
-  vegetable_name: "ピーマン",
-  equipment_list: [
-    "スコップ",
-    "培養土",
-    "鉢底石",
-    "化成肥料",
-    "仮支柱",
-    "本支柱",
-    "麻紐",
-    "園芸用はさみ",
-  ],
-};
+// const dummyItems = {
+//   id: 1,
+//   vegetable_name: "ピーマン",
+//   equipment_list: [
+//     "スコップ",
+//     "培養土",
+//     "鉢底石",
+//     "化成肥料",
+//     "仮支柱",
+//     "本支柱",
+//     "麻紐",
+//     "園芸用はさみ",
+//   ],
+// };
 
 export const CreatePage = () => {
   const [vegetableData, setVegetableData] = useState<Vegetables[]>([]);
@@ -48,7 +48,7 @@ export const CreatePage = () => {
       {/* NOTE:Routeで表示するコンポーネントを切り替える予定 */}
       <Box style={{ flex: 1 }}>
         <SelectSeedling vegetableData={vegetableData} />
-        <ItemsList {...dummyItems} />
+        {/* <ItemsList {...dummyItems} /> */}
       </Box>
     </Flex>
   );

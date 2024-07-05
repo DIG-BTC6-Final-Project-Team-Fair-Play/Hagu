@@ -16,7 +16,7 @@ export const FirstExplainPage = () => {
             width: "100%",
           }}
         >
-          <FooterIcons></FooterIcons>
+          {/* <FooterIcons></FooterIcons> */}
         </Box>
       </Flex>
     </>
