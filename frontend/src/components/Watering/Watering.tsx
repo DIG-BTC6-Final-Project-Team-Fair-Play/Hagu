@@ -5,19 +5,16 @@ import { selectSeedIdContext, userData } from "../../App";
 import axios from "axios";
 import { Seedlings } from "../../types/globals";
 import { useNavigate } from "react-router-dom";
+import { useReward } from "react-rewards";
 
 export const Watering = () => {
   const navigate = useNavigate();
   const userId = useContext(userData);
-  console.log("userId: ", userId);
   const { selectSeedId } = useContext(selectSeedIdContext);
-  console.log("selectSeedId: ", selectSeedId);
-
   const [seedData, setSeedData] = useState<Seedlings[]>([]);
   const [index, setIndex] = useState<number>(0);
-  console.log("seedData: ", seedData);
-  const [comment, setComment] = useState<string>("ありがとう");
-  console.log(comment);
+  const [comment, setComment] = useState<string>("");
+  const { reward: balloonsReward } = useReward("balloonsReward", "balloons");
   const getUserSeedlings = async () => {
     const userSeedling: Seedlings[] = await axios
       .get(`/api/seedlings/${userId}`)
@@ -65,8 +62,8 @@ export const Watering = () => {
     <>
       {seedData.length !== 0 && index !== -1 && (
         <>
-          <Stack align={"center"} >
-            <Space/>
+          <Stack align={"center"}>
+            <Space />
             <Center>
               <div className="vegetable-comment">
                 <Text pt={8} pl={10} pr={10} fz={20} w={"80vw"} h={"15vh"}>
@@ -84,6 +81,7 @@ export const Watering = () => {
               alt="Norway"
             />
           </Stack>
+          {/* <Rewards></Rewards> */}
           <Box w={"100%"} pos={"fixed"} bottom={"60px"}>
             <Group justify="space-between">
               <Image
@@ -92,9 +90,17 @@ export const Watering = () => {
                 w={"30%"}
                 fit="contain"
                 alt="Norway"
-                onClick={putWatering}
+                onClick={
+                  compareDate()
+                    ? () => {}
+                    : () => {
+                        balloonsReward();
+                        putWatering();
+                      }
+                }
                 style={compareDate() ? { filter: "grayscale(100%)" } : {}}
               />
+              <div id={"balloonsReward"}></div>
               <Image
                 mx={"auto"}
                 src={`./images/Camera.png`}
