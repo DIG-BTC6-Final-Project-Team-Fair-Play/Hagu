@@ -27,7 +27,7 @@ export const HomeBack = ({
     await axios.put(`/api/seedlings/${seedIndex}/growth`, {
       growing_stage_no: growingStage - 1,
     });
-    await new Promise((resolve) => setTimeout(resolve,500))
+    await new Promise((resolve) => setTimeout(resolve,300))
     await axios.get(`/api/seedlings/${user}`).then((res) => {
       setSeed(res.data);
     });
