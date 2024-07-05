@@ -74,8 +74,6 @@ export const SeedlingSelect = () => {
                     <Avatar
                       m={"auto"}
                       size={"xl"}
-                      radius={"100"}
-                      bg={"#CAD6C5"}
                       src={`./images/0${obj.vegetable_id}_icon2.png`}
                       onClick={() => {
                         if (!deletePreparation) {
