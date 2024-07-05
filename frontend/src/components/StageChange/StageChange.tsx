@@ -1,6 +1,15 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import { Avatar, Box, Flex, Image, Slider, Space, Text } from "@mantine/core";
+import {
+  AspectRatio,
+  Avatar,
+  Box,
+  Flex,
+  Image,
+  Slider,
+  Space,
+  Text,
+} from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AdviceBox } from "../AdviceBox";
 import { HomeBack } from "../HomeBack";
@@ -9,6 +18,7 @@ import { HomeNext } from "../HomeNext";
 import { Seedlings } from "../../types/globals";
 import { selectSeedIdContext } from "../../App";
 import { Leaf } from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
 
 interface StageChangeProps {
   seed: Seedlings[];
@@ -27,6 +37,7 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
   const [vegetableId, setVegetableId] = useState<number>(0);
   const [nextOn, setNextOn] = useState<boolean>(false);
   const [backOn, setBackOn] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const stages = [
     `./images/0${vegetableId}_stage_01.png`,
@@ -52,9 +63,25 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
     }
   }, [seed]);
 
-  const slides = stages.map((url) => (
+  const slides = stages.map((url, index) => (
     <Carousel.Slide key={url}>
-      <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
+      <Box>
+        <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
+        {stages.length - 1 === index ? (
+          <AspectRatio ratio={40 / 25}>
+            <Image
+              w={"40%"}
+              src={"./images/Camera.png"}
+              style={{ position: "absolute", top: "70%", left: "50%" }}
+              onClick={() => {
+                navigate("/eat_camera");
+              }}
+            />
+          </AspectRatio>
+        ) : (
+          ""
+        )}
+      </Box>
     </Carousel.Slide>
   ));
 

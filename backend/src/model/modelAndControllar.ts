@@ -175,6 +175,24 @@ export = {
     res.status(201).send("写真更新おｋ");
   },
 
+  async postEatPhotos(req: Request, res: Response) {
+    const photo: PostPhotos = req.body;
+
+    initializeApp(firebaseConfig);
+    const storage = getStorage();
+    const storageRef = ref(storage, photo.photo_data);
+
+    getDownloadURL(storageRef).then(
+      async (url) =>
+        await knex("eat_photos").insert({
+          seedling_id: photo.seedling_id,
+          photo_data: url,
+        })
+    );
+
+    res.status(201).send("写真更新おｋ");
+  },
+
   async getTimelapse(req: Request, res: Response) {
     const id = req.params.id;
     const photos: Photos[] = await knex("photos")
