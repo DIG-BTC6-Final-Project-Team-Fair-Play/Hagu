@@ -43,6 +43,8 @@ const setupExpressApp = () => {
 
   app.post("/api/photos", controller.postPhotos);
 
+  app.post("/api/eat_photos", controller.postEatPhotos);
+
   app.get("/api/seedlings/:id/timelapse", controller.getTimelapse);
 
   app.get("/api/friends/:userId", controller.getFriends);

@@ -15,6 +15,7 @@ import { WateringPage } from "./pages/WateringPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { FirstExplainPage } from "./pages/FirstExplainPage";
 import OneSignal from "react-onesignal";
+import { EatCameraPage } from "./pages/EatCameraPage";
 
 export const userData = createContext<number>(0);
 // export const seedLings = createContext<Seedlings[]>([]);
@@ -68,6 +69,7 @@ function App() {
                 <Route path="create" element={<CreatePage />} />
                 <Route path="home" element={<HomePage />} />
                 <Route path="camera" element={<CameraPage />} />
+                <Route path="eat_camera" element={<EatCameraPage />} />
                 <Route path="photos" element={<PhotosPage />} />
                 <Route path="photosList" element={<PhotosListPage />} />
                 <Route path="friends" element={<FriendsPage />} />
