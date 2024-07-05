@@ -15,7 +15,7 @@ export const FooterIcons = () => {
   const footerH = 60;
   const iconSize = 30;
   const navigate = useNavigate();
-  const [seedView, setSeedView] = useState<boolean>(true);
+  const [seedView, setSeedView] = useState<boolean>(false);
 
   const userID = useContext(userData);
   const { selectSeedId } = useContext(selectSeedIdContext);
