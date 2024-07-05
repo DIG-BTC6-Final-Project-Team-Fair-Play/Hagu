@@ -5,6 +5,20 @@ import axios from "axios";
 import { Vegetable_advice } from "../../types/globals";
 import { Badge, Button, Card, Center, Group, Image, Text } from "@mantine/core";
 import { selectSeedIdContext, userData } from "../../App";
+import React from "react";
+
+const MultiLineBody = ({ body }: { body: string }) => {
+  const texts = body.split("\n").map((item, index) => {
+    return (
+      <React.Fragment key={index}>
+        {item}
+        <br />
+      </React.Fragment>
+    );
+  });
+
+  return <div>{texts}</div>;
+};
 
 export const FirstExplain = () => {
   const location = useLocation();
@@ -72,7 +86,8 @@ export const FirstExplain = () => {
           </Group>
 
           <Text size="sm" c="dimmed" h={"35vh"}>
-            {advice.advice}
+            {/* {advice.advice} */}
+            <MultiLineBody body={advice.advice} />
           </Text>
 
           <Group justify="space-between">
