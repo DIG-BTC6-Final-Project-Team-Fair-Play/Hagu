@@ -1,4 +1,4 @@
-import { Center, Group, Image, Box, Space, Tooltip, Text, Flex, Stack } from "@mantine/core";
+import { Center, Group, Image, Box, Space, Text, Flex, Stack } from "@mantine/core";
 import "./Watering.css";
 import { useContext, useEffect, useState } from "react";
 import { selectSeedIdContext, userData } from "../../App";
