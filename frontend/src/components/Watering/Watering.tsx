@@ -1,4 +1,4 @@
-import { Center, Group, Image, Box, Space, Text, Flex, Stack } from "@mantine/core";
+import { Center, Group, Image, Box, Space, Text, Stack } from "@mantine/core";
 import "./Watering.css";
 import { useContext, useEffect, useState } from "react";
 import { selectSeedIdContext, userData } from "../../App";
@@ -18,8 +18,6 @@ export const Watering = () => {
   console.log("seedData: ", seedData);
   const [comment, setComment] = useState<string>("ありがとう");
   console.log(comment);
-  // 仮テスト用
-  // const [count, setCount] = useState<boolean>(true);
   const getUserSeedlings = async () => {
     const userSeedling: Seedlings[] = await axios
       .get(`/api/seedlings/${userId}`)
@@ -35,10 +33,8 @@ export const Watering = () => {
   useEffect(() => {
     console.log("a");
     (async () => {
-      // [{},{}]
       await getUserSeedlings();
     })();
-    // }, [userId, count]);
   }, [userId]);
   // 水やり更新
   const putWatering = async () => {
@@ -69,7 +65,6 @@ export const Watering = () => {
     <>
       {seedData.length !== 0 && index !== -1 && (
         <>
-        {/* <Stack align="center" justify="space-around"> */}
           <Stack align={"center"} >
             <Space/>
             <Center>
@@ -92,7 +87,6 @@ export const Watering = () => {
           <Box w={"100%"} pos={"fixed"} bottom={"60px"}>
             <Group justify="space-between">
               <Image
-                // src={`./images/0${vegetableId}_icon.png`}
                 mx={"auto"}
                 src={`./images/Watering.png`}
                 w={"30%"}
@@ -102,7 +96,6 @@ export const Watering = () => {
                 style={compareDate() ? { filter: "grayscale(100%)" } : {}}
               />
               <Image
-                // src={`./images/0${vegetableId}_icon.png`}
                 mx={"auto"}
                 src={`./images/Camera.png`}
                 w={"30%"}
@@ -111,12 +104,9 @@ export const Watering = () => {
                 onClick={() => {
                   navigate("/camera");
                 }}
-                // seedLingIdが必要(context)
               />
             </Group>
-            {/* https://mantine.dev/core/indicator/ */}
           </Box>
-        {/* </Stack> */}
         </>
       )}
     </>
