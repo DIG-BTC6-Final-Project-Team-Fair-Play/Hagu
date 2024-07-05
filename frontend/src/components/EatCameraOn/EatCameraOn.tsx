@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
 import storage from "../../firebase/firebase";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ export const EatCameraOn = ({ seedlingId }: cameraProps) => {
   // const [lastPhoto, setLastPhoto] = useState<string>("");
   const [numberOfCameras, setNumberOfCameras] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
+  console.log("loading: ", loading);
   // const [opacity, setOpacity] = useState<number>(0.5);
   // useEffect(() => {
   //   axios.get(`/api/lastPhotos/${seedlingId}`).then((res) => {
@@ -46,7 +47,7 @@ export const EatCameraOn = ({ seedlingId }: cameraProps) => {
     return new File([buffer.buffer], fileName, { type: "image/png" });
   };
 
-  const onFileUPloadToFirebase = () => {
+  const onFileUPloadToFirebase = async () => {
     // 現在の日時をUTCで取得し、ファイル名として使用
     const now = new Date().toISOString().replace(/[:.]/g, "-");
     const fileName = `photo_${now}.png`;
@@ -62,15 +63,19 @@ export const EatCameraOn = ({ seedlingId }: cameraProps) => {
         (err) => {
           console.error(err);
         },
-        () => {
+        async () => {
+          const downLoadUrl = await getDownloadURL(uploadImage.snapshot.ref);
+          console.log("downLoadUrl: ", downLoadUrl);
+
           setLoading(false);
-          axios.post("/api/eat_photos", {
+
+          await axios.put("/api/eat_photos", {
             seedling_id: seedlingId,
             photo_data: "gs://hagu-882e3.appspot.com/image/" + fileName,
           });
-          console.log("sent to server", loading);
           // ナビゲート
-          navigate("/home");
+
+          navigate("/home", { state: { downLoadUrl } });
         }
       );
     } else {
@@ -88,8 +93,8 @@ export const EatCameraOn = ({ seedlingId }: cameraProps) => {
   return (
     <Container h={"100vh"} w={"100vw"} bg={"Black"} p={0}>
       {image ? (
-        <Flex direction={"column"}>
-          <Box pos={"relative"} h={"75vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
+        <Flex direction={"column"} h={"100vh"} justify={"center"}>
+          <Box pos={"relative"} h={"70vw"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
             <Image src={image}></Image>
           </Box>
           <Box h={"5vh"}></Box>
@@ -107,8 +112,8 @@ export const EatCameraOn = ({ seedlingId }: cameraProps) => {
           </Flex>
         </Flex>
       ) : (
-        <Flex direction={"column"}>
-          <Box pos={"relative"} h={"75vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
+        <Flex direction={"column"} h={"100vh"} justify={"center"}>
+          <Box pos={"relative"} h={"70vw"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
             <Camera
               ref={camera}
               errorMessages={errorMessages}

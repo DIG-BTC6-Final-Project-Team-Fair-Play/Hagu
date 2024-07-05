@@ -11,6 +11,7 @@ import { Header } from "../../components/Header";
 export const HomePage = () => {
   const user = useContext(userData);
   const [seed, setSeed] = useState<Seedlings[]>([]);
+  const [flag, setFlag] = useState<boolean>(true);
   // バンちゃん追加[{},{}]
   const { selectSeedId, setSelectSeedId } = useContext(selectSeedIdContext);
 
@@ -21,11 +22,13 @@ export const HomePage = () => {
         .then((res) => {
           return res.data;
         });
+
       setSeed(seedlings);
+      console.log("seedlings: ", seedlings);
       // バンちゃん追加
       selectSeedId === 0 && setSelectSeedId(seedlings[0].id);
     })();
-  }, [user]);
+  }, [user, flag]);
 
   return (
     <>
@@ -37,7 +40,12 @@ export const HomePage = () => {
       >
         <Header content={"Home"}></Header>
         <Box h={`calc(100vh - 60px - 48px -60px)`}>
-          <StageChange seed={seed} setSeed={setSeed}></StageChange>
+          <StageChange
+            seed={seed}
+            setSeed={setSeed}
+            flag={flag}
+            setFlag={setFlag}
+          ></StageChange>
         </Box>
         <Box
           style={{
