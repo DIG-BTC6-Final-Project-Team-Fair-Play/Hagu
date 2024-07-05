@@ -196,7 +196,7 @@ export const StageChange = ({
               src={`./images/0${vegetableId}_icon2.png`}
             />
             <Text size="xs" ta={"center"} w={60}>
-              {seed[seedIndex].seedling_name}
+              {seed[seedIndex]?.seedling_name}
             </Text>
           </Box>
         </Flex>
