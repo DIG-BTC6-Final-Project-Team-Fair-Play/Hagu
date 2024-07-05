@@ -8,6 +8,10 @@ export async function up(knex: Knex): Promise<void> {
     t.string("content");
     t.string("equipment_list");
     t.text("image");
+    t.integer("planting_start");
+    t.integer("planting_end");
+    t.integer("harvest_start");
+    t.integer("harvest_end");
   });
 }
 

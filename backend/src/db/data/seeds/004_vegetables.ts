@@ -23,6 +23,10 @@ export async function seed(knex: Knex): Promise<void> {
         "園芸用はさみ",
       ]),
       image: "./images/01_icon.png",
+      planting_start:5,
+      planting_end:6,
+      harvest_start:6,
+      harvest_end:10,
     },
     {
       label: "なす",
@@ -41,6 +45,10 @@ export async function seed(knex: Knex): Promise<void> {
         "園芸用はさみ",
       ]),
       image: "./images/02_icon.png",
+      planting_start:5,
+      planting_end:6,
+      harvest_start:6,
+      harvest_end:10,
     },
     {
       label: "トマト",
@@ -59,6 +67,10 @@ export async function seed(knex: Knex): Promise<void> {
         "園芸用はさみ",
       ]),
       image: "./images/03_icon.png",
+      planting_start:5,
+      planting_end:6,
+      harvest_start:6,
+      harvest_end:11,
     },
   ]);
 }
