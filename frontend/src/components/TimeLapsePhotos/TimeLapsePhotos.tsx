@@ -54,7 +54,7 @@ export const TimeLapsePhotos: React.FC<TimeLapsePhotosProps> = ({
         <Box h={"80vh"}>
           <Box h={"40vh"}>
             <Text
-              pt={"20vh"}
+              pt={"23vh"}
               className="zen-maru-gothic-regular"
               size="xl"
               fw={900}
@@ -63,7 +63,7 @@ export const TimeLapsePhotos: React.FC<TimeLapsePhotosProps> = ({
               ta={"center"}
             >
               {`${selectSeedName}の`}
-              <br></br>せいちょうきろく(成長記録)<br></br>作成中だよ
+              <br></br>せいちょうきろく作成中だよ
             </Text>
           </Box>
           <Box h="40vh">
