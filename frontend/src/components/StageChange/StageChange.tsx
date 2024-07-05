@@ -1,31 +1,29 @@
 import "@mantine/carousel/styles.css";
 import { Carousel, Embla } from "@mantine/carousel";
-import {
-  AspectRatio,
-  Avatar,
-  Box,
-  Flex,
-  Image,
-  Slider,
-  Space,
-  Text,
-} from "@mantine/core";
+import { Avatar, Box, Flex, Image, Slider, Space, Text } from "@mantine/core";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AdviceBox } from "../AdviceBox";
 import { HomeBack } from "../HomeBack";
 import { HomeNext } from "../HomeNext";
-// import { useLocation } from "react-router-dom";
 import { Seedlings } from "../../types/globals";
 import { selectSeedIdContext } from "../../App";
 import { Leaf } from "tabler-icons-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface StageChangeProps {
   seed: Seedlings[];
   setSeed: React.Dispatch<React.SetStateAction<Seedlings[]>>;
+  flag: boolean;
+  setFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
+export const StageChange = ({
+  seed,
+  setSeed,
+  flag,
+  setFlag,
+}: StageChangeProps) => {
+  const location = useLocation();
   const { selectSeedId } = useContext(selectSeedIdContext);
   let seedIndex =
     selectSeedId === 0 ? 0 : seed.findIndex((ele) => ele.id === selectSeedId);
@@ -38,6 +36,7 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
   const [nextOn, setNextOn] = useState<boolean>(false);
   const [backOn, setBackOn] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [eatPhoto, setEatPhoto] = useState<string>("");
 
   const stages = [
     `./images/0${vegetableId}_stage_01.png`,
@@ -60,30 +59,57 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
       setVegetableId(seed[seedIndex].vegetable_id);
       setNewComer(true);
       setSlideId(seed[seedIndex].growing_stage_no - 1);
+      if (seed[seedIndex].eat_photo_url) {
+        setEatPhoto(seed[seedIndex].eat_photo_url);
+      } else {
+        console.log("hogehoge");
+
+        console.log("location?.state?.downLoadUrl: ", location?.state);
+        setEatPhoto(location?.state?.downLoadUrl);
+      }
     }
   }, [seed]);
 
+  useEffect(() => {
+    setFlag((prev) => {
+      return !prev;
+    });
+    console.log("flag: ", flag);
+  }, []);
+
   const slides = stages.map((url, index) => (
     <Carousel.Slide key={url}>
-
-      <Box>
+      {stages.length - 1 === index ? (
+        <Box style={{ position: "relative" }}>
+          <Image
+            h={110}
+            src={url}
+            style={{
+              filter: "drop-shadow(1px 1px 2px black",
+              // position: "absolute",
+              top: 110,
+            }}
+          />
+          <Box h={"calc(30vh - 50px)"} style={{ borderRadius: 10 }} bg={"gray"}>
+            <Flex h={"calc(30vh - 50px)"} justify="center" align="center">
+              {eatPhoto ? (
+                <Image src={eatPhoto} w={"98%"} />
+              ) : (
+                <Image
+                  w={100}
+                  src={"./images/Camera.png"}
+                  onClick={() => {
+                    navigate("/eat_camera");
+                  }}
+                />
+              )}
+            </Flex>
+            {/* {seed[seedIndex] && console.log(seed[seedIndex].last_watering)} */}
+          </Box>
+        </Box>
+      ) : (
         <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
-        {stages.length - 1 === index ? (
-          <AspectRatio ratio={40 / 25}>
-            <Image
-              w={"40%"}
-              src={"./images/Camera.png"}
-              style={{ position: "absolute", top: "70%", left: "50%" }}
-              onClick={() => {
-                navigate("/eat_camera");
-              }}
-            />
-          </AspectRatio>
-        ) : (
-          ""
-        )}
-      </Box>
-
+      )}
     </Carousel.Slide>
   ));
 

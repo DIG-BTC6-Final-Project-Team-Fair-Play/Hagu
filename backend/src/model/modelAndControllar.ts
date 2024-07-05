@@ -188,9 +188,8 @@ export = {
 
     getDownloadURL(storageRef).then(
       async (url) =>
-        await knex("eat_photos").insert({
-          seedling_id: photo.seedling_id,
-          photo_data: url,
+        await knex("seedlings").where({ id: photo.seedling_id }).update({
+          eat_photo_url: url,
         })
     );
 

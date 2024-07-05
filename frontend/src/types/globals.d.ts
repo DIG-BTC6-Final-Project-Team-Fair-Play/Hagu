@@ -17,6 +17,7 @@ export interface Seedlings {
   growing_stage_no: number;
   last_watering: datetime;
   seedling_name: string;
+  eat_photo_url: string;
 }
 
 export interface Vegetables {
