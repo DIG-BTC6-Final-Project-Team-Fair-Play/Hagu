@@ -60,7 +60,6 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
   const [seedlingName, setSeedlingName] = useState<string>("");
   const [active, setActive] = useState<string | null>(null);
   const handleAccordionChange = (value: string | null) => {
-    console.log({ value });
     setActive(value);
   };
 
@@ -98,12 +97,14 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
         {items}
       </Accordion>
       <TextInput
-        placeholder="選んだ苗になまえをつけてあげよう！"
+        placeholder="苗になまえをつけてあげよう！"
+        size={"lg"}
         mt={"auto"}
         ml={"auto"}
         mr={"auto"}
         mb={10}
         w={"80%"}
+        error={seedlingName.length > 10 ? "10文字いないで書いてね" : ""}
         onChange={(e) => {
           setSeedlingName(e.target.value);
         }}

@@ -31,11 +31,9 @@ export const SeedlingSelect = () => {
         .get(`/api/seedlings/${userID}`)
         .then((res) => res.data);
       setMySeedling(seedlings);
-      console.log("sss");
     })();
   }, [selectSeedId]);
   return (
-
     <>
       <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
         <GridCol span={6}>
@@ -55,7 +53,7 @@ export const SeedlingSelect = () => {
               />
               <Space h={"xs"} />
               <Center>
-                <Text size="md">新しい苗</Text>
+                <Text size="xs">新しい苗</Text>
               </Center>
             </Box>
           </Center>
@@ -76,10 +74,7 @@ export const SeedlingSelect = () => {
                     <Avatar
                       m={"auto"}
                       size={"xl"}
-                      radius={"100"}
-                      bg={"#CAD6C5"}
-                      src={`./images/0${obj.vegetable_id}_icon.png`}
-                      style={{ filter: "drop-shadow(1px 1px 2px black" }}
+                      src={`./images/0${obj.vegetable_id}_icon2.png`}
                       onClick={() => {
                         if (!deletePreparation) {
                           setDeleteSeedName(obj.seedling_name);
@@ -94,7 +89,9 @@ export const SeedlingSelect = () => {
                   </Indicator>
                   <Space h={"xs"} />
                   <Center>
-                    <Text size="m">{mySeedling[index].seedling_name}</Text>
+                    <Text size="xs" ta={"center"} w={60}>
+                      {mySeedling[index].seedling_name}
+                    </Text>
                   </Center>
                 </Box>
               </Center>
@@ -120,7 +117,7 @@ export const SeedlingSelect = () => {
                 />
                 <Space h={"xs"} />
                 <Center>
-                  <Text size="md">苗を削除</Text>
+                  <Text size="xs">苗を削除</Text>
                 </Center>
               </Box>
             </Center>
@@ -128,7 +125,6 @@ export const SeedlingSelect = () => {
         ) : (
           ""
         )}
-
       </Grid>
       <DeleteSeed
         opened={opened}
@@ -137,6 +133,5 @@ export const SeedlingSelect = () => {
         setMySeedling={setMySeedling}
       />
     </>
-
   );
 };

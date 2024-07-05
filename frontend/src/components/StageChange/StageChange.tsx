@@ -65,6 +65,7 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
 
   const slides = stages.map((url, index) => (
     <Carousel.Slide key={url}>
+
       <Box>
         <Image src={url} style={{ filter: "drop-shadow(1px 1px 2px black" }} />
         {stages.length - 1 === index ? (
@@ -82,6 +83,7 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
           ""
         )}
       </Box>
+
     </Carousel.Slide>
   ));
 
@@ -164,11 +166,8 @@ export const StageChange = ({ seed, setSeed }: StageChangeProps) => {
           <Box>
             <Avatar
               m={"auto"}
-              size={"60"}
-              radius={"100"}
-              bg={"#CAD6C5"}
-              src={`./images/0${vegetableId}_icon.png`}
-              style={{ filter: "drop-shadow(1px 1px 2px black" }}
+              size={"70"}
+              src={`./images/0${vegetableId}_icon2.png`}
             />
             <Text size="xs" ta={"center"} w={60}>
               {seed[seedIndex].seedling_name}

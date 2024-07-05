@@ -1,5 +1,4 @@
 import { Box, Flex } from "@mantine/core";
-import { FooterIcons } from "../../components/FooterIcons";
 import { FirstExplain } from "../../components/FirstExplain";
 
 export const FirstExplainPage = () => {
@@ -16,7 +15,7 @@ export const FirstExplainPage = () => {
             width: "100%",
           }}
         >
-          <FooterIcons></FooterIcons>
+          {/* <FooterIcons></FooterIcons> */}
         </Box>
       </Flex>
     </>
