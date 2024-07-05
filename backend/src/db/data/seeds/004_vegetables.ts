@@ -8,8 +8,9 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("vegetables").insert([
     {
       label: "ピーマン",
-      description: "種植え時期５月くらい",
-      content: "ピーマンのコツ",
+      description: "苗植え時期5月 | 収穫期間約40日",
+      content:
+        "ピーマンはトウガラシの仲間なので虫や病気の心配が少なく、1株からたくさんの実が収穫できる初心者にも栽培しやすい野菜です。",
       equipment_list: JSON.stringify([
         "スコップ",
         "ピーマンの種",
@@ -25,8 +26,9 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       label: "なす",
-      description: "種植え時期6月くらい",
-      content: "ピーマンのコツ",
+      description: "苗植え時期5月 | 収穫期間約40日",
+      content:
+        "なすは、比較的簡単に育てられる、家庭菜園でも定番の野菜です。また春に植えれば夏に収穫でき、さらに秋なすとしても収穫できる楽しみも！",
       equipment_list: JSON.stringify([
         "スコップ",
         "なすの種",
@@ -42,8 +44,9 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       label: "トマト",
-      description: "種植え時期7月くらい",
-      content: "ピーマンのコツ",
+      description: "苗植え時期5月 | 収穫期間約60日",
+      content:
+        "4、5月頃に苗を植えると夏に収穫できるトマトは、手軽に育てられると人気の野菜です。",
       equipment_list: JSON.stringify([
         "スコップ",
         "トマトの種",
