@@ -57,6 +57,9 @@ const setupExpressApp = () => {
 
   app.delete("/api/seedlings/:id", controller.deleteSeedling);
 
+  app.use("/", require("./routes/aiMessage"));
+  // AIメッセージの作成
+
   app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "../../dist", "index.html"));
   });
