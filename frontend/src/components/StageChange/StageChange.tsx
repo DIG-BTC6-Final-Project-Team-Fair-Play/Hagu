@@ -56,11 +56,11 @@ export const StageChange = ({
   //seedファイルの有/無で初期値を設定
   useEffect(() => {
     if (seed.length !== 0) {
-      setVegetableId(seed[seedIndex].vegetable_id);
+      setVegetableId(seed[seedIndex]?.vegetable_id);
       setNewComer(true);
-      setSlideId(seed[seedIndex].growing_stage_no - 1);
-      if (seed[seedIndex].eat_photo_url) {
-        setEatPhoto(seed[seedIndex].eat_photo_url);
+      setSlideId(seed[seedIndex]?.growing_stage_no - 1);
+      if (seed[seedIndex]?.eat_photo_url) {
+        setEatPhoto(seed[seedIndex]?.eat_photo_url);
       } else {
         console.log("hogehoge");
 
@@ -169,8 +169,8 @@ export const StageChange = ({
             prev={(jump) => embla?.scrollNext(jump)}
             setSlideId={setSlideId}
             setBackOn={setBackOn}
-            growingStage={seed[seedIndex].growing_stage_no}
-            seedIndex={seed[seedIndex].id}
+            growingStage={seed[seedIndex]?.growing_stage_no}
+            seedIndex={seed[seedIndex]?.id}
             setSeed={setSeed}
           ></HomeBack>
         )}
@@ -180,8 +180,8 @@ export const StageChange = ({
             prev={(jump) => embla?.scrollPrev(jump)}
             setSlideId={setSlideId}
             setNextOn={setNextOn}
-            growingStage={seed[seedIndex].growing_stage_no}
-            seedIndex={seed[seedIndex].id}
+            growingStage={seed[seedIndex]?.growing_stage_no}
+            seedIndex={seed[seedIndex]?.id}
             setSeed={setSeed}
           ></HomeNext>
         )}
@@ -196,7 +196,7 @@ export const StageChange = ({
               src={`./images/0${vegetableId}_icon2.png`}
             />
             <Text size="xs" ta={"center"} w={60}>
-              {seed[seedIndex].seedling_name}
+              {seed[seedIndex]?.seedling_name}
             </Text>
           </Box>
         </Flex>
