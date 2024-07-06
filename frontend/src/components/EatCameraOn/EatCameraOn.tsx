@@ -1,4 +1,4 @@
-import { Container, Image, Box, Text, Flex, Slider } from "@mantine/core";
+import { Container, Image, Box, Text, Flex, Slider, Space } from "@mantine/core";
 import { useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
@@ -147,6 +147,7 @@ export const EatCameraOn = ({ seedlingId }: cameraProps) => {
               thumbSize={26}
             ></Slider>
           </Box>
+          <Space h={10}></Space>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"start"} pl={10}>
               <Text

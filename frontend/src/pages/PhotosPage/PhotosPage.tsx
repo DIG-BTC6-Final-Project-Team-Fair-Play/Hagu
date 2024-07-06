@@ -28,7 +28,7 @@ export const PhotosPage = () => {
           </Center>
         </Flex>
       </Box>
-      <Box h={"10vh"} flex={1}>
+      <Box w={"100%"} h={"10vh"} flex={1} pos={"fixed"} bottom={0}>
         <Center>
           <Button
             display={"block"}
