@@ -34,5 +34,19 @@ export async function seed(knex: Knex): Promise<void> {
       last_watering: "2024-06-25 12:00:00",
       seedling_name: "なす",
     },
+    {
+      user_id: 2,
+      vegetable_id: 2,
+      growing_stage_no: 5,
+      last_watering: "2024-06-25 12:00:00",
+      seedling_name: "なすろう軽量",
+    },
+    {
+      user_id: 2,
+      vegetable_id: 2,
+      growing_stage_no: 5,
+      last_watering: "2024-06-25 12:00:00",
+      seedling_name: "なする軽量",
+    },
   ]);
 }
