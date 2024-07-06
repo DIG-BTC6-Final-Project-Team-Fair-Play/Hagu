@@ -51,7 +51,7 @@ export const TimeLapsePhotos: React.FC<TimeLapsePhotosProps> = ({
   return (
     <Box>
       {photos.length === 0 ? (
-        <Box h={"80vh"}>
+        <Box h={"70vh"}>
           <Box h={"40vh"}>
             <Text
               pt={"23vh"}
@@ -74,16 +74,16 @@ export const TimeLapsePhotos: React.FC<TimeLapsePhotosProps> = ({
         </Box>
       ) : (
         <Flex direction={"column"}>
-          <Box h={"80vh"}>
+          <Box h={"70vh"}>
             <Image
-              h={"70vh"}
+              h={"65vh"}
               radius="30px"
               p={15}
               fit="cover"
               src={`data:image/png;base64,${photos[value]}`}
             />
             <Box>
-              <Space h={"xl"} />
+              <Space h={"xs"} />
               <Slider
                 thumbChildren={<IconPlant size={"1rem"} />}
                 thumbSize={36}
