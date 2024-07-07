@@ -155,21 +155,28 @@ npm run start
 
 ```mermaid
 erDiagram
-    users ||--o| friends : "user_id"
+    users ||--|{ friends : "user_id"
+    users ||--|{ seedlings : "user_id"
+    seedlings ||--o{ photos : "seedling_id"
+    seedlings ||--o{ eat_photos : "seedling_id"
+    vegetables ||--o{ seedlings : "vegetable_id"
+    vegetables ||--|{ vegetable_advice "vegetable_id"
+    
 
     users{
         int id PK
-        int line_id "LINEのID"
+        string line_id "LINEのID"
         string user_name "ユーザー名"
+        text picture "アイコン写真URL"
     }
 
     vegetables{
         int id PK
-        string label ""
-        text description ""
-        string content ""
-        string equipment_list ""
-        text image ""
+        string label "野菜の種類"
+        text description "選択画面の時期と収穫目安文"
+        string content "野菜の特徴"
+        string equipment_list "準備品"
+        text image "野菜選択画面のアイコン"
         int planting_start "苗植え開始時期"
         int planting_end "苗植え終了時期"
         int harvest_start "収穫開始時期"
@@ -182,12 +189,14 @@ erDiagram
         int vegetable_id FK
         int growing_stage_no "育成ステージ"
         datetime last_watering "最終水やり時間"
+        string seedling_name "ユーザーが野菜に付けた名前"
+        text eat_photo_url "調理後の写真URL"
     }
 
     vegetable_advice{
         int vegetable_id
         int growing_stage_no "育成ステージ"
-        text advice ""
+        text advice "ステージに合わせたアドバイス"
     }
 
     photos{
@@ -205,8 +214,11 @@ erDiagram
     friends{
         int id PK
         int user_id FK
-        int friend_id "友達のID"
+        int friend_id "追加する友達のID"
     }
+
+
+
 ```
 
 # Future Plans
