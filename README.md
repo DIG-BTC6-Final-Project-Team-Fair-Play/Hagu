@@ -10,6 +10,8 @@
 5. 友達のタイムラインも確認できます。
 
 # How to use
+- app url:https://hagu-prod-7e1e5ace3cd8.herokuapp.com/
+
 1. LINE認証によるログイン
 
 2. Home画面<br>新規ログイン時は苗追加。（吹き出しにより誘導）
@@ -151,7 +153,65 @@ npm run start
 
 # Schema
 
+```mermaid
+erDiagram
+    users ||--o| friends : "user_id"
+
+    users{
+        int id PK
+        int line_id "LINEのID"
+        string user_name "ユーザー名"
+    }
+
+    vegetables{
+        int id PK
+        string label ""
+        text description ""
+        string content ""
+        string equipment_list ""
+        text image ""
+        int planting_start "苗植え開始時期"
+        int planting_end "苗植え終了時期"
+        int harvest_start "収穫開始時期"
+        int harvest_end "収穫終了時期"
+    }
+
+    seedlings{
+        int id PK
+        int user_id FK
+        int vegetable_id FK
+        int growing_stage_no "育成ステージ"
+        datetime last_watering "最終水やり時間"
+    }
+
+    vegetable_advice{
+        int vegetable_id
+        int growing_stage_no "育成ステージ"
+        text advice ""
+    }
+
+    photos{
+        int id PK
+        int seedling_id FK
+        text photo_data "Firebaseの保存先URL"
+        timestamps ??
+    }
+
+    eat_photos{
+        int id PK
+        int seedling_id FK
+        text photo_data "Firebaseの保存先URL"
+        timestamps ??
+    }
+
+    friends{
+        int id PK
+        int user_id FK
+        int friend_id "友達のID"
+    }
+```
+
 # Future Plans
-- LINE導入機でPWA化
+- LINE導入済みの機種でのPWA化
 - ブラッシュアップ
 - リリース後の利用者のフィードバック対応
