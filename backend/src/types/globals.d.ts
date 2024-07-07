@@ -20,6 +20,7 @@ export interface Seedlings {
   last_watering: Date;
   seedling_name: string;
   eat_photo_url: string;
+  // character: string;
 }
 
 export interface Vegetables {

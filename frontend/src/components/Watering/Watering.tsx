@@ -13,7 +13,7 @@ export const Watering = () => {
   const { selectSeedId } = useContext(selectSeedIdContext);
   const [seedData, setSeedData] = useState<Seedlings[]>([]);
   const [index, setIndex] = useState<number>(0);
-  const [comment, setComment] = useState<string>("");
+  const [comment, setComment] = useState<string>("......");
   const { reward: balloonsReward } = useReward("balloonsReward", "balloons");
   const getUserSeedlings = async () => {
     const userSeedling: Seedlings[] = await axios
@@ -32,6 +32,7 @@ export const Watering = () => {
   }, [userId]);
   // 水やり更新
   const putWatering = async () => {
+    console.log("selectSeedId: ", selectSeedId);
     await axios.put(`/api/seedlings/${selectSeedId}/water`, {
       last_watering: new Date().toISOString(),
     });
@@ -44,13 +45,71 @@ export const Watering = () => {
       today.getDate() === new Date(seedData[index].last_watering).getDate();
     return compare;
   };
+  // 通常メッセージ
+  // useEffect(() => {
+  //   console.log(seedData.length);
+  //   console.log(index);
+  //   if (seedData.length !== 0 && index !== -1) {
+  //     console.log("通過");
+  //     compareDate()
+  //       ? setComment("ありがとぅぅぅぅス")
+  //       : setComment("水が欲しいよぉおぉぉ");
+  //   }
+  // }, [seedData, index]);
+
+  // ====OpenAIメッセージ処理====
+  // const [aiMessage, setAiMessage] = useState<string>("");
+  // 2回処理を防ぐ
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  // AI の送信先を水やり状態により変更する関数
+  const getAiMessage = async () => {
+    console.log("===============");
+    // selectSeedId　で苗ID指定が可能
+    console.log("selectSeedId: ", selectSeedId);
+    console.log("===============");
+    const URL = compareDate()
+      ? `/api/aiMessageAfter/${selectSeedId}`
+      : `/api/aiMessageBefore/${selectSeedId}`;
+
+    await axios.get(URL).then((res) => {
+      console.log("res.data(): ", res.data);
+      // setAiMessage(res.data.content);
+      setComment(res.data.content);
+    });
+  };
+  // AI メッセージ取得処理
   useEffect(() => {
+
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return;
+    }
+
     if (seedData.length !== 0 && index !== -1) {
-      compareDate()
-        ? setComment("ありがとぅぅぅぅス")
-        : setComment("水が欲しいよぉおぉぉ");
+      getAiMessage();
+
     }
   }, [seedData, index]);
+
+  // ===お喋り処理textのクリック処理に仕込む＝＝＝
+  const say = (text: string) => {
+    const uttr = new SpeechSynthesisUtterance(text);
+    // 音声取得
+    let voices = null;
+
+    const getVoices = () => {
+      return speechSynthesis.getVoices().filter((v) => v.lang === "ja-JP");
+    };
+    voices = getVoices();
+    console.log("voices: ", voices);
+    uttr.voice = voices[Math.floor(Math.random() * (voices.length - 1))];
+    // 速度
+    uttr.rate = 1;
+
+    uttr.pitch = Math.random() * 2;
+    uttr.volume = 0.9;
+    speechSynthesis.speak(uttr);
+  };
 
   return (
     <>
@@ -59,7 +118,7 @@ export const Watering = () => {
           <Stack align={"center"}>
             <Space />
             <Center>
-              <div className="vegetable-comment">
+              <div className="vegetable-comment" onClick={() => say(comment)}>
                 <Text pt={8} pl={10} pr={10} fz={20} w={"80vw"} h={"15vh"}>
                   {comment}
                 </Text>
