@@ -194,14 +194,12 @@ erDiagram
         int id PK
         int seedling_id FK
         text photo_data "Firebaseの保存先URL"
-        timestamps 
     }
 
     eat_photos{
         int id PK
         int seedling_id FK
         text photo_data "Firebaseの保存先URL"
-        timestamps 
     }
 
     friends{
