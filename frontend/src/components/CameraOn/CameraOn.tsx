@@ -1,4 +1,4 @@
-import { Container, Image, Box, Text, Flex, Slider } from "@mantine/core";
+import { Container, Image, Box, Text, Flex, Slider, Space } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import { Camera, CameraType } from "react-camera-pro";
 import { Refresh, CameraPlus } from "tabler-icons-react";
@@ -89,7 +89,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
     <Container h={"100vh"} w={"100vw"} bg={"Black"} p={0}>
       {image ? (
         <Flex direction={"column"}>
-          <Box pos={"relative"} h={"75vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
+          <Box pos={"relative"} h={"65vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
             <Image src={image}></Image>
           </Box>
           <Box h={"5vh"}></Box>
@@ -108,7 +108,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
         </Flex>
       ) : (
         <Flex direction={"column"}>
-          <Box pos={"relative"} h={"75vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
+          <Box pos={"relative"} h={"65vh"} w={"90vw"} mt={"5vh"} ml={"5vw"}>
             <Camera
               ref={camera}
               errorMessages={errorMessages}
@@ -121,7 +121,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
                   "https://booth.pximg.net/fde8b078-d39f-4221-8463-1050ba7db401/i/2143735/b4faf31b-e93d-4542-a2d7-427959d3130f_base_resized.jpg"
                 }
                 style={{
-                  height: "75vh",
+                  height: "65vh",
                   position: "absolute",
                   zIndex: 100,
                   opacity: opacity,
@@ -131,7 +131,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               <Image
                 src={lastPhoto}
                 style={{
-                  height: "75vh",
+                  height: "65vh",
                   position: "absolute",
                   zIndex: 100,
                   opacity: opacity,
@@ -139,7 +139,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               ></Image>
             )}
           </Box>
-          <Box h={"5vh"} w={"80vw"} m={"0 auto"}>
+          <Box h={"5vh"} w={"80vw"} m={"-3 auto"}>
             <Slider
               color="#AAB787"
               mt={"35px"}
@@ -153,6 +153,7 @@ export const CameraOn = ({ seedlingId }: cameraProps) => {
               thumbSize={26}
             ></Slider>
           </Box>
+          <Space h={10}></Space>
           <Flex h={"15vh"} justify={"space-between"} align={"center"}>
             <Box w={"100px"} ta={"start"} pl={10}>
               <Text

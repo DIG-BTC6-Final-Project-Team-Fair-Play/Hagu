@@ -20,15 +20,12 @@ export const Watering = () => {
       .get(`/api/seedlings/${userId}`)
       .then((res) => res.data);
 
-    console.log("userSeedling: ", userSeedling);
     setSeedData(userSeedling);
     const findIndex = userSeedling.findIndex((obj) => obj.id === selectSeedId);
     setIndex(findIndex);
-    console.log("findIndex: ", findIndex);
   };
 
   useEffect(() => {
-    console.log("a");
     (async () => {
       await getUserSeedlings();
     })();
@@ -82,6 +79,7 @@ export const Watering = () => {
   };
   // AI メッセージ取得処理
   useEffect(() => {
+
     if (isInitialRender) {
       setIsInitialRender(false);
       return;
@@ -89,6 +87,7 @@ export const Watering = () => {
 
     if (seedData.length !== 0 && index !== -1) {
       getAiMessage();
+
     }
   }, [seedData, index]);
 

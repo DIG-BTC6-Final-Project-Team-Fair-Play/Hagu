@@ -9,6 +9,7 @@ import {
   RangeSlider,
   Space,
   Slider,
+  Badge,
 } from "@mantine/core";
 import { SelectBtnDouble } from "../SelectBtnDouble";
 import { Vegetables } from "../../types/globals";
@@ -18,18 +19,33 @@ interface AccordionLabelProps {
   label: string;
   image: string;
   description: string;
+  id: number;
+  active: string | null;
 }
 
 interface Props {
   vegetableData: Vegetables[];
 }
 
-function AccordionLabel({ label, image, description }: AccordionLabelProps) {
+function AccordionLabel({
+  label,
+  image,
+  description,
+  id,
+  active,
+}: AccordionLabelProps) {
   return (
     <Group wrap="nowrap">
       <Avatar src={image} radius="xl" size="lg" />
       <div>
-        <Text>{label}</Text>
+        <Text display={"inline"}>{label}</Text>{" "}
+        <Badge
+          bg={"#5F907B"}
+          display={id === parseInt(active!) ? "inline" : "none"}
+          ml={5}
+        >
+          選択中
+        </Badge>
         <Text size="sm" c="dimmed" fw={400}>
           {description}
         </Text>
@@ -47,13 +63,17 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
   const items = vegetableData.map((item) => (
     <Accordion.Item value={`${item.id}`} key={item.label}>
       <Accordion.Control>
-        <AccordionLabel {...item} />
+        <AccordionLabel {...item} active={active} />
       </Accordion.Control>
       <Accordion.Panel>
-        <Group >
+        <Group>
           <Text>{item.content}</Text>
-          <Text fw={700} size="sm"c={"#8E5E75"}>ー 植付</Text>
-          <Text fw={700} size="sm" c={"#5F907B"}>ー 収穫</Text>
+          <Text fw={700} size="sm" c={"#8E5E75"}>
+            ー 植付
+          </Text>
+          <Text fw={700} size="sm" c={"#5F907B"}>
+            ー 収穫
+          </Text>
         </Group>
         <Space h={3}></Space>
         <Slider
@@ -82,7 +102,10 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
           color="#8E5E75"
           size={"xs"}
           showLabelOnHover={false}
-          defaultValue={[(100 / 11) * (item.planting_start -1), (100 / 11) * (item.planting_end -1)]}
+          defaultValue={[
+            (100 / 11) * (item.planting_start - 1),
+            (100 / 11) * (item.planting_end - 1),
+          ]}
         ></RangeSlider>
         <RangeSlider
           top={-16}
@@ -90,7 +113,10 @@ export const SelectSeedling: React.FC<Props> = ({ vegetableData }) => {
           color="#5F907B"
           size={"xs"}
           showLabelOnHover={false}
-          defaultValue={[(100 / 11) * (item.harvest_start -1), (100 / 11) * (item.harvest_end -1)]}
+          defaultValue={[
+            (100 / 11) * (item.harvest_start - 1),
+            (100 / 11) * (item.harvest_end - 1),
+          ]}
         ></RangeSlider>
 
         <Space></Space>
