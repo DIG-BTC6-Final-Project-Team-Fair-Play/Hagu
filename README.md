@@ -160,7 +160,7 @@ erDiagram
     seedlings ||--o{ photos : "seedling_id"
     seedlings ||--o{ eat_photos : "seedling_id"
     vegetables ||--o{ seedlings : "vegetable_id"
-    vegetables ||--|{ vegetable_advice "vegetable_id"
+    vegetables ||--|{ vegetable_advice : "vegetable_id"
     
 
     users{
