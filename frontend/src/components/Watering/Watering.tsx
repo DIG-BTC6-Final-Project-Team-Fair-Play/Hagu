@@ -20,15 +20,12 @@ export const Watering = () => {
       .get(`/api/seedlings/${userId}`)
       .then((res) => res.data);
 
-    console.log("userSeedling: ", userSeedling);
     setSeedData(userSeedling);
     const findIndex = userSeedling.findIndex((obj) => obj.id === selectSeedId);
     setIndex(findIndex);
-    console.log("findIndex: ", findIndex);
   };
 
   useEffect(() => {
-    console.log("a");
     (async () => {
       await getUserSeedlings();
     })();
@@ -48,10 +45,7 @@ export const Watering = () => {
     return compare;
   };
   useEffect(() => {
-    console.log(seedData.length);
-    console.log(index);
     if (seedData.length !== 0 && index !== -1) {
-      console.log("通過");
       compareDate()
         ? setComment("ありがとぅぅぅぅス")
         : setComment("水が欲しいよぉおぉぉ");
