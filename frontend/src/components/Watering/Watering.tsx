@@ -47,14 +47,44 @@ export const Watering = () => {
       today.getDate() === new Date(seedData[index].last_watering).getDate();
     return compare;
   };
+  // 通常メッセージ
+  // useEffect(() => {
+  //   console.log(seedData.length);
+  //   console.log(index);
+  //   if (seedData.length !== 0 && index !== -1) {
+  //     console.log("通過");
+  //     compareDate()
+  //       ? setComment("ありがとぅぅぅぅス")
+  //       : setComment("水が欲しいよぉおぉぉ");
+  //   }
+  // }, [seedData, index]);
+
+  // ====OpenAIメッセージ処理====
+  // const [aiMessage, setAiMessage] = useState<string>("");
+  // 2回処理を防ぐ
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  // AI の送信先を水やり状態により変更する関数
+  const getAiMessage = async () => {
+
+    // selectSeedId　で苗ID指定が可能
+    const URL = compareDate() ? "/api/aiMessageAfter" : "/api/aiMessageBefore";
+
+    await axios.get(URL).then((res) => {
+      console.log("res.data(): ", res.data);
+      // setAiMessage(res.data.content);
+      setComment(res.data.content);
+    });
+  };
+  // AI メッセージ取得処理
   useEffect(() => {
-    console.log(seedData.length);
-    console.log(index);
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      return;
+    }
+
     if (seedData.length !== 0 && index !== -1) {
-      console.log("通過");
-      compareDate()
-        ? setComment("ありがとぅぅぅぅス")
-        : setComment("水が欲しいよぉおぉぉ");
+      getAiMessage();
+      // setComment(aiMessage);
     }
   }, [seedData, index]);
 
