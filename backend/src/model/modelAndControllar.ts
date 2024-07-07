@@ -42,7 +42,7 @@ export = {
       "planting_start",
       "planting_end",
       "harvest_start",
-      "harvest_end",
+      "harvest_end"
     );
     res.status(200).send(vegetables);
   },
@@ -56,8 +56,48 @@ export = {
 
   async postSeedlings(req: Request, res: Response) {
     const newSeedling: NewSeedling = req.body;
+    console.log("newSeedling: ", newSeedling);
+    // !性格設定処理
+    const character = [
+      "猫",
+      "犬",
+      "ウホッ",
+      "ウキッ",
+      "ピヨ",
+      "クルックー",
+      "だっぴ",
+      "適当な口調",
+      "大阪弁",
+      "名古屋弁",
+      "博多弁",
+      "青森弁",
+      "岡山弁",
+      "ギャルみたいな口調",
+      "だよん",
+      "ぴょん",
+      "なのだ",
+      "だっちゃ",
+      "アル",
+      "よのさ",
+      "ナリ",
+      "ルフィ口調",
+      "ナルト口調",
+      "おじゃる",
+      "老婆みたいな口調",
+      "酔っ払い",
+      "絵文字",
+      "宇宙人",
+    ];
+
+    // キャラクターを付与
+    const insertSeedlings = {
+      ...newSeedling,
+      character: character[Math.floor(Math.random() * (character.length - 1))],
+    };
+    console.log("insertSeedlings: ", insertSeedlings);
+
     const seedlingId = await knex("seedlings")
-      .insert(newSeedling)
+      .insert(insertSeedlings)
       .returning("id");
 
     res.status(201).send(seedlingId[0]);
