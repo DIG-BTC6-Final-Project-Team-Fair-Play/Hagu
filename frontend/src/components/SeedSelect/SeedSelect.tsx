@@ -33,6 +33,11 @@ export const SeedlingSelect = () => {
       setMySeedling(seedlings);
     })();
   }, [selectSeedId]);
+
+  const indicatorView = (lastWatering: number): boolean => {
+    const today = new Date();
+    return today.getDay() === lastWatering;
+  };
   return (
     <>
       <Grid h={"100%"} w={"90vw"} m={"0 auto"}>
@@ -66,26 +71,40 @@ export const SeedlingSelect = () => {
                   <Space h={"md"} />
                   <Indicator
                     size={24}
+                    position="bottom-end"
+                    offset={10}
                     disabled={deletePreparation}
                     color="red"
                     inline
                     label="削除"
                   >
-                    <Avatar
-                      m={"auto"}
-                      size={"xl"}
-                      src={`./images/0${obj.vegetable_id}_icon2.png`}
-                      onClick={() => {
-                        if (!deletePreparation) {
-                          setDeleteSeedName(obj.seedling_name);
-                          setSelectSeedId(obj.id);
-                          open();
-                        } else {
-                          setSelectSeedId(obj.id);
-                          navigate("/home");
-                        }
-                      }}
-                    />
+                    <Indicator
+                      inline
+                      size={16}
+                      offset={13}
+                      position="top-end"
+                      color="red"
+                      withBorder
+                      disabled={indicatorView(
+                        new Date(obj.last_watering).getDay()
+                      )}
+                    >
+                      <Avatar
+                        m={"auto"}
+                        size={"xl"}
+                        src={`./images/0${obj.vegetable_id}_icon2.png`}
+                        onClick={() => {
+                          if (!deletePreparation) {
+                            setDeleteSeedName(obj.seedling_name);
+                            setSelectSeedId(obj.id);
+                            open();
+                          } else {
+                            setSelectSeedId(obj.id);
+                            navigate("/home");
+                          }
+                        }}
+                      />
+                    </Indicator>
                   </Indicator>
                   <Space h={"xs"} />
                   <Center>
