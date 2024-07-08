@@ -191,6 +191,7 @@ erDiagram
         datetime last_watering "最終水やり時間"
         string seedling_name "ユーザーが野菜に付けた名前"
         text eat_photo_url "調理後の写真URL"
+        string character "野菜の性格"
     }
 
     vegetable_advice{
@@ -223,5 +224,7 @@ erDiagram
 
 # Future Plans
 - LINE導入済みの機種でのPWA化
-- ブラッシュアップ
+- 野菜の追加と次の栽培のお勧め機能
+- SNS連携、収穫数、いいねランキング機能
+- アプリ利用者同士のQA掲示板実装
 - リリース後の利用者のフィードバック対応
