@@ -64,7 +64,7 @@ export const FriendsList: React.FC<DisplayListProps> = ({
           <Text size="xs" c="gray">
             育てている苗の数：{item.seedling_count}
           </Text>
-          <Text size="xs" c="gray">
+          <Text size="xs" c="white">
             userId:{item.user_id}
           </Text>
         </Box>
